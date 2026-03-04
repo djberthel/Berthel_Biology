@@ -202,16 +202,24 @@
       margin-bottom: 12px;
     }
     .pill{
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.20);
+      background: rgba(255,255,255,.08);
+      color: rgba(255,255,255,.92);
       padding: 10px 14px;
       border-radius: 999px;
       cursor:pointer;
       font-size: 18px;
+      transition: background .15s ease, border-color .15s ease, color .15s ease;
+    }
+    .pill:hover{
+      border-color: rgba(255,255,255,.32);
+      background: rgba(255,255,255,.11);
     }
     .pill.active{
-      border-color: rgba(255,255,255,.28);
-      background: rgba(255,255,255,.06);
+      border-color: rgba(255,255,255,.40);
+      background: rgba(255,255,255,.16);
+      color: #ffffff;
+      box-shadow: 0 0 0 1px rgba(255,255,255,.06) inset;
     }
 
     .statusLine{
@@ -638,7 +646,7 @@ const STATE = {
   mode: "mixed",           // mixed | vocab | ety
   vocab: [],
   ety: [],
-  tfidf: { vocab:null, ety:null },  // { terms, idf, vectors }
+  tfidf: { vocab:null, ety:null },
   updates: [],
   etyQuiz: null,
   customQuiz: null
@@ -648,7 +656,6 @@ const STATE = {
    TIME (Beijing UTC+8)
 ========================= */
 function nowBJT(){
-  // Get current time, convert to UTC, then add +8 hours.
   const now = new Date();
   const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
   return new Date(utc + 8 * 3600000);
@@ -667,13 +674,11 @@ function setVersionBadge(){
 ========================= */
 function setTab(tab){
   STATE.tab = tab;
-  // buttons
   document.querySelectorAll(".tabBtn").forEach(b=>{
     const on = (b.dataset.go === tab);
     b.classList.toggle("active", on);
     b.setAttribute("aria-selected", on ? "true" : "false");
   });
-  // sections
   document.querySelectorAll("section[data-tab]").forEach(s=>{
     s.classList.toggle("active", s.dataset.tab === tab);
   });
@@ -690,7 +695,6 @@ function normSpace(x){
   return String(x ?? "").replace(/\s+/g," ").trim();
 }
 function stripExamples(s){
-  // Remove "Examples: ..." and common leakage patterns
   let out = String(s ?? "");
   out = out.replace(/Examples?:\s*[^.\n]+/gi, "");
   out = out.replace(/\(e\.g\.[^)]+\)/gi, "");
@@ -705,7 +709,6 @@ function looksLikeHeaderJunk(s){
   if(t.includes("glossary")) return true;
   if(t.includes("word parts")) return true;
   if(t === "term" || t === "definition" || t === "meaning") return true;
-  // extremely short single punctuation-ish
   if(t.length <= 1) return true;
   return false;
 }
@@ -725,7 +728,6 @@ function findHeader(headers, candidates){
     const key = String(c).toLowerCase();
     if(lowMap.has(key)) return lowMap.get(key);
   }
-  // fuzzy includes
   for(const h of low){
     const hl = h.toLowerCase();
     for(const c of candidates){
@@ -741,11 +743,9 @@ function rowToEntries(rows){
   if(!rows || rows.length===0) return {vocab:[], ety:[]};
   const headers = Object.keys(rows[0] || {});
 
-  // Vocabulary columns
   const vocabTermCol = findHeader(headers, ["term","word","vocabulary","vocab","entry","glossary term","key"]);
   const vocabDefCol  = findHeader(headers, ["definition","glossary definition","meaning","vocab definition","desc","description","value"]);
 
-  // Etymology columns (expanded)
   const etyPartCol = findHeader(headers, [
     "etymology","ety","word part","word parts","wordpart","wordparts",
     "morpheme","prefix","suffix","root","affix","word part(s)","word-part","word-part(s)"
@@ -763,33 +763,25 @@ function rowToEntries(rows){
   for(const r of rows){
     const topic = normSpace(topicCol ? r[topicCol] : "");
 
-    // vocab
     const term = stripExamples(normSpace(vocabTermCol ? r[vocabTermCol] : ""));
     const def  = stripExamples(normSpace(vocabDefCol  ? r[vocabDefCol]  : ""));
     if(term && def && !looksLikeHeaderJunk(term) && !looksLikeHeaderJunk(def)){
-      // guard against "term" accidentally containing a full definition
-      // if term is a sentence and def is tiny, likely swapped; skip rather than corrupt quiz
       if(wordCount(term) > 6 && wordCount(def) < 4) {
-        // likely mis-mapped column; ignore this row as vocab
       } else {
         outV.push({ kind:"vocab", stem: term, answerText: def, topic });
       }
     }
 
-    // ety
     const wpRaw = stripExamples(normSpace(etyPartCol ? r[etyPartCol] : ""));
     let meaningRaw = stripExamples(normSpace(etyMeaningCol ? r[etyMeaningCol] : ""));
 
-    // If meaning column is absent but they used definition column for meaning:
     if(wpRaw && !meaningRaw && def) meaningRaw = def;
 
     const wp = wpRaw || "";
     const meaning = meaningRaw || "";
 
     if(wp && meaning && !looksLikeHeaderJunk(wp) && !looksLikeHeaderJunk(meaning)){
-      // Avoid accidental full-sentence "word part" rows
       if(wordCount(wp) > 8 && wp.includes(" ")) {
-        // probably not a word-part column; ignore
       } else {
         outE.push({ kind:"ety", stem: wp, answerText: meaning, topic });
       }
@@ -820,14 +812,12 @@ async function loadPreset(){
 
     for(const name of wb.SheetNames){
       const ws = wb.Sheets[name];
-      // defval:"" ensures empty cells included; raw:false gives formatted strings
       const rows = XLSX.utils.sheet_to_json(ws, { defval:"", raw:false });
       const {vocab, ety} = rowToEntries(rows);
       allV = allV.concat(vocab);
       allE = allE.concat(ety);
     }
 
-    // De-dup (by kind+stem+answerText)
     const dedup = (arr)=> {
       const seen = new Set();
       const out = [];
@@ -845,7 +835,6 @@ async function loadPreset(){
     STATE.vocab = allV;
     STATE.ety   = allE;
 
-    // Build similarity indexes for better distractors
     STATE.tfidf.vocab = buildTFIDF(STATE.vocab.map(e=> e.answerText));
     STATE.tfidf.ety   = buildTFIDF(STATE.ety.map(e=> e.answerText));
 
@@ -853,7 +842,6 @@ async function loadPreset(){
     counts.textContent = `Preset loaded. Vocabulary: ${STATE.vocab.length} | Etymology: ${STATE.ety.length}`;
     counts.style.display = "block";
 
-    // hard fail if ety is unexpectedly empty
     if(STATE.ety.length === 0){
       err.textContent =
         "Etymology entries are currently 0. This almost always means the spreadsheet headers don’t match the expected word-part/meaning columns. Ensure the sheet has a clear Word Part + Meaning (or Etymology + Meaning) structure.";
@@ -867,7 +855,7 @@ async function loadPreset(){
 }
 
 /* =========================
-   SIMPLE TF-IDF COSINE (semantic-ish)
+   SIMPLE TF-IDF COSINE
 ========================= */
 function tokenize(s){
   const t = String(s ?? "").toLowerCase()
@@ -876,7 +864,6 @@ function tokenize(s){
     .trim();
   if(!t) return [];
   const parts = t.split(" ");
-  // minimal stopwording to reduce junk without harming biosci terms
   const stop = new Set(["the","a","an","and","or","to","of","in","on","for","with","by","from","as","is","are","was","were","be","being","that","this","these","those","into","at","it","its"]);
   return parts.filter(w=> w && w.length>1 && !stop.has(w));
 }
@@ -892,7 +879,6 @@ function buildTFIDF(texts){
   for(const [w,c] of df.entries()){
     idf.set(w, Math.log((N+1)/(c+1)) + 1);
   }
-  // build vectors as Map(word->weight) for each doc
   const vecs = docs.map(doc=>{
     const tf = new Map();
     for(const w of doc) tf.set(w, (tf.get(w)||0)+1);
@@ -909,7 +895,6 @@ function buildTFIDF(texts){
 }
 function cosineVec(a, b){
   let dot = 0;
-  // iterate smaller map
   const A = a.v.size < b.v.size ? a : b;
   const B = A === a ? b : a;
   for(const [w,wa] of A.v.entries()){
@@ -920,38 +905,30 @@ function cosineVec(a, b){
 }
 
 /* =========================
-   DISTRACTOR SELECTION (same type only)
-   - Bias toward semantic similarity (TF-IDF cosine)
-   - Prefer same-topic group when available
-   - Enforce length parity to avoid giveaways
+   DISTRACTOR SELECTION
 ========================= */
 function pickDistractors(pool, tfidfIndex, correctIdx, want=3){
   const correct = pool[correctIdx];
   const correctVec = tfidfIndex.vecs[correctIdx];
 
-  // candidate indices (exclude correct)
   const candidates = [];
   for(let i=0;i<pool.length;i++){
     if(i===correctIdx) continue;
-    // avoid identical answerText
     if(pool[i].answerText.toLowerCase() === correct.answerText.toLowerCase()) continue;
     candidates.push(i);
   }
 
-  // prefer same topic subset if it’s meaningfully sized
   let cand = candidates;
   if(correct.topic){
     const sameTopic = candidates.filter(i=> (pool[i].topic||"") === correct.topic);
     if(sameTopic.length >= 18) cand = sameTopic;
   }
 
-  // rank by cosine similarity
   const ranked = cand.map(i=>{
     const sim = cosineVec(correctVec, tfidfIndex.vecs[i]);
     return {i, sim};
   }).sort((a,b)=> b.sim - a.sim);
 
-  // pick 3 that aren't near-duplicates in length and remain plausible
   const picked = [];
   const correctWc = wordCount(correct.answerText);
 
@@ -962,17 +939,14 @@ function pickDistractors(pool, tfidfIndex, correctIdx, want=3){
     return (ratio >= 0.80 && ratio <= 1.20) && (Math.abs(wc - correctWc) <= 6);
   }
 
-  // First pass: strict parity
   for(const r of ranked){
     if(picked.length >= want) break;
     const opt = pool[r.i].answerText;
     if(!okLength(opt)) continue;
-    // avoid too-similar wording duplicates vs already picked
     if(picked.some(pi => normSpace(pool[pi].answerText).toLowerCase() === normSpace(opt).toLowerCase())) continue;
     picked.push(r.i);
   }
 
-  // Second pass: relax slightly if needed
   if(picked.length < want){
     for(const r of ranked){
       if(picked.length >= want) break;
@@ -985,7 +959,6 @@ function pickDistractors(pool, tfidfIndex, correctIdx, want=3){
     }
   }
 
-  // Final: random fill if still short (rare)
   while(picked.length < want && candidates.length){
     const i = candidates[Math.floor(Math.random()*candidates.length)];
     if(i !== correctIdx && !picked.includes(i)) picked.push(i);
@@ -995,7 +968,7 @@ function pickDistractors(pool, tfidfIndex, correctIdx, want=3){
 }
 
 /* =========================
-   QUIZ BUILDING (Ety/Vocab)
+   QUIZ BUILDING
 ========================= */
 function clampInt1to100(x){
   const n = parseInt(String(x||"").trim(), 10);
@@ -1022,14 +995,11 @@ function makeKeyLetters(N){
   for(const L of letters){
     for(let k=0;k<base;k++) bag.push(L);
   }
-  // remainder distributed randomly
   const extras = shuffle(letters).slice(0, rem);
   for(const L of extras) bag.push(L);
 
-  // shuffle with constraints
   for(let tries=0; tries<200; tries++){
     const key = shuffle(bag);
-    // no runs > 3
     let ok = true;
     for(let i=3;i<key.length;i++){
       if(key[i]===key[i-1] && key[i]===key[i-2] && key[i]===key[i-3]) { ok=false; break; }
@@ -1040,7 +1010,6 @@ function makeKeyLetters(N){
 }
 
 function buildEtyVocabQuiz(mode, N){
-  // build pool by type
   let pool = [];
   let tfidfIndex = null;
   if(mode === "vocab"){
@@ -1050,21 +1019,18 @@ function buildEtyVocabQuiz(mode, N){
     pool = STATE.ety;
     tfidfIndex = STATE.tfidf.ety;
   } else {
-    // mixed: we will generate per-question type with separate pools
     pool = null;
   }
 
   const key = makeKeyLetters(N);
   const questions = [];
 
-  // pre-generate indices
   function sampleIndices(arr, count){
     const idx = arr.map((_,i)=>i);
     return shuffle(idx).slice(0, Math.min(count, idx.length));
   }
 
   if(mode === "mixed"){
-    // alternate types while possible; if one pool is empty, fallback to the other
     const vCount = STATE.vocab.length;
     const eCount = STATE.ety.length;
 
@@ -1076,7 +1042,6 @@ function buildEtyVocabQuiz(mode, N){
       else types.push(i%2===0 ? "vocab" : "ety");
     }
 
-    // ensure enough unique indices for each type
     const needV = types.filter(t=>t==="vocab").length;
     const needE = types.filter(t=>t==="ety").length;
 
@@ -1116,23 +1081,17 @@ function buildEtyVocabQuiz(mode, N){
 function buildOneQuestion(pool, tfidfIndex, correctIdx, correctLetter, kind){
   const entry = pool[correctIdx];
 
-  // prompt
-  const prompt = (kind==="vocab")
-    ? entry.stem
-    : entry.stem;
+  const prompt = entry.stem;
 
   const stemLine = (kind==="vocab")
     ? `Which definition best matches “${prompt}”?`
     : `What does the word part “${prompt}” most closely mean?`;
 
-  // distractors from same type only
   const dis = pickDistractors(pool, tfidfIndex, correctIdx, 3).map(i=> pool[i].answerText);
 
-  // build A-D by forced key letter
   const letters = ["A","B","C","D"];
   const correctText = entry.answerText;
 
-  // shuffle distractors but keep as 3
   const d3 = shuffle(dis).slice(0,3);
 
   const opts = [];
@@ -1143,14 +1102,12 @@ function buildOneQuestion(pool, tfidfIndex, correctIdx, correctLetter, kind){
   const correctPos = letters.indexOf(correctLetter);
   opts[correctPos].text = correctText;
 
-  // fill remaining slots
   let di = 0;
   for(let i=0;i<opts.length;i++){
     if(i===correctPos) continue;
     opts[i].text = d3[di++] || d3[0] || correctText;
   }
 
-  // Final polish: strip examples & normalize spaces
   for(const o of opts){
     o.text = stripExamples(normSpace(o.text));
   }
@@ -1163,12 +1120,12 @@ function buildOneQuestion(pool, tfidfIndex, correctIdx, correctLetter, kind){
     options: opts,
     correctLetter,
     correctText,
-    rationale: "" // local generator doesn’t invent rationales; summary focuses on correct answer + review list
+    rationale: ""
   };
 }
 
 /* =========================
-   QUIZ RENDERING (shared)
+   QUIZ RENDERING
 ========================= */
 function renderQuiz(container, quiz, onFinish){
   container.innerHTML = "";
@@ -1196,7 +1153,6 @@ function renderQuiz(container, quiz, onFinish){
   changeBtn.className = "btn ghost";
   changeBtn.textContent = "Change number";
   changeBtn.addEventListener("click", ()=>{
-    // handled by caller (hide quiz) via custom event
     container.dispatchEvent(new CustomEvent("changeNumber"));
   });
 
@@ -1240,7 +1196,6 @@ function renderQuiz(container, quiz, onFinish){
     meta.textContent = `Question ${idx+1} of ${quiz.questions.length}`;
     h.textContent = q.prompt;
 
-    // Options
     optList.innerHTML = "";
     const stem = document.createElement("div");
     stem.className = "muted";
@@ -1249,7 +1204,7 @@ function renderQuiz(container, quiz, onFinish){
     stem.textContent = q.stemLine;
     optList.appendChild(stem);
 
-    q.options.forEach((opt, j)=>{
+    q.options.forEach((opt)=>{
       const b = document.createElement("button");
       b.className = "optBtn";
       const selected = (quiz.answers[idx] === opt.letter);
@@ -1296,7 +1251,7 @@ function renderQuiz(container, quiz, onFinish){
 }
 
 /* =========================
-   SUMMARY RENDERING (shared)
+   SUMMARY RENDERING
 ========================= */
 function summarizeQuiz(quiz){
   const total = quiz.questions.length;
@@ -1353,7 +1308,6 @@ function renderSummary(container, quiz, onRetrySame, onNewSet, onChangeNumber){
 
   const scoreLine = document.createElement("div");
   scoreLine.className = "scoreLine";
-  const unattempted = s.total - s.attempted;
   scoreLine.textContent =
     `Score: ${s.correct}/${s.total} (${s.pct.toFixed(1)}%).  Attempted: ${s.attempted}/${s.total}. ` +
     `Unanswered questions count as incorrect (by design).`;
@@ -1387,7 +1341,6 @@ function renderSummary(container, quiz, onRetrySame, onNewSet, onChangeNumber){
   actions.appendChild(document.createElement("div")).className = "spacer";
   actions.appendChild(changeBtn);
 
-  // Table (includes ALL questions)
   const wrap = document.createElement("div");
   wrap.className = "resultTableWrap";
   const table = document.createElement("table");
@@ -1427,7 +1380,6 @@ function renderSummary(container, quiz, onRetrySame, onNewSet, onChangeNumber){
 
   wrap.appendChild(table);
 
-  // Review list (ALL missed items)
   const review = document.createElement("div");
   review.className = "adviceBox";
   review.style.marginTop = "14px";
@@ -1516,7 +1468,7 @@ function startEtyQuiz(n){
     sumArea.style.display = "block";
 
     renderSummary(sumArea, STATE.etyQuiz,
-      ()=>{ // retry same
+      ()=>{
         STATE.etyQuiz.answers = Array(STATE.etyQuiz.questions.length).fill(null);
         sumArea.style.display = "none";
         quizArea.style.display = "block";
@@ -1524,18 +1476,17 @@ function startEtyQuiz(n){
           quizArea.style.display="none";
           sumArea.style.display="block";
           renderSummary(sumArea, STATE.etyQuiz, ()=>{}, ()=>{}, ()=>{});
-          // overwritten below: re-render properly
           renderSummary(sumArea, STATE.etyQuiz,
-            ()=>{ startEtyQuiz(STATE.etyQuiz.questions.length); }, // not used
-            ()=>{ startEtyQuiz(STATE.etyQuiz.questions.length); }, // not used
+            ()=>{ startEtyQuiz(STATE.etyQuiz.questions.length); },
+            ()=>{ startEtyQuiz(STATE.etyQuiz.questions.length); },
             ()=>{ changeEtyNumber(); }
           );
         });
       },
-      ()=>{ // new set
+      ()=>{
         startEtyQuiz(STATE.etyQuiz.questions.length);
       },
-      ()=>{ // change number
+      ()=>{
         changeEtyNumber();
       }
     );
@@ -1547,7 +1498,6 @@ function startEtyQuiz(n){
 function changeEtyNumber(){
   document.getElementById("etyQuizArea").style.display = "none";
   document.getElementById("etySummaryArea").style.display = "none";
-  // keep the controls visible; do nothing else
 }
 
 /* =========================
@@ -1581,7 +1531,6 @@ document.getElementById("copyPrompt").addEventListener("click", async ()=>{
   const p = document.getElementById("promptText").textContent || "";
   try{
     await navigator.clipboard.writeText(p);
-    // brief visual feedback
     const btn = document.getElementById("copyPrompt");
     const old = btn.textContent;
     btn.textContent = "Copied";
@@ -1732,7 +1681,7 @@ function startCustomQuiz(quiz){
     sumArea.style.display = "block";
 
     renderSummary(sumArea, STATE.customQuiz,
-      ()=>{ // retry same
+      ()=>{
         STATE.customQuiz.answers = Array(STATE.customQuiz.questions.length).fill(null);
         sumArea.style.display="none";
         quizArea.style.display="block";
@@ -1744,10 +1693,10 @@ function startCustomQuiz(quiz){
           );
         });
       },
-      ()=>{ // new set: for custom, we require new JSON; just go back
+      ()=>{
         changeCustomNumber();
       },
-      ()=>{ // change number
+      ()=>{
         changeCustomNumber();
       }
     );
@@ -1762,7 +1711,7 @@ function changeCustomNumber(){
 }
 
 /* =========================
-   UPDATES (home) + admin
+   UPDATES + ADMIN
 ========================= */
 const DEFAULT_UPDATES = [
   {
@@ -1812,7 +1761,6 @@ function renderUpdates(){
   }
 }
 
-/* Admin modal */
 const adminBack = document.getElementById("adminBack");
 const adminClose = document.getElementById("adminClose");
 const adminErr = document.getElementById("adminErr");
@@ -1915,7 +1863,6 @@ document.getElementById("downloadUpdates").addEventListener("click", ()=>{
   loadUpdates();
   loadPreset();
 
-  // safety: make sure focus isn’t trapped
   window.addEventListener("keydown", (e)=>{
     if(e.key === "Escape" && adminBack.classList.contains("show")) closeAdmin();
   });
