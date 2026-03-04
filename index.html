@@ -1408,7 +1408,7 @@ function renderSummary(container, quiz, onRetrySame, onNewSet, onChangeNumber){
 
   for(const r of s.rows){
     const tr = document.createElement("tr");
-    const typeName = (r.kind==="ety") ? "Etymology" : "Vocabulary";
+    const typeName = (r.kind==="ety") ? "Etymology" : (r.kind==="vocab" ? "Vocabulary" : "Custom");
     const badge = `<span class="tag">${typeName}</span>`;
     const res = r.ok
       ? `<span class="good">Correct</span>`
@@ -1427,7 +1427,7 @@ function renderSummary(container, quiz, onRetrySame, onNewSet, onChangeNumber){
 
   wrap.appendChild(table);
 
-  // Review list (missed items)
+  // Review list (ALL missed items)
   const review = document.createElement("div");
   review.className = "adviceBox";
   review.style.marginTop = "14px";
@@ -1435,13 +1435,14 @@ function renderSummary(container, quiz, onRetrySame, onNewSet, onChangeNumber){
   if(s.missed.length === 0){
     review.innerHTML = `<strong class="good">No misses.</strong> <span class="muted">Move up the question count.</span>`;
   } else {
-    const lines = s.missed.slice(0, 30).map(m=>{
+    const lines = s.missed.map(m=>{
       const q = m.q;
-      const label = q.kind==="ety" ? "Word part" : "Term";
+      const label = q.kind==="ety" ? "Word part" : (q.kind==="vocab" ? "Term" : "Question");
       return `• ${label}: ${q.prompt}\n  Correct: (${q.correctLetter}) ${q.correctText}`;
     }).join("\n\n");
+
     review.innerHTML = `<strong class="warn">Review the misses.</strong>
-      <div class="muted" style="margin-top:10px; white-space:pre-wrap;">${escapeHtml(lines)}</div>`;
+      <div class="muted" style="margin-top:10px; white-space:pre-wrap; max-height:480px; overflow:auto;">${escapeHtml(lines)}</div>`;
   }
 
   container.appendChild(title);
