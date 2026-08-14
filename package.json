@@ -1,0 +1,11 @@
+{
+  "name": "berthel-biology",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "build:data": "python3 scripts/build_data.py",
+    "test": "node tests/validate-site.mjs"
+  }
+}
