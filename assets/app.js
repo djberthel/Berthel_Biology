@@ -15,6 +15,7 @@ const elements = {
   vocabCount: $("#vocabCount"),
   etyCount: $("#etyCount"),
   totalCount: $("#totalCount"),
+  footerBankVersion: $("#footerBankVersion"),
   studyBuilder: $("#studyBuilder"),
   studyCount: $("#studyCount"),
   startStudy: $("#startStudy"),
@@ -38,7 +39,7 @@ const elements = {
 
 const state = {
   bank: null,
-  mode: "mixed",
+  mode: "vocab",
   activeView: "study",
   studyQuiz: null,
   customQuiz: null,
@@ -182,7 +183,9 @@ function renderQuiz(container, quiz, callbacks) {
 
     position.textContent = `Question ${currentIndex + 1} of ${quiz.questions.length}`;
     progressFill.style.width = `${((currentIndex + 1) / quiz.questions.length) * 100}%`;
-    typeBadge.textContent = kindLabel(question.kind);
+    typeBadge.textContent = question.kind === "vocab" && question.section
+      ? `${question.section}${question.level ? ` · ${question.level}` : ""}`
+      : kindLabel(question.kind);
     answerState.textContent = chosen ? "Answered" : "Awaiting answer";
     prompt.textContent = question.prompt;
     instruction.textContent = question.instruction;
@@ -355,8 +358,19 @@ function renderResults(container, quiz, options) {
       detail.append(chosen, correct);
 
       const supportingText = row.question.rationale
-        || (row.question.examples ? `Examples: ${row.question.examples}` : "");
+        || (row.question.examples ? `Examples: ${row.question.examples}` : row.question.section);
       if (supportingText) detail.appendChild(makeElement("p", "rationale", supportingText));
+      if (row.question.sourceUrl) {
+        const sourceLink = makeElement(
+          "a",
+          "source-link",
+          `Reference: ${row.question.sourceTitle || "content source"}`,
+        );
+        sourceLink.href = row.question.sourceUrl;
+        sourceLink.target = "_blank";
+        sourceLink.rel = "noreferrer";
+        detail.appendChild(sourceLink);
+      }
 
       details.append(summaryLine, detail);
       list.appendChild(details);
@@ -556,6 +570,9 @@ async function loadBank() {
     elements.vocabCount.textContent = bank.counts.vocabulary.toLocaleString();
     elements.etyCount.textContent = bank.counts.etymology.toLocaleString();
     elements.totalCount.textContent = total.toLocaleString();
+    if (elements.footerBankVersion) {
+      elements.footerBankVersion.textContent = `Version 3.0 · ${total.toLocaleString()}-entry audited DP bank`;
+    }
     elements.startStudy.disabled = false;
     setStatus("ready", `${total.toLocaleString()} verified entries`);
   } catch (error) {

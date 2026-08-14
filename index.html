@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="A focused biology vocabulary and etymology review workspace.">
+  <meta name="description" content="An audited IB DP Biology terminology and word-root review workspace.">
   <meta name="theme-color" content="#09090a">
   <title>Berthel’s Biology</title>
   <link rel="stylesheet" href="assets/styles.css">
@@ -19,9 +19,9 @@
           <img src="Chinstrap_LOgo.jfif" alt="">
         </div>
         <div class="brand-copy">
-          <p class="eyebrow">Independent biology review</p>
+          <p class="eyebrow">IB DP Biology review</p>
           <h1>Berthel’s Biology</h1>
-          <p>Build precise, distraction-resistant study sets from a verified vocabulary bank.</p>
+          <p>Build precise study sets from a topic-aligned, answer-audited DP Biology bank.</p>
         </div>
         <div class="bank-indicator" id="bankStatus" data-tone="loading" aria-live="polite">
           <span class="status-dot" aria-hidden="true"></span>
@@ -66,15 +66,15 @@
     >
       <div class="workspace-heading">
         <div>
-          <p class="eyebrow">Curated review bank</p>
+          <p class="eyebrow">First assessment 2025 framework</p>
           <h2>Build a focused study set</h2>
-          <p>Every set samples without replacement. Every option is distinct. The bank is rebuilt from the two canonical workbook sheets—not the duplicated aggregate.</p>
+          <p>Definitions are the prompts; concise terms are the choices. All 40 DP topics are represented, and every possible generated question is checked for one keyed answer.</p>
         </div>
 
         <div class="metric-grid" aria-label="Study bank totals">
           <div class="metric-card">
             <span class="metric-value" id="vocabCount">—</span>
-            <span class="metric-label">Vocabulary</span>
+            <span class="metric-label">DP terms</span>
           </div>
           <div class="metric-card">
             <span class="metric-value" id="etyCount">—</span>
@@ -100,8 +100,8 @@
           <fieldset class="control-group">
             <legend>Material</legend>
             <div class="segmented-control" id="studyMode" aria-label="Study material">
-              <button class="segment-button is-active" type="button" data-mode="mixed" aria-pressed="true">Mixed</button>
-              <button class="segment-button" type="button" data-mode="vocab" aria-pressed="false">Vocabulary</button>
+              <button class="segment-button" type="button" data-mode="mixed" aria-pressed="false">Mixed</button>
+              <button class="segment-button is-active" type="button" data-mode="vocab" aria-pressed="true">DP terms</button>
               <button class="segment-button" type="button" data-mode="ety" aria-pressed="false">Word parts</button>
             </div>
           </fieldset>
@@ -213,7 +213,7 @@
   <footer class="site-footer">
     <div>
       <strong>Berthel’s Biology</strong>
-      <span>Version 2.0 · 800-entry validated bank</span>
+      <span id="footerBankVersion">Version 3.0 · loading audited DP bank</span>
     </div>
     <a href="https://github.com/djberthel/Berthel_Biology">View source on GitHub</a>
   </footer>

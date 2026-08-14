@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Build the browser-ready study bank from the workbook's canonical sheets.
+"""Build the audited browser bank from the DP-aligned content files.
 
-The workbook also contains a derived ``Unified`` sheet.  It is intentionally
-ignored here: parsing the canonical ``Glossary`` and ``WordParts`` sheets once
-prevents duplicate and stale aggregate rows from reaching the website.
+The content files group concise definitions under the 40 topics in the
+IB Diploma Programme Biology subject brief (first assessment 2025). This
+script validates that content before flattening it into the JSON used by the
+website. The spreadsheet is a human-readable audit export of these files.
 """
 
 from __future__ import annotations
@@ -11,15 +12,57 @@ from __future__ import annotations
 import json
 import re
 import sys
-import zipfile
 from pathlib import Path
-from xml.etree import ElementTree as ET
+from typing import Any
 
 
-MAIN_NS = "http://schemas.openxmlformats.org/spreadsheetml/2006/main"
-DOC_REL_NS = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
-PKG_REL_NS = "http://schemas.openxmlformats.org/package/2006/relationships"
-NS = {"main": MAIN_NS, "rel": DOC_REL_NS, "pkg": PKG_REL_NS}
+FRAMEWORK_URL = (
+    "https://ibo.org/globalassets/new-structure/recognition/pdfs/"
+    "dp_sciences_biology_subject-brief_jan_2022_e.pdf"
+)
+
+EXPECTED_TOPICS = [
+    ("A1.1", "Water", "SL/HL"),
+    ("A1.2", "Nucleic acids", "SL/HL"),
+    ("A2.1", "Origins of cells", "HL"),
+    ("A2.2", "Cell structure", "SL/HL"),
+    ("A2.3", "Viruses", "HL"),
+    ("A3.1", "Diversity of organisms", "SL/HL"),
+    ("A3.2", "Classification and cladistics", "HL"),
+    ("A4.1", "Evolution and speciation", "SL/HL"),
+    ("A4.2", "Conservation of biodiversity", "SL/HL"),
+    ("B1.1", "Carbohydrates and lipids", "SL/HL"),
+    ("B1.2", "Proteins", "SL/HL"),
+    ("B2.1", "Membranes and membrane transport", "SL/HL"),
+    ("B2.2", "Organelles and compartmentalization", "SL/HL"),
+    ("B2.3", "Cell specialization", "SL/HL"),
+    ("B3.1", "Gas exchange", "SL/HL"),
+    ("B3.2", "Transport", "SL/HL"),
+    ("B3.3", "Muscle and motility", "HL"),
+    ("B4.1", "Adaptation to environment", "SL/HL"),
+    ("B4.2", "Ecological niches", "SL/HL"),
+    ("C1.1", "Enzymes and metabolism", "SL/HL"),
+    ("C1.2", "Cell respiration", "SL/HL"),
+    ("C1.3", "Photosynthesis", "SL/HL"),
+    ("C2.1", "Chemical signalling", "HL"),
+    ("C2.2", "Neural signalling", "SL/HL"),
+    ("C3.1", "Integration of body systems", "SL/HL"),
+    ("C3.2", "Defence against disease", "SL/HL"),
+    ("C4.1", "Populations and communities", "SL/HL"),
+    ("C4.2", "Transfer of energy and matter", "SL/HL"),
+    ("D1.1", "DNA replication", "SL/HL"),
+    ("D1.2", "Protein synthesis", "SL/HL"),
+    ("D1.3", "Mutations and gene editing", "SL/HL"),
+    ("D2.1", "Cell and nuclear division", "SL/HL"),
+    ("D2.2", "Gene expression", "HL"),
+    ("D2.3", "Water potential", "SL/HL"),
+    ("D3.1", "Reproduction", "SL/HL"),
+    ("D3.2", "Inheritance", "SL/HL"),
+    ("D3.3", "Homeostasis", "SL/HL"),
+    ("D4.1", "Natural selection", "SL/HL"),
+    ("D4.2", "Sustainability and change", "SL/HL"),
+    ("D4.3", "Climate change", "SL/HL"),
+]
 
 PLACEHOLDERS = {"", "9", "n/a", "na", "none", "null", "—", "-"}
 
@@ -32,184 +75,176 @@ def normalized_key(value: object) -> str:
     return normalize(value).casefold()
 
 
-def column_index(cell_reference: str) -> int:
-    letters = re.match(r"[A-Z]+", cell_reference.upper())
-    if not letters:
-        raise ValueError(f"Invalid cell reference: {cell_reference}")
-    result = 0
-    for character in letters.group(0):
-        result = result * 26 + (ord(character) - 64)
-    return result - 1
+def word_count(value: str) -> int:
+    return len(re.findall(r"\b[\w′’-]+\b", value, flags=re.UNICODE))
 
 
-def read_shared_strings(archive: zipfile.ZipFile) -> list[str]:
-    try:
-        root = ET.fromstring(archive.read("xl/sharedStrings.xml"))
-    except KeyError:
-        return []
-
-    values: list[str] = []
-    for item in root.findall("main:si", NS):
-        text = "".join(node.text or "" for node in item.findall(".//main:t", NS))
-        values.append(text)
-    return values
+def load_json(path: Path) -> Any:
+    return json.loads(path.read_text(encoding="utf-8"))
 
 
-def workbook_sheet_paths(archive: zipfile.ZipFile) -> dict[str, str]:
-    workbook = ET.fromstring(archive.read("xl/workbook.xml"))
-    relationships = ET.fromstring(archive.read("xl/_rels/workbook.xml.rels"))
-    target_by_id = {
-        rel.attrib["Id"]: rel.attrib["Target"]
-        for rel in relationships.findall("pkg:Relationship", NS)
-    }
-
-    result: dict[str, str] = {}
-    for sheet in workbook.findall("main:sheets/main:sheet", NS):
-        name = sheet.attrib["name"]
-        relationship_id = sheet.attrib[f"{{{DOC_REL_NS}}}id"]
-        target = target_by_id[relationship_id].lstrip("/")
-        result[name] = target if target.startswith("xl/") else f"xl/{target}"
-    return result
+def require_text(value: object, label: str) -> str:
+    clean = normalize(value)
+    if normalized_key(clean) in PLACEHOLDERS:
+        raise ValueError(f"{label} is missing or contains a placeholder")
+    return clean
 
 
-def cell_text(cell: ET.Element, shared_strings: list[str]) -> str:
-    cell_type = cell.attrib.get("t")
-    if cell_type == "inlineStr":
-        return "".join(node.text or "" for node in cell.findall(".//main:t", NS))
-
-    value_node = cell.find("main:v", NS)
-    if value_node is None or value_node.text is None:
-        return ""
-    raw = value_node.text
-
-    if cell_type == "s":
-        return shared_strings[int(raw)]
-    if cell_type == "b":
-        return "TRUE" if raw == "1" else "FALSE"
-    return raw
+def require_https(value: object, label: str) -> str:
+    clean = require_text(value, label)
+    if not clean.startswith("https://"):
+        raise ValueError(f"{label} must use an https URL: {clean!r}")
+    return clean
 
 
-def read_sheet(
-    archive: zipfile.ZipFile,
-    sheet_path: str,
-    shared_strings: list[str],
-) -> list[list[str]]:
-    root = ET.fromstring(archive.read(sheet_path))
-    rows: list[list[str]] = []
-    for row in root.findall("main:sheetData/main:row", NS):
-        values: list[str] = []
-        for cell in row.findall("main:c", NS):
-            index = column_index(cell.attrib.get("r", "A1"))
-            while len(values) <= index:
-                values.append("")
-            values[index] = normalize(cell_text(cell, shared_strings))
-        rows.append(values)
-    return rows
-
-
-def records_from_rows(rows: list[list[str]]) -> list[dict[str, str]]:
-    if not rows:
-        return []
-    headers = [normalize(value) for value in rows[0]]
-    records: list[dict[str, str]] = []
-    for row in rows[1:]:
-        record = {
-            header: normalize(row[index] if index < len(row) else "")
-            for index, header in enumerate(headers)
-            if header
-        }
-        if any(record.values()):
-            records.append(record)
-    return records
-
-
-def valid_content(value: object) -> bool:
-    return normalized_key(value) not in PLACEHOLDERS
-
-
-def require_unique(entries: list[dict[str, str]], field: str, label: str) -> None:
-    locations: dict[str, int] = {}
+def require_unique(entries: list[dict[str, Any]], field: str, label: str) -> None:
+    locations: dict[str, str] = {}
     duplicates: list[str] = []
-    for index, entry in enumerate(entries, start=2):
+    for entry in entries:
         key = normalized_key(entry[field])
         if key in locations:
-            duplicates.append(
-                f"{entry[field]!r} (rows {locations[key]} and {index})"
-            )
+            duplicates.append(f"{entry[field]!r} ({locations[key]} and {entry['id']})")
         else:
-            locations[key] = index
+            locations[key] = entry["id"]
     if duplicates:
         raise ValueError(f"Duplicate {label}: " + "; ".join(duplicates))
 
 
-def build_bank(workbook_path: Path) -> dict[str, object]:
-    with zipfile.ZipFile(workbook_path) as archive:
-        shared_strings = read_shared_strings(archive)
-        sheet_paths = workbook_sheet_paths(archive)
-        missing_sheets = {"Glossary", "WordParts"} - set(sheet_paths)
-        if missing_sheets:
-            raise ValueError(
-                "Workbook is missing canonical sheet(s): "
-                + ", ".join(sorted(missing_sheets))
+def build_bank(repository_root: Path) -> dict[str, Any]:
+    content_dir = repository_root / "content"
+    topic_files = [content_dir / f"dp_terms_{letter}.json" for letter in "abcd"]
+    topics: list[dict[str, Any]] = []
+    for path in topic_files:
+        payload = load_json(path)
+        if not isinstance(payload, list):
+            raise ValueError(f"{path.name} must contain a JSON array")
+        topics.extend(payload)
+
+    actual_framework = [
+        (
+            normalize(topic.get("code")),
+            normalize(topic.get("topic")),
+            normalize(topic.get("level")),
+        )
+        for topic in topics
+    ]
+    if actual_framework != EXPECTED_TOPICS:
+        raise ValueError(
+            "DP topic order, names, or levels do not match the official 40-topic framework"
+        )
+
+    vocabulary: list[dict[str, Any]] = []
+    topic_summary: list[dict[str, Any]] = []
+    for topic in topics:
+        code = require_text(topic.get("code"), "topic code")
+        theme = require_text(topic.get("theme"), f"{code} theme")
+        topic_name = require_text(topic.get("topic"), f"{code} topic")
+        level = require_text(topic.get("level"), f"{code} level")
+        source_title = require_text(topic.get("sourceTitle"), f"{code} source title")
+        source_url = require_https(topic.get("sourceUrl"), f"{code} source URL")
+        terms = topic.get("terms")
+        if not isinstance(terms, list) or len(terms) < 10:
+            raise ValueError(f"{code} must contain at least 10 substantive terms")
+
+        for sequence, source_entry in enumerate(terms, start=1):
+            term = require_text(source_entry.get("term"), f"{code} term {sequence}")
+            definition = require_text(
+                source_entry.get("definition"), f"{code} definition {sequence}"
+            )
+            entry_source_title = normalize(source_entry.get("sourceTitle")) or source_title
+            entry_source_url = normalize(source_entry.get("sourceUrl")) or source_url
+            entry_source_url = require_https(
+                entry_source_url, f"{code} {term!r} source URL"
+            )
+            definition_words = word_count(definition)
+            if not 5 <= definition_words <= 32:
+                raise ValueError(
+                    f"{code} {term!r} definition has {definition_words} words; expected 5–32"
+                )
+            if not definition[0].isupper() or definition[-1] not in ".!?":
+                raise ValueError(
+                    f"{code} {term!r} definition must be a complete sentence: {definition!r}"
+                )
+            vocabulary.append(
+                {
+                    "id": f"{code}-{sequence:02d}",
+                    "code": code,
+                    "section": f"{code} · {topic_name}",
+                    "theme": theme,
+                    "topic": topic_name,
+                    "level": level,
+                    "term": term,
+                    "definition": definition,
+                    "sourceTitle": entry_source_title,
+                    "sourceUrl": entry_source_url,
+                }
             )
 
-        glossary = records_from_rows(
-            read_sheet(archive, sheet_paths["Glossary"], shared_strings)
-        )
-        word_parts = records_from_rows(
-            read_sheet(archive, sheet_paths["WordParts"], shared_strings)
-        )
-
-    vocabulary: list[dict[str, str]] = []
-    rejected_vocabulary: list[str] = []
-    for row in glossary:
-        term = normalize(row.get("Term"))
-        definition = normalize(row.get("Definition"))
-        if not valid_content(term) or not valid_content(definition):
-            rejected_vocabulary.append(f"ID {row.get('ID', '?')}")
-            continue
-        vocabulary.append(
+        topic_summary.append(
             {
-                "id": normalize(row.get("ID")),
-                "section": normalize(row.get("Section")),
-                "term": term,
-                "definition": definition,
+                "code": code,
+                "theme": theme,
+                "topic": topic_name,
+                "level": level,
+                "count": len(terms),
             }
         )
 
-    etymology: list[dict[str, str]] = []
-    rejected_etymology: list[str] = []
-    for row in word_parts:
-        part = normalize(row.get("Etymology"))
-        meaning = normalize(row.get("Meaning"))
-        if not valid_content(part) or not valid_content(meaning):
-            rejected_etymology.append(f"ID {row.get('ID', '?')}")
-            continue
+    require_unique(vocabulary, "term", "DP terms")
+    require_unique(vocabulary, "definition", "DP definitions")
+
+    word_parts_payload = load_json(content_dir / "word_parts.json")
+    source_title = require_text(
+        word_parts_payload.get("sourceTitle"), "word-parts source title"
+    )
+    source_url = require_https(
+        word_parts_payload.get("sourceUrl"), "word-parts source URL"
+    )
+    raw_word_parts = word_parts_payload.get("entries")
+    if not isinstance(raw_word_parts, list) or len(raw_word_parts) < 50:
+        raise ValueError("word_parts.json must contain at least 50 entries")
+
+    etymology: list[dict[str, Any]] = []
+    for sequence, source_entry in enumerate(raw_word_parts, start=1):
+        part = require_text(source_entry.get("part"), f"word part {sequence}")
+        meaning = require_text(source_entry.get("meaning"), f"{part} meaning")
+        examples = require_text(source_entry.get("examples"), f"{part} examples")
         etymology.append(
             {
-                "id": normalize(row.get("ID")),
-                "section": normalize(row.get("Section")),
+                "id": f"WP-{sequence:03d}",
+                "section": "Biological word parts",
                 "part": part,
                 "meaning": meaning,
-                "examples": normalize(row.get("Examples")),
+                "examples": examples,
+                "ambiguityGroup": normalize(source_entry.get("ambiguityGroup")),
+                "sourceTitle": source_title,
+                "sourceUrl": source_url,
             }
         )
 
-    if rejected_vocabulary or rejected_etymology:
-        rejected = rejected_vocabulary + rejected_etymology
-        raise ValueError("Rows with missing or placeholder content: " + ", ".join(rejected))
-
-    require_unique(vocabulary, "term", "vocabulary terms")
     require_unique(etymology, "part", "word parts")
 
+    counts = {
+        "topics": len(topic_summary),
+        "vocabulary": len(vocabulary),
+        "etymology": len(etymology),
+        "total": len(vocabulary) + len(etymology),
+    }
     return {
-        "schemaVersion": 1,
-        "source": workbook_path.name,
-        "counts": {
-            "vocabulary": len(vocabulary),
-            "etymology": len(etymology),
-            "total": len(vocabulary) + len(etymology),
+        "schemaVersion": 2,
+        "framework": {
+            "title": "IB Diploma Programme Biology",
+            "firstAssessment": 2025,
+            "topicCount": 40,
+            "url": FRAMEWORK_URL,
         },
+        "source": "content/dp_terms_*.json + content/word_parts.json",
+        "audit": {
+            "questionModel": "definition-to-term",
+            "contentStatus": "curated-and-validated",
+        },
+        "counts": counts,
+        "topics": topic_summary,
         "vocabulary": vocabulary,
         "etymology": etymology,
     }
@@ -217,18 +252,15 @@ def build_bank(workbook_path: Path) -> dict[str, object]:
 
 def main() -> int:
     repository_root = Path(__file__).resolve().parents[1]
-    workbook_path = (
+    output_path = (
         Path(sys.argv[1]).resolve()
         if len(sys.argv) > 1
-        else repository_root / "Vocab_Ety_Master_List.xlsx"
-    )
-    output_path = (
-        Path(sys.argv[2]).resolve()
-        if len(sys.argv) > 2
         else repository_root / "data" / "biology-bank.json"
     )
+    if len(sys.argv) > 2:
+        raise ValueError("Usage: python3 scripts/build_data.py [output.json]")
 
-    bank = build_bank(workbook_path)
+    bank = build_bank(repository_root)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(
         json.dumps(bank, ensure_ascii=False, indent=2) + "\n",
@@ -237,9 +269,9 @@ def main() -> int:
 
     counts = bank["counts"]
     print(
-        f"Built {output_path}: "
-        f"{counts['vocabulary']} vocabulary + "
-        f"{counts['etymology']} word parts = {counts['total']} entries"
+        f"Built {output_path}: {counts['vocabulary']} DP terms across "
+        f"{counts['topics']} topics + {counts['etymology']} word parts = "
+        f"{counts['total']} verified entries"
     )
     return 0
 

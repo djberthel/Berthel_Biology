@@ -85,6 +85,16 @@ function chooseDistractors(pool, correctIndex, random) {
 
   pool.forEach((entry, index) => {
     if (index === correctIndex) return;
+    if (
+      correct.kind === "vocab"
+      && correct.theme
+      && (entry.theme !== correct.theme || entry.topic === correct.topic)
+    ) return;
+    if (
+      correct.ambiguityGroup
+      && entry.ambiguityGroup
+      && correct.ambiguityGroup === entry.ambiguityGroup
+    ) return;
     const key = normalizedKey(entry.answerText);
     if (!key || key === correctKey || uniqueAnswers.has(key)) return;
     uniqueAnswers.set(key, {
@@ -116,13 +126,17 @@ function buildQuestion(pool, correctIndex, correctLetter, random) {
     kind: entry.kind,
     prompt: entry.prompt,
     instruction: entry.kind === "vocab"
-      ? "Which definition best matches this term?"
+      ? "Which DP Biology term best matches this definition?"
       : "What does this word part most closely mean?",
     options,
     correctLetter,
     correctText: entry.answerText,
     examples: entry.examples ?? "",
     section: entry.section ?? "",
+    level: entry.level ?? "",
+    topic: entry.topic ?? "",
+    sourceTitle: entry.sourceTitle ?? "",
+    sourceUrl: entry.sourceUrl ?? "",
   };
 }
 
@@ -130,9 +144,15 @@ function normalizeBank(bank) {
   const vocabulary = (bank?.vocabulary ?? []).map((entry) => ({
     id: entry.id,
     kind: "vocab",
-    prompt: normalizeText(entry.term),
-    answerText: normalizeText(entry.definition),
+    prompt: normalizeText(entry.definition),
+    answerText: normalizeText(entry.term),
     section: normalizeText(entry.section),
+    level: normalizeText(entry.level),
+    topic: normalizeText(entry.topic),
+    theme: normalizeText(entry.theme),
+    sourceTitle: normalizeText(entry.sourceTitle),
+    sourceUrl: normalizeText(entry.sourceUrl),
+    ambiguityGroup: "",
   }));
   const etymology = (bank?.etymology ?? []).map((entry) => ({
     id: entry.id,
@@ -141,8 +161,25 @@ function normalizeBank(bank) {
     answerText: normalizeText(entry.meaning),
     examples: normalizeText(entry.examples),
     section: normalizeText(entry.section),
+    level: "",
+    topic: "Biological word parts",
+    theme: "",
+    sourceTitle: normalizeText(entry.sourceTitle),
+    sourceUrl: normalizeText(entry.sourceUrl),
+    ambiguityGroup: normalizedKey(entry.ambiguityGroup),
   }));
   return { vocabulary, etymology };
+}
+
+export function auditQuestionBank(bank, random = Math.random) {
+  const { vocabulary, etymology } = normalizeBank(bank);
+  const buildAll = (pool) => pool.map((entry, index) => buildQuestion(
+    pool,
+    index,
+    LETTERS[index % LETTERS.length],
+    random,
+  ));
+  return [...buildAll(vocabulary), ...buildAll(etymology)];
 }
 
 export function createStudyQuiz(bank, mode, requestedCount, random = Math.random) {
@@ -157,7 +194,7 @@ export function createStudyQuiz(bank, mode, requestedCount, random = Math.random
   } else if (mode === "ety") {
     selected = sampleWithoutReplacement(etymology, count, random);
   } else if (mode === "mixed") {
-    let vocabularyCount = Math.ceil(count / 2);
+    let vocabularyCount = Math.ceil(count * 0.75);
     let etymologyCount = count - vocabularyCount;
     if (vocabularyCount > vocabulary.length) {
       etymologyCount += vocabularyCount - vocabulary.length;
@@ -321,7 +358,7 @@ export function makeCustomPrompt(countValue, content) {
 }
 
 export function kindLabel(kind) {
-  if (kind === "vocab") return "Vocabulary";
+  if (kind === "vocab") return "DP term";
   if (kind === "ety") return "Word part";
   return "Custom";
 }
