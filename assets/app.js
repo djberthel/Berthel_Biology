@@ -5,7 +5,7 @@ import {
   makeCustomPrompt,
   normalizeCustomQuiz,
   summarizeQuiz,
-} from "./quiz-core.js";
+} from "./quiz-core.js?v=3.0.1";
 
 const $ = (selector, scope = document) => scope.querySelector(selector);
 const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
