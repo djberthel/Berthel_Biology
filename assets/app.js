@@ -1,20 +1,17 @@
 import {
   clampQuestionCount,
   createStudyQuiz,
-  kindLabel,
-  makeCustomPrompt,
-  normalizeCustomQuiz,
   summarizeQuiz,
-} from "./quiz-core.js?v=3.0.1";
+} from "./quiz-core.js?v=4.0.0";
 
 const $ = (selector, scope = document) => scope.querySelector(selector);
 const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
 
 const elements = {
   bankStatus: $("#bankStatus"),
-  vocabCount: $("#vocabCount"),
-  etyCount: $("#etyCount"),
-  totalCount: $("#totalCount"),
+  questionCount: $("#questionCount"),
+  topicCount: $("#topicCount"),
+  hlTopicCount: $("#hlTopicCount"),
   footerBankVersion: $("#footerBankVersion"),
   studyBuilder: $("#studyBuilder"),
   studyCount: $("#studyCount"),
@@ -22,27 +19,12 @@ const elements = {
   studyError: $("#studyError"),
   studyQuiz: $("#studyQuiz"),
   studyResults: $("#studyResults"),
-  customBuilder: $("#customBuilder"),
-  customCount: $("#customCount"),
-  customFile: $("#customFile"),
-  customSource: $("#customSource"),
-  buildPrompt: $("#buildPrompt"),
-  generatedPrompt: $("#generatedPrompt"),
-  promptOutput: $("#promptOutput"),
-  copyPrompt: $("#copyPrompt"),
-  customJson: $("#customJson"),
-  loadCustom: $("#loadCustom"),
-  customError: $("#customError"),
-  customQuiz: $("#customQuiz"),
-  customResults: $("#customResults"),
 };
 
 const state = {
   bank: null,
-  mode: "vocab",
-  activeView: "study",
+  mode: "all",
   studyQuiz: null,
-  customQuiz: null,
 };
 
 function setStatus(tone, message) {
@@ -60,21 +42,9 @@ function hideMessage(element) {
   element.hidden = true;
 }
 
-function activateView(view) {
-  state.activeView = view;
-  $$("[data-view]").forEach((button) => {
-    const active = button.dataset.view === view;
-    button.classList.toggle("is-active", active);
-    button.setAttribute("aria-selected", String(active));
-  });
-  $$("[data-view-panel]").forEach((panel) => {
-    panel.hidden = panel.dataset.viewPanel !== view;
-  });
-}
-
 function syncQuickCounts() {
   const value = elements.studyCount.value;
-  $$("[data-count]").forEach((button) => {
+  $$('[data-count]').forEach((button) => {
     button.classList.toggle("is-active", button.dataset.count === value);
   });
 }
@@ -85,14 +55,6 @@ function showStudySetup() {
   elements.studyResults.hidden = true;
   hideMessage(elements.studyError);
   elements.studyBuilder.scrollIntoView({ behavior: "smooth", block: "start" });
-}
-
-function showCustomSetup() {
-  elements.customBuilder.hidden = false;
-  elements.customQuiz.hidden = true;
-  elements.customResults.hidden = true;
-  hideMessage(elements.customError);
-  elements.customBuilder.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function makeElement(tag, className, text) {
@@ -107,7 +69,7 @@ function renderQuiz(container, quiz, callbacks) {
   container.innerHTML = "";
 
   const shell = makeElement("section", "quiz-shell");
-  shell.setAttribute("aria-label", callbacks.ariaLabel ?? "Quiz");
+  shell.setAttribute("aria-label", "DP Biology practice quiz");
 
   const topbar = makeElement("div", "quiz-topbar");
   const position = makeElement("div", "quiz-position");
@@ -115,7 +77,7 @@ function renderQuiz(container, quiz, callbacks) {
   progressTrack.setAttribute("aria-hidden", "true");
   const progressFill = makeElement("div", "progress-fill");
   progressTrack.appendChild(progressFill);
-  const exitButton = makeElement("button", "button button-ghost", callbacks.exitLabel ?? "Exit set");
+  const exitButton = makeElement("button", "button button-ghost", "Exit set");
   exitButton.type = "button";
   topbar.append(position, progressTrack, exitButton);
 
@@ -138,7 +100,7 @@ function renderQuiz(container, quiz, callbacks) {
   const finishButton = makeElement("button", "button button-ghost", "Finish now");
   finishButton.type = "button";
   const spacer = makeElement("div", "quiz-footer-spacer");
-  const hint = makeElement("span", "quiz-hint", "A–D to answer · Enter to continue");
+  const hint = makeElement("span", "quiz-hint", "A–D to answer · Enter to continue or skip");
   const nextButton = makeElement("button", "button button-primary");
   nextButton.type = "button";
   footer.append(backButton, finishButton, spacer, hint, nextButton);
@@ -159,7 +121,6 @@ function renderQuiz(container, quiz, callbacks) {
   }
 
   function goNext() {
-    if (!quiz.answers[currentIndex]) return;
     if (currentIndex >= quiz.questions.length - 1) {
       finish();
       return;
@@ -179,14 +140,11 @@ function renderQuiz(container, quiz, callbacks) {
   function paint(focusLetter = null) {
     const question = quiz.questions[currentIndex];
     const chosen = quiz.answers[currentIndex];
-    const answeredCount = quiz.answers.filter(Boolean).length;
 
     position.textContent = `Question ${currentIndex + 1} of ${quiz.questions.length}`;
     progressFill.style.width = `${((currentIndex + 1) / quiz.questions.length) * 100}%`;
-    typeBadge.textContent = question.kind === "vocab" && question.section
-      ? `${question.section}${question.level ? ` · ${question.level}` : ""}`
-      : kindLabel(question.kind);
-    answerState.textContent = chosen ? "Answered" : "Awaiting answer";
+    typeBadge.textContent = `${question.section} · ${question.level} · ${question.skill}`;
+    answerState.textContent = chosen ? "Answered" : "Unanswered";
     prompt.textContent = question.prompt;
     instruction.textContent = question.instruction;
     optionGrid.innerHTML = "";
@@ -206,9 +164,9 @@ function renderQuiz(container, quiz, callbacks) {
     });
 
     backButton.disabled = currentIndex === 0;
-    finishButton.disabled = answeredCount === 0;
-    nextButton.disabled = !chosen;
-    nextButton.textContent = currentIndex === quiz.questions.length - 1 ? "Finish" : "Next";
+    nextButton.textContent = currentIndex === quiz.questions.length - 1
+      ? "Finish"
+      : chosen ? "Next" : "Skip";
 
     if (focusLetter) {
       $(`[data-letter="${focusLetter}"]`, optionGrid)?.focus({ preventScroll: true });
@@ -216,7 +174,7 @@ function renderQuiz(container, quiz, callbacks) {
   }
 
   function handleKeydown(event) {
-    if (container.hidden || state.activeView !== callbacks.view) return;
+    if (container.hidden) return;
     if (["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement?.tagName)) return;
     const key = event.key.toUpperCase();
     if (["A", "B", "C", "D"].includes(key)) {
@@ -225,7 +183,7 @@ function renderQuiz(container, quiz, callbacks) {
     } else if (event.key === "ArrowLeft") {
       event.preventDefault();
       goBack();
-    } else if (event.key === "Enter" && quiz.answers[currentIndex]) {
+    } else if (event.key === "Enter") {
       event.preventDefault();
       goNext();
     }
@@ -246,24 +204,24 @@ function resultLanguage(percentage) {
   if (percentage >= 90) {
     return {
       title: "Strong command",
-      message: "Your recall is stable. Increase the set length or switch to mixed review to add interference.",
+      message: "Review any red items, then increase the set length or include additional course levels.",
     };
   }
   if (percentage >= 75) {
     return {
       title: "Solid foundation",
-      message: "Review the misses, then repeat at the same length before increasing the set.",
+      message: "Review the incorrect and unanswered items before repeating a set at the same length.",
     };
   }
   if (percentage >= 50) {
     return {
-      title: "Mixed recall",
-      message: "Reduce the set length and retest the missed concepts before broadening the bank again.",
+      title: "Developing recall",
+      message: "Use the answer summary to identify patterns, then retest those concepts in a shorter set.",
     };
   }
   return {
     title: "Rebuild the base",
-    message: "Use a shorter set, inspect each correction, and repeat until guessing stops doing the intellectual labor.",
+    message: "Work through each explanation, then repeat with a shorter set before broadening the topic range.",
   };
 }
 
@@ -284,17 +242,17 @@ function renderResults(container, quiz, options) {
 
   const copy = makeElement("div", "result-copy");
   copy.append(
-    makeElement("p", "eyebrow", options.eyebrow ?? "Set complete"),
-    makeElement("h3", "", options.title ?? language.title),
-    makeElement("p", "", options.message ?? language.message),
+    makeElement("p", "eyebrow", "Set complete"),
+    makeElement("h3", "", language.title),
+    makeElement("p", "", language.message),
   );
   const metrics = makeElement("div", "result-metrics");
   [
-    [`${summary.correct}/${summary.total}`, "Correct"],
-    [`${summary.attempted}/${summary.total}`, "Attempted"],
-    [String(summary.missed.length), "To review"],
-  ].forEach(([value, label]) => {
-    const metric = makeElement("div", "result-metric");
+    [`${summary.correct}/${summary.total}`, "Correct", "is-correct"],
+    [String(summary.incorrect), "Incorrect", "is-incorrect"],
+    [String(summary.unanswered), "Unanswered", "is-unanswered"],
+  ].forEach(([value, label, statusClass]) => {
+    const metric = makeElement("div", `result-metric ${statusClass}`);
     metric.append(makeElement("strong", "", value), makeElement("span", "", label));
     metrics.appendChild(metric);
   });
@@ -319,64 +277,66 @@ function renderResults(container, quiz, options) {
   const reviewHeading = makeElement("div", "review-heading");
   const headingGroup = makeElement("div");
   headingGroup.append(
-    makeElement("p", "step-label", "Corrections"),
-    makeElement("h3", "", summary.missed.length ? "Review the misses" : "No corrections needed"),
+    makeElement("p", "step-label", "Answer summary"),
+    makeElement("h3", "", "Every question"),
   );
   reviewHeading.append(
     headingGroup,
     makeElement(
       "p",
       "",
-      summary.missed.length
-        ? "Open an item to compare your answer with the keyed response."
-        : "A suspiciously pleasant outcome. Increase the difficulty.",
+      "Green marks correct responses. Red marks incorrect and unanswered questions.",
     ),
   );
   review.appendChild(reviewHeading);
 
-  if (!summary.missed.length) {
-    review.appendChild(makeElement("div", "perfect-note", "Perfect set: every answer was correct."));
-  } else {
-    const list = makeElement("div", "review-list");
-    summary.missed.forEach((row) => {
-      const details = makeElement("details", "review-item");
-      const summaryLine = document.createElement("summary");
-      summaryLine.append(
-        makeElement("span", "review-number", String(row.number).padStart(2, "0")),
-        makeElement("span", "review-prompt", row.question.prompt),
-        makeElement("span", "review-status", row.chosenLetter ? "Incorrect" : "Unanswered"),
+  const list = makeElement("div", "review-list");
+  summary.rows.forEach((row) => {
+    const statusLabel = row.status === "correct"
+      ? "Correct"
+      : row.status === "incorrect" ? "Incorrect" : "Unanswered";
+    const details = makeElement("details", `review-item is-${row.status}`);
+    details.open = row.status !== "correct";
+    const summaryLine = document.createElement("summary");
+    summaryLine.append(
+      makeElement("span", "review-number", String(row.number).padStart(2, "0")),
+      makeElement("span", "review-prompt", row.question.prompt),
+      makeElement("span", `review-status is-${row.status}`, statusLabel),
+    );
+
+    const detail = makeElement("div", "review-detail");
+    const chosenClass = row.status === "correct" ? "is-correct" : `is-${row.status}`;
+    const chosen = makeElement("div", `answer-panel ${chosenClass}`);
+    chosen.append(
+      makeElement("strong", "", row.chosenLetter ? `Your answer · ${row.chosenLetter}` : "Your answer"),
+      document.createTextNode(row.chosenText),
+    );
+    const correct = makeElement("div", "answer-panel is-correct");
+    correct.append(
+      makeElement("strong", "", `Correct answer · ${row.question.correctLetter}`),
+      document.createTextNode(row.question.correctText),
+    );
+    detail.append(chosen, correct);
+
+    if (row.question.rationale) {
+      detail.appendChild(makeElement("p", "rationale", row.question.rationale));
+    }
+    if (row.question.sourceUrl) {
+      const sourceLink = makeElement(
+        "a",
+        "source-link",
+        `Reference: ${row.question.sourceTitle || "content source"}`,
       );
+      sourceLink.href = row.question.sourceUrl;
+      sourceLink.target = "_blank";
+      sourceLink.rel = "noreferrer";
+      detail.appendChild(sourceLink);
+    }
 
-      const detail = makeElement("div", "review-detail");
-      const chosen = makeElement("div", "answer-panel");
-      chosen.append(makeElement("strong", "", "Your answer"), document.createTextNode(row.chosenText));
-      const correct = makeElement("div", "answer-panel is-correct");
-      correct.append(
-        makeElement("strong", "", `Correct · ${row.question.correctLetter}`),
-        document.createTextNode(row.question.correctText),
-      );
-      detail.append(chosen, correct);
-
-      const supportingText = row.question.rationale
-        || (row.question.examples ? `Examples: ${row.question.examples}` : row.question.section);
-      if (supportingText) detail.appendChild(makeElement("p", "rationale", supportingText));
-      if (row.question.sourceUrl) {
-        const sourceLink = makeElement(
-          "a",
-          "source-link",
-          `Reference: ${row.question.sourceTitle || "content source"}`,
-        );
-        sourceLink.href = row.question.sourceUrl;
-        sourceLink.target = "_blank";
-        sourceLink.rel = "noreferrer";
-        detail.appendChild(sourceLink);
-      }
-
-      details.append(summaryLine, detail);
-      list.appendChild(details);
-    });
-    review.appendChild(list);
-  }
+    details.append(summaryLine, detail);
+    list.appendChild(details);
+  });
+  review.appendChild(list);
 
   shell.appendChild(review);
   container.appendChild(shell);
@@ -389,8 +349,6 @@ function launchStudyQuiz(quiz) {
   elements.studyResults.hidden = true;
   elements.studyQuiz.hidden = false;
   renderQuiz(elements.studyQuiz, quiz, {
-    view: "study",
-    ariaLabel: "Study bank quiz",
     onFinish: showStudyResults,
     onExit: showStudySetup,
   });
@@ -404,7 +362,7 @@ function buildNewStudyQuiz() {
     return null;
   }
   if (!state.bank) {
-    showMessage(elements.studyError, "The study bank is not available yet.");
+    showMessage(elements.studyError, "The practice bank is not available yet.");
     return null;
   }
   hideMessage(elements.studyError);
@@ -440,156 +398,46 @@ function showStudyResults() {
   });
 }
 
-function launchCustomQuiz(quiz) {
-  state.customQuiz = quiz;
-  elements.customBuilder.hidden = true;
-  elements.customResults.hidden = true;
-  elements.customQuiz.hidden = false;
-  renderQuiz(elements.customQuiz, quiz, {
-    view: "custom",
-    ariaLabel: quiz.title || "Custom quiz",
-    exitLabel: "Return to JSON",
-    onFinish: showCustomResults,
-    onExit: showCustomSetup,
-  });
-  elements.customQuiz.scrollIntoView({ behavior: "smooth", block: "start" });
-}
-
-function showCustomResults() {
-  elements.customQuiz.hidden = true;
-  elements.customResults.hidden = false;
-  renderResults(elements.customResults, state.customQuiz, {
-    eyebrow: state.customQuiz.title || "Custom quiz complete",
-    actions: [
-      {
-        label: "Retry same quiz",
-        onClick: () => {
-          state.customQuiz.answers = Array(state.customQuiz.questions.length).fill(null);
-          launchCustomQuiz(state.customQuiz);
-        },
-      },
-      { label: "Return to JSON", primary: true, onClick: showCustomSetup },
-    ],
-  });
-}
-
-async function preparePrompt() {
-  hideMessage(elements.customError);
-  const count = clampQuestionCount(elements.customCount.value, 100);
-  if (count === null) {
-    showMessage(elements.customError, "Choose an integer from 1 to 100.");
-    return;
-  }
-
-  let source = elements.customSource.value.trim();
-  const file = elements.customFile.files?.[0];
-  if (!source && file) {
-    try {
-      source = await file.text();
-      elements.customSource.value = source;
-    } catch {
-      showMessage(elements.customError, "The selected file could not be read as plain text.");
-      return;
-    }
-  }
-
-  try {
-    elements.promptOutput.textContent = makeCustomPrompt(count, source);
-    elements.generatedPrompt.hidden = false;
-    elements.generatedPrompt.scrollIntoView({ behavior: "smooth", block: "nearest" });
-  } catch (error) {
-    showMessage(elements.customError, error.message || "The prompt could not be generated.");
-  }
-}
-
-async function copyGeneratedPrompt() {
-  const prompt = elements.promptOutput.textContent;
-  if (!prompt) return;
-  try {
-    await navigator.clipboard.writeText(prompt);
-    const previous = elements.copyPrompt.textContent;
-    elements.copyPrompt.textContent = "Copied";
-    window.setTimeout(() => {
-      elements.copyPrompt.textContent = previous;
-    }, 1200);
-  } catch {
-    showMessage(elements.customError, "Clipboard access failed. Select the prompt and copy it manually.");
-  }
-}
-
-function validateCustomJson() {
-  hideMessage(elements.customError);
-  const count = clampQuestionCount(elements.customCount.value, 100);
-  if (count === null) {
-    showMessage(elements.customError, "Choose an integer from 1 to 100.");
-    return;
-  }
-  const raw = elements.customJson.value.trim();
-  if (!raw) {
-    showMessage(elements.customError, "Paste the generated quiz JSON first.");
-    return;
-  }
-
-  let payload;
-  try {
-    payload = JSON.parse(raw);
-  } catch (error) {
-    showMessage(elements.customError, `Invalid JSON: ${error.message}`);
-    return;
-  }
-
-  const result = normalizeCustomQuiz(payload, count);
-  if (!result.ok) {
-    showMessage(elements.customError, result.error);
-    return;
-  }
-  launchCustomQuiz(result.data);
-}
-
 function validateBank(bank) {
-  if (!bank || !Array.isArray(bank.vocabulary) || !Array.isArray(bank.etymology)) {
-    throw new Error("The study bank has an invalid structure.");
+  if (!bank || bank.schemaVersion !== 3 || !Array.isArray(bank.questions)) {
+    throw new Error("The practice bank has an invalid structure.");
   }
-  const counts = bank.counts ?? {};
-  if (counts.vocabulary !== bank.vocabulary.length || counts.etymology !== bank.etymology.length) {
-    throw new Error("The study bank count metadata is inconsistent.");
+  if (!Array.isArray(bank.topics) || bank.topics.length !== 40) {
+    throw new Error("The practice bank does not cover all 40 topics.");
   }
-  const total = bank.vocabulary.length + bank.etymology.length;
-  if (counts.total !== total) throw new Error("The total study bank count is inconsistent.");
-  if (!bank.vocabulary.length || !bank.etymology.length) throw new Error("The study bank is empty.");
-  return total;
+  if (bank.counts?.questions !== bank.questions.length || bank.questions.length !== 1000) {
+    throw new Error("The practice bank must contain exactly 1,000 questions.");
+  }
+  return bank.questions.length;
 }
 
 async function loadBank() {
   try {
     const response = await fetch("data/biology-bank.json", { cache: "no-cache" });
-    if (!response.ok) throw new Error(`Study bank request failed (${response.status}).`);
+    if (!response.ok) throw new Error(`Practice bank request failed (${response.status}).`);
     const bank = await response.json();
     const total = validateBank(bank);
     state.bank = bank;
-    elements.vocabCount.textContent = bank.counts.vocabulary.toLocaleString();
-    elements.etyCount.textContent = bank.counts.etymology.toLocaleString();
-    elements.totalCount.textContent = total.toLocaleString();
-    if (elements.footerBankVersion) {
-      elements.footerBankVersion.textContent = `Version 3.0 · ${total.toLocaleString()}-entry audited DP bank`;
-    }
+    elements.questionCount.textContent = total.toLocaleString();
+    elements.topicCount.textContent = bank.counts.topics.toLocaleString();
+    elements.hlTopicCount.textContent = bank.topics
+      .filter((topic) => topic.level === "HL")
+      .length
+      .toLocaleString();
+    elements.footerBankVersion.textContent = `Version 4.0 · ${total.toLocaleString()}-question DP bank`;
     elements.startStudy.disabled = false;
-    setStatus("ready", `${total.toLocaleString()} verified entries`);
+    setStatus("ready", `${total.toLocaleString()} questions ready`);
   } catch (error) {
-    setStatus("error", "Study bank unavailable");
-    showMessage(elements.studyError, error.message || "The study bank could not be loaded.");
+    setStatus("error", "Practice bank unavailable");
+    showMessage(elements.studyError, error.message || "The practice bank could not be loaded.");
   }
 }
 
 function wireEvents() {
-  $$("[data-view]").forEach((button) => {
-    button.addEventListener("click", () => activateView(button.dataset.view));
-  });
-
-  $$("[data-mode]", $("#studyMode")).forEach((button) => {
+  $$('[data-mode]', $("#studyMode")).forEach((button) => {
     button.addEventListener("click", () => {
       state.mode = button.dataset.mode;
-      $$("[data-mode]", $("#studyMode")).forEach((candidate) => {
+      $$('[data-mode]', $("#studyMode")).forEach((candidate) => {
         const active = candidate === button;
         candidate.classList.toggle("is-active", active);
         candidate.setAttribute("aria-pressed", String(active));
@@ -597,7 +445,7 @@ function wireEvents() {
     });
   });
 
-  $$("[data-count]").forEach((button) => {
+  $$('[data-count]').forEach((button) => {
     button.addEventListener("click", () => {
       elements.studyCount.value = button.dataset.count;
       syncQuickCounts();
@@ -609,12 +457,7 @@ function wireEvents() {
     const quiz = buildNewStudyQuiz();
     if (quiz) launchStudyQuiz(quiz);
   });
-
-  elements.buildPrompt.addEventListener("click", preparePrompt);
-  elements.copyPrompt.addEventListener("click", copyGeneratedPrompt);
-  elements.loadCustom.addEventListener("click", validateCustomJson);
 }
 
 wireEvents();
-activateView("study");
 loadBank();

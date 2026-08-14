@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="An audited IB DP Biology terminology and word-root review workspace.">
-  <meta name="theme-color" content="#09090a">
+  <meta name="description" content="A 1,000-question IB DP Biology practice library covering all 40 syllabus topics.">
+  <meta name="theme-color" content="#ffffff">
   <title>Berthel’s Biology</title>
-  <link rel="stylesheet" href="assets/styles.css?v=3.0.1">
+  <link rel="stylesheet" href="assets/styles.css?v=4.0.0">
 </head>
 
 <body>
@@ -21,7 +21,7 @@
         <div class="brand-copy">
           <p class="eyebrow">IB DP Biology review</p>
           <h1>Berthel’s Biology</h1>
-          <p>Build precise study sets from a topic-aligned, answer-audited DP Biology bank.</p>
+          <p>Practice application and analysis with original questions spanning the complete DP Biology course.</p>
         </div>
         <div class="bank-indicator" id="bankStatus" data-tone="loading" aria-live="polite">
           <span class="status-dot" aria-hidden="true"></span>
@@ -29,60 +29,30 @@
         </div>
       </div>
 
-      <nav class="primary-nav" role="tablist" aria-label="Review workspaces">
-        <button
-          class="nav-tab is-active"
-          id="studyTab"
-          type="button"
-          role="tab"
-          aria-selected="true"
-          aria-controls="studyView"
-          data-view="study"
-        >
-          Study bank
-        </button>
-        <button
-          class="nav-tab"
-          id="customTab"
-          type="button"
-          role="tab"
-          aria-selected="false"
-          aria-controls="customView"
-          data-view="custom"
-        >
-          Custom quiz
-        </button>
-      </nav>
     </div>
   </header>
 
   <main class="page-shell" id="mainContent">
-    <section
-      class="workspace"
-      id="studyView"
-      role="tabpanel"
-      aria-labelledby="studyTab"
-      data-view-panel="study"
-    >
+    <section class="workspace" id="studyView">
       <div class="workspace-heading">
         <div>
           <p class="eyebrow">First assessment 2025 framework</p>
-          <h2>Build a focused study set</h2>
-          <p>Definitions are the prompts; concise terms are the choices. All 40 DP topics are represented, and every possible generated question is checked for one keyed answer.</p>
+          <h2>Build a focused practice set</h2>
+          <p>Choose from 1,000 original Paper 1A-inspired questions. Same-topic distractors, paired evidence, and concept matching test application and analysis across all 40 DP topics.</p>
         </div>
 
         <div class="metric-grid" aria-label="Study bank totals">
           <div class="metric-card">
-            <span class="metric-value" id="vocabCount">—</span>
-            <span class="metric-label">DP terms</span>
+            <span class="metric-value" id="questionCount">—</span>
+            <span class="metric-label">Practice questions</span>
           </div>
           <div class="metric-card">
-            <span class="metric-value" id="etyCount">—</span>
-            <span class="metric-label">Word parts</span>
+            <span class="metric-value" id="topicCount">—</span>
+            <span class="metric-label">Syllabus topics</span>
           </div>
           <div class="metric-card metric-card-accent">
-            <span class="metric-value" id="totalCount">—</span>
-            <span class="metric-label">Verified entries</span>
+            <span class="metric-value" id="hlTopicCount">—</span>
+            <span class="metric-label">HL-only topics</span>
           </div>
         </div>
       </div>
@@ -99,10 +69,10 @@
         <div class="setup-grid">
           <fieldset class="control-group">
             <legend>Material</legend>
-            <div class="segmented-control" id="studyMode" aria-label="Study material">
-              <button class="segment-button" type="button" data-mode="mixed" aria-pressed="false">Mixed</button>
-              <button class="segment-button is-active" type="button" data-mode="vocab" aria-pressed="true">DP terms</button>
-              <button class="segment-button" type="button" data-mode="ety" aria-pressed="false">Word parts</button>
+            <div class="segmented-control" id="studyMode" aria-label="Course level">
+              <button class="segment-button is-active" type="button" data-mode="all" aria-pressed="true">All DP</button>
+              <button class="segment-button" type="button" data-mode="sl" aria-pressed="false">SL/HL core</button>
+              <button class="segment-button" type="button" data-mode="hl" aria-pressed="false">HL only</button>
             </div>
           </fieldset>
 
@@ -134,90 +104,16 @@
       <div id="studyQuiz" hidden></div>
       <div id="studyResults" hidden></div>
     </section>
-
-    <section
-      class="workspace"
-      id="customView"
-      role="tabpanel"
-      aria-labelledby="customTab"
-      data-view-panel="custom"
-      hidden
-    >
-      <div class="workspace-heading workspace-heading-compact">
-        <div>
-          <p class="eyebrow">Bring your own material</p>
-          <h2>Run a custom multiple-choice quiz</h2>
-          <p>Generate a strict prompt from source text, then paste the resulting JSON back here. Validation happens before the first question appears.</p>
-        </div>
-      </div>
-
-      <div id="customBuilder" class="custom-grid">
-        <section class="surface custom-card" aria-labelledby="promptBuilderTitle">
-          <div class="surface-heading">
-            <div>
-              <p class="step-label">Step 1</p>
-              <h3 id="promptBuilderTitle">Prepare the generation prompt</h3>
-            </div>
-          </div>
-
-          <div class="field-row">
-            <div class="field field-small">
-              <label for="customCount">Questions</label>
-              <input id="customCount" type="number" min="1" max="100" inputmode="numeric" value="10">
-            </div>
-            <div class="field">
-              <label for="customFile">Plain-text file <span>(optional)</span></label>
-              <input id="customFile" type="file" accept=".txt,.md,.csv,text/plain,text/markdown,text/csv">
-            </div>
-          </div>
-
-          <div class="field">
-            <label for="customSource">Source content</label>
-            <textarea id="customSource" rows="11" placeholder="Paste notes, a reading extract, or your own review material."></textarea>
-          </div>
-
-          <button class="button button-secondary" id="buildPrompt" type="button">Generate prompt</button>
-
-          <div class="generated-prompt" id="generatedPrompt" hidden>
-            <div class="generated-prompt-heading">
-              <strong>Ready to copy</strong>
-              <button class="text-button" id="copyPrompt" type="button">Copy prompt</button>
-            </div>
-            <pre id="promptOutput"></pre>
-          </div>
-        </section>
-
-        <section class="surface custom-card" aria-labelledby="customJsonTitle">
-          <div class="surface-heading">
-            <div>
-              <p class="step-label">Step 2</p>
-              <h3 id="customJsonTitle">Validate and launch</h3>
-            </div>
-          </div>
-
-          <div class="field">
-            <label for="customJson">Quiz JSON</label>
-            <textarea id="customJson" class="code-input" rows="18" spellcheck="false" placeholder='{"title":"Cell respiration","questions":[...]}'></textarea>
-          </div>
-
-          <button class="button button-primary" id="loadCustom" type="button">Validate and start</button>
-          <div class="inline-message" id="customError" data-tone="error" role="alert" hidden></div>
-        </section>
-      </div>
-
-      <div id="customQuiz" hidden></div>
-      <div id="customResults" hidden></div>
-    </section>
   </main>
 
   <footer class="site-footer">
     <div>
       <strong>Berthel’s Biology</strong>
-      <span id="footerBankVersion">Version 3.0 · loading audited DP bank</span>
+      <span id="footerBankVersion">Version 4.0 · loading question library</span>
     </div>
     <a href="https://github.com/djberthel/Berthel_Biology">View source on GitHub</a>
   </footer>
 
-  <script type="module" src="assets/app.js?v=3.0.1"></script>
+  <script type="module" src="assets/app.js?v=4.0.0"></script>
 </body>
 </html>
