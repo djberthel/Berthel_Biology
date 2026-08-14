@@ -1,17 +1,12 @@
 #!/usr/bin/env python3
-"""Build the audited browser bank from the DP-aligned content files.
-
-The content files group concise definitions under the 40 topics in the
-IB Diploma Programme Biology subject brief (first assessment 2025). This
-script validates that content before flattening it into the JSON used by the
-website. The spreadsheet is a human-readable audit export of these files.
-"""
+"""Build the browser-ready 1,000-question DP Biology practice bank."""
 
 from __future__ import annotations
 
 import json
 import re
 import sys
+from collections import Counter
 from pathlib import Path
 from typing import Any
 
@@ -20,233 +15,510 @@ FRAMEWORK_URL = (
     "https://ibo.org/globalassets/new-structure/recognition/pdfs/"
     "dp_sciences_biology_subject-brief_jan_2022_e.pdf"
 )
+TOPIC_FILES = (
+    "dp_terms_a.json",
+    "dp_terms_b.json",
+    "dp_terms_c.json",
+    "dp_terms_d.json",
+)
+LETTERS = ("A", "B", "C", "D")
+QUESTIONS_PER_TOPIC = 25
+SCENARIO_QUESTIONS_PER_TOPIC = 10
+COMPARISON_QUESTIONS_PER_TOPIC = 8
+MATCHED_PAIR_QUESTIONS_PER_TOPIC = 7
 
-EXPECTED_TOPICS = [
-    ("A1.1", "Water", "SL/HL"),
-    ("A1.2", "Nucleic acids", "SL/HL"),
-    ("A2.1", "Origins of cells", "HL"),
-    ("A2.2", "Cell structure", "SL/HL"),
-    ("A2.3", "Viruses", "HL"),
-    ("A3.1", "Diversity of organisms", "SL/HL"),
-    ("A3.2", "Classification and cladistics", "HL"),
-    ("A4.1", "Evolution and speciation", "SL/HL"),
-    ("A4.2", "Conservation of biodiversity", "SL/HL"),
-    ("B1.1", "Carbohydrates and lipids", "SL/HL"),
-    ("B1.2", "Proteins", "SL/HL"),
-    ("B2.1", "Membranes and membrane transport", "SL/HL"),
-    ("B2.2", "Organelles and compartmentalization", "SL/HL"),
-    ("B2.3", "Cell specialization", "SL/HL"),
-    ("B3.1", "Gas exchange", "SL/HL"),
-    ("B3.2", "Transport", "SL/HL"),
-    ("B3.3", "Muscle and motility", "HL"),
-    ("B4.1", "Adaptation to environment", "SL/HL"),
-    ("B4.2", "Ecological niches", "SL/HL"),
-    ("C1.1", "Enzymes and metabolism", "SL/HL"),
-    ("C1.2", "Cell respiration", "SL/HL"),
-    ("C1.3", "Photosynthesis", "SL/HL"),
-    ("C2.1", "Chemical signalling", "HL"),
-    ("C2.2", "Neural signalling", "SL/HL"),
-    ("C3.1", "Integration of body systems", "SL/HL"),
-    ("C3.2", "Defence against disease", "SL/HL"),
-    ("C4.1", "Populations and communities", "SL/HL"),
-    ("C4.2", "Transfer of energy and matter", "SL/HL"),
-    ("D1.1", "DNA replication", "SL/HL"),
-    ("D1.2", "Protein synthesis", "SL/HL"),
-    ("D1.3", "Mutations and gene editing", "SL/HL"),
-    ("D2.1", "Cell and nuclear division", "SL/HL"),
-    ("D2.2", "Gene expression", "HL"),
-    ("D2.3", "Water potential", "SL/HL"),
-    ("D3.1", "Reproduction", "SL/HL"),
-    ("D3.2", "Inheritance", "SL/HL"),
-    ("D3.3", "Homeostasis", "SL/HL"),
-    ("D4.1", "Natural selection", "SL/HL"),
-    ("D4.2", "Sustainability and change", "SL/HL"),
-    ("D4.3", "Climate change", "SL/HL"),
-]
+EXPECTED_TOPICS = (
+    ("A1.1", "Unity and diversity", "Water", "SL/HL"),
+    ("A1.2", "Unity and diversity", "Nucleic acids", "SL/HL"),
+    ("A2.1", "Unity and diversity", "Origins of cells", "HL"),
+    ("A2.2", "Unity and diversity", "Cell structure", "SL/HL"),
+    ("A2.3", "Unity and diversity", "Viruses", "HL"),
+    ("A3.1", "Unity and diversity", "Diversity of organisms", "SL/HL"),
+    ("A3.2", "Unity and diversity", "Classification and cladistics", "HL"),
+    ("A4.1", "Unity and diversity", "Evolution and speciation", "SL/HL"),
+    ("A4.2", "Unity and diversity", "Conservation of biodiversity", "SL/HL"),
+    ("B1.1", "Form and function", "Carbohydrates and lipids", "SL/HL"),
+    ("B1.2", "Form and function", "Proteins", "SL/HL"),
+    ("B2.1", "Form and function", "Membranes and membrane transport", "SL/HL"),
+    ("B2.2", "Form and function", "Organelles and compartmentalization", "SL/HL"),
+    ("B2.3", "Form and function", "Cell specialization", "SL/HL"),
+    ("B3.1", "Form and function", "Gas exchange", "SL/HL"),
+    ("B3.2", "Form and function", "Transport", "SL/HL"),
+    ("B3.3", "Form and function", "Muscle and motility", "HL"),
+    ("B4.1", "Form and function", "Adaptation to environment", "SL/HL"),
+    ("B4.2", "Form and function", "Ecological niches", "SL/HL"),
+    ("C1.1", "Interaction and interdependence", "Enzymes and metabolism", "SL/HL"),
+    ("C1.2", "Interaction and interdependence", "Cell respiration", "SL/HL"),
+    ("C1.3", "Interaction and interdependence", "Photosynthesis", "SL/HL"),
+    ("C2.1", "Interaction and interdependence", "Chemical signalling", "HL"),
+    ("C2.2", "Interaction and interdependence", "Neural signalling", "SL/HL"),
+    ("C3.1", "Interaction and interdependence", "Integration of body systems", "SL/HL"),
+    ("C3.2", "Interaction and interdependence", "Defence against disease", "SL/HL"),
+    ("C4.1", "Interaction and interdependence", "Populations and communities", "SL/HL"),
+    ("C4.2", "Interaction and interdependence", "Transfer of energy and matter", "SL/HL"),
+    ("D1.1", "Continuity and change", "DNA replication", "SL/HL"),
+    ("D1.2", "Continuity and change", "Protein synthesis", "SL/HL"),
+    ("D1.3", "Continuity and change", "Mutations and gene editing", "SL/HL"),
+    ("D2.1", "Continuity and change", "Cell and nuclear division", "SL/HL"),
+    ("D2.2", "Continuity and change", "Gene expression", "HL"),
+    ("D2.3", "Continuity and change", "Water potential", "SL/HL"),
+    ("D3.1", "Continuity and change", "Reproduction", "SL/HL"),
+    ("D3.2", "Continuity and change", "Inheritance", "SL/HL"),
+    ("D3.3", "Continuity and change", "Homeostasis", "SL/HL"),
+    ("D4.1", "Continuity and change", "Natural selection", "SL/HL"),
+    ("D4.2", "Continuity and change", "Sustainability and change", "SL/HL"),
+    ("D4.3", "Continuity and change", "Climate change", "SL/HL"),
+)
 
-PLACEHOLDERS = {"", "9", "n/a", "na", "none", "null", "—", "-"}
+SCENARIO_TEMPLATES = (
+    "A student records the following observation: {description} Which term most precisely identifies the concept?",
+    "A biological model is described by the statement below. {description} Which concept is represented?",
+    "Evidence from an investigation is summarized as follows: {description} Which term belongs in the conclusion?",
+    "Which term most precisely labels the following biological description? {description}",
+    "A student must annotate a diagram using this description: {description} Which label should be used?",
+    "During analysis, a student identifies the following feature: {description} Which concept best accounts for it?",
+    "An unfamiliar biological example has the property below. {description} Which term gives the most specific classification?",
+)
+
+MATCHED_PAIR_TEMPLATES = (
+    "Which option correctly matches a concept with its biological description?",
+    "A student constructs a revision table. Which row is scientifically accurate?",
+    "Which concept–description pairing should be retained after checking the table?",
+    "Four annotations are proposed for a biological model. Which annotation is correct?",
+)
+
+STOP_WORDS = {
+    "a", "an", "and", "are", "as", "at", "be", "by", "for", "from", "in", "into",
+    "is", "it", "of", "on", "or", "that", "the", "this", "to", "with", "which",
+}
 
 
-def normalize(value: object) -> str:
+def normalize(value: Any) -> str:
     return re.sub(r"\s+", " ", str(value or "")).strip()
 
 
-def normalized_key(value: object) -> str:
+def normalized_key(value: Any) -> str:
     return normalize(value).casefold()
-
-
-def word_count(value: str) -> int:
-    return len(re.findall(r"\b[\w′’-]+\b", value, flags=re.UNICODE))
 
 
 def load_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def require_text(value: object, label: str) -> str:
-    clean = normalize(value)
-    if normalized_key(clean) in PLACEHOLDERS:
-        raise ValueError(f"{label} is missing or contains a placeholder")
-    return clean
+def require_text(value: Any, label: str) -> str:
+    text = normalize(value)
+    if not text:
+        raise ValueError(f"Missing {label}")
+    return text
 
 
-def require_https(value: object, label: str) -> str:
-    clean = require_text(value, label)
-    if not clean.startswith("https://"):
-        raise ValueError(f"{label} must use an https URL: {clean!r}")
-    return clean
+def require_https(value: Any, label: str) -> str:
+    url = require_text(value, label)
+    if not url.startswith("https://"):
+        raise ValueError(f"{label} must use HTTPS: {url!r}")
+    return url
 
 
-def require_unique(entries: list[dict[str, Any]], field: str, label: str) -> None:
-    locations: dict[str, str] = {}
-    duplicates: list[str] = []
-    for entry in entries:
-        key = normalized_key(entry[field])
-        if key in locations:
-            duplicates.append(f"{entry[field]!r} ({locations[key]} and {entry['id']})")
+def tokens(value: str) -> set[str]:
+    return {
+        token
+        for token in re.sub(r"[^a-z0-9\s-]", " ", normalized_key(value)).split()
+        if len(token) > 1 and token not in STOP_WORDS
+    }
+
+
+def similarity(left: dict[str, str], right: dict[str, str]) -> float:
+    left_tokens = tokens(f"{left['term']} {left['definition']}")
+    right_tokens = tokens(f"{right['term']} {right['definition']}")
+    union = left_tokens | right_tokens
+    overlap = left_tokens & right_tokens
+    return len(overlap) / len(union) if union else 0.0
+
+
+def sanitize_description(definition: str, hidden_terms: list[str]) -> str:
+    result = normalize(definition)
+    for term in sorted(hidden_terms, key=len, reverse=True):
+        pattern = re.compile(rf"(?<!\w){re.escape(term)}(?!\w)", re.IGNORECASE)
+        result = pattern.sub("this concept", result)
+        if normalized_key(term) in normalized_key(result):
+            extended_pattern = re.compile(
+                rf"{re.escape(term)}[A-Za-z0-9₀-₉⁺⁻]*",
+                re.IGNORECASE,
+            )
+            result = extended_pattern.sub("the corresponding form", result)
+    return result
+
+
+def place_correct(correct: str, distractors: list[str], target_letter: str) -> list[str]:
+    if len(distractors) != 3:
+        raise ValueError("Each question requires exactly three distractors")
+    choices: list[str] = []
+    distractor_index = 0
+    for letter in LETTERS:
+        if letter == target_letter:
+            choices.append(correct)
         else:
-            locations[key] = entry["id"]
-    if duplicates:
-        raise ValueError(f"Duplicate {label}: " + "; ".join(duplicates))
+            choices.append(distractors[distractor_index])
+            distractor_index += 1
+    if len({normalized_key(choice) for choice in choices}) != 4:
+        raise ValueError(f"Repeated choices generated: {choices!r}")
+    return choices
+
+
+def ranked_distractors(terms: list[dict[str, str]], correct_index: int) -> list[dict[str, str]]:
+    correct = terms[correct_index]
+    candidates = [entry for index, entry in enumerate(terms) if index != correct_index]
+    return sorted(
+        candidates,
+        key=lambda entry: (-similarity(correct, entry), normalized_key(entry["term"])),
+    )
+
+
+def scenario_question(
+    topic: dict[str, Any],
+    terms: list[dict[str, str]],
+    term_index: int,
+    question_number: int,
+    global_index: int,
+) -> dict[str, Any]:
+    correct_entry = terms[term_index]
+    ranked = ranked_distractors(terms, term_index)
+    distractor_entries = ranked[:3]
+    correct = correct_entry["term"]
+    target_letter = LETTERS[global_index % len(LETTERS)]
+    description = sanitize_description(
+        correct_entry["definition"],
+        [correct, *(entry["term"] for entry in distractor_entries)],
+    )
+    stem = SCENARIO_TEMPLATES[term_index % len(SCENARIO_TEMPLATES)].format(
+        description=description
+    )
+    definition = correct_entry["definition"].rstrip(".")
+    rationale = f"{correct} is correct because it refers to {definition[0].lower() + definition[1:]}."
+    choices = place_correct(
+        correct,
+        [entry["term"] for entry in distractor_entries],
+        target_letter,
+    )
+    return {
+        "id": f"{topic['code']}-Q{question_number:02d}",
+        "code": topic["code"],
+        "theme": topic["theme"],
+        "topic": topic["topic"],
+        "level": topic["level"],
+        "format": "scenario",
+        "skill": "application",
+        "stem": stem,
+        "choices": choices,
+        "answer": target_letter,
+        "correctText": correct,
+        "rationale": rationale,
+        "concepts": [correct],
+        "choiceConcepts": choices,
+        "sourceTitle": topic["sourceTitle"],
+        "sourceUrl": topic["sourceUrl"],
+    }
+
+
+def comparison_question(
+    topic: dict[str, Any],
+    terms: list[dict[str, str]],
+    comparison_index: int,
+    question_number: int,
+    global_index: int,
+) -> dict[str, Any]:
+    term_count = len(terms)
+    pair_offset = comparison_index * 2
+    first_index = (
+        SCENARIO_QUESTIONS_PER_TOPIC
+        + pair_offset
+        + pair_offset // term_count
+    ) % term_count
+    second_index = (first_index + 1) % term_count
+    if second_index == first_index:
+        second_index = (second_index + 1) % term_count
+    first = terms[first_index]
+    second = terms[second_index]
+    ranked = [
+        entry
+        for entry in ranked_distractors(terms, first_index)
+        if entry["term"] != second["term"]
+    ]
+    third = ranked[comparison_index % len(ranked)]
+    hidden_terms = [first["term"], second["term"], third["term"]]
+    first_description = sanitize_description(first["definition"], hidden_terms)
+    second_description = sanitize_description(second["definition"], hidden_terms)
+    stem = (
+        f"Statement I: {first_description} "
+        f"Statement II: {second_description} "
+        "Which option correctly identifies statements I and II?"
+    )
+    correct = f"I: {first['term']}; II: {second['term']}"
+    distractors = [
+        f"I: {second['term']}; II: {first['term']}",
+        f"I: {first['term']}; II: {third['term']}",
+        f"I: {third['term']}; II: {second['term']}",
+    ]
+    target_letter = LETTERS[global_index % len(LETTERS)]
+    choices = place_correct(correct, distractors, target_letter)
+    return {
+        "id": f"{topic['code']}-Q{question_number:02d}",
+        "code": topic["code"],
+        "theme": topic["theme"],
+        "topic": topic["topic"],
+        "level": topic["level"],
+        "format": "paired-evidence",
+        "skill": "analysis",
+        "stem": stem,
+        "choices": choices,
+        "answer": target_letter,
+        "correctText": correct,
+        "rationale": (
+            f"Statement I describes {first['term']}; statement II describes {second['term']}."
+        ),
+        "concepts": [first["term"], second["term"]],
+        "choiceConcepts": hidden_terms,
+        "sourceTitle": topic["sourceTitle"],
+        "sourceUrl": topic["sourceUrl"],
+    }
+
+
+def matched_pair_question(
+    topic: dict[str, Any],
+    terms: list[dict[str, str]],
+    match_index: int,
+    question_number: int,
+    global_index: int,
+) -> dict[str, Any]:
+    term_count = len(terms)
+    indices = []
+    cursor = (match_index * 3 + 2) % term_count
+    while len(indices) < 4:
+        candidate = cursor % term_count
+        if candidate not in indices:
+            indices.append(candidate)
+        cursor += 2
+    first, second, third, fourth = (terms[index] for index in indices)
+    correct = f"{first['term']} — {first['definition']}"
+    distractors = [
+        f"{second['term']} — {third['definition']}",
+        f"{third['term']} — {fourth['definition']}",
+        f"{fourth['term']} — {second['definition']}",
+    ]
+    target_letter = LETTERS[global_index % len(LETTERS)]
+    choices = place_correct(correct, distractors, target_letter)
+    return {
+        "id": f"{topic['code']}-Q{question_number:02d}",
+        "code": topic["code"],
+        "theme": topic["theme"],
+        "topic": topic["topic"],
+        "level": topic["level"],
+        "format": "matched-pair",
+        "skill": "analysis",
+        "stem": (
+            f"A student checks revision table {match_index + 1} for {topic['topic']}. "
+            f"{MATCHED_PAIR_TEMPLATES[match_index % len(MATCHED_PAIR_TEMPLATES)]}"
+        ),
+        "choices": choices,
+        "answer": target_letter,
+        "correctText": correct,
+        "rationale": (
+            f"{first['term']} is correctly matched: {first['definition']} "
+            "The other options pair terms with descriptions of different concepts."
+        ),
+        "concepts": [entry["term"] for entry in (first, second, third, fourth)],
+        "choiceConcepts": [entry["term"] for entry in (first, second, third, fourth)],
+        "sourceTitle": topic["sourceTitle"],
+        "sourceUrl": topic["sourceUrl"],
+    }
+
+
+def load_topics(repository_root: Path) -> list[dict[str, Any]]:
+    content_dir = repository_root / "content"
+    loaded: dict[str, dict[str, Any]] = {}
+    seen_terms: set[str] = set()
+    seen_definitions: set[str] = set()
+
+    for filename in TOPIC_FILES:
+        payload = load_json(content_dir / filename)
+        if not isinstance(payload, list):
+            raise ValueError(f"{filename} must contain a JSON array")
+        for raw_topic in payload:
+            code = require_text(raw_topic.get("code"), f"{filename} topic code")
+            if code in loaded:
+                raise ValueError(f"Repeated topic code: {code}")
+            topic = {
+                "code": code,
+                "theme": require_text(raw_topic.get("theme"), f"{code} theme"),
+                "topic": require_text(raw_topic.get("topic"), f"{code} topic"),
+                "level": require_text(raw_topic.get("level"), f"{code} level"),
+                "sourceTitle": require_text(raw_topic.get("sourceTitle"), f"{code} source title"),
+                "sourceUrl": require_https(raw_topic.get("sourceUrl"), f"{code} source URL"),
+                "terms": [],
+            }
+            raw_terms = raw_topic.get("terms")
+            if not isinstance(raw_terms, list) or len(raw_terms) < 10:
+                raise ValueError(f"{code} must contain at least ten substantive concepts")
+            for sequence, raw_entry in enumerate(raw_terms, start=1):
+                term = require_text(raw_entry.get("term"), f"{code} term {sequence}")
+                definition = require_text(
+                    raw_entry.get("definition"), f"{code} definition {sequence}"
+                )
+                term_key = normalized_key(term)
+                definition_key = normalized_key(definition)
+                if term_key in seen_terms:
+                    raise ValueError(f"Repeated DP term: {term}")
+                if definition_key in seen_definitions:
+                    raise ValueError(f"Repeated DP definition: {definition}")
+                seen_terms.add(term_key)
+                seen_definitions.add(definition_key)
+                topic["terms"].append({"term": term, "definition": definition})
+            loaded[code] = topic
+
+    expected_codes = [row[0] for row in EXPECTED_TOPICS]
+    if set(loaded) != set(expected_codes):
+        missing = sorted(set(expected_codes) - set(loaded))
+        extra = sorted(set(loaded) - set(expected_codes))
+        raise ValueError(f"Framework topic mismatch; missing={missing}, extra={extra}")
+
+    ordered: list[dict[str, Any]] = []
+    for code, theme, topic_name, level in EXPECTED_TOPICS:
+        topic = loaded[code]
+        actual = (topic["theme"], topic["topic"], topic["level"])
+        expected = (theme, topic_name, level)
+        if actual != expected:
+            raise ValueError(f"{code} framework mismatch: {actual!r} != {expected!r}")
+        ordered.append(topic)
+    return ordered
+
+
+def validate_questions(questions: list[dict[str, Any]], topics: list[dict[str, Any]]) -> None:
+    if len(questions) != 1000:
+        raise ValueError(f"Expected 1,000 questions; generated {len(questions)}")
+    ids = [question["id"] for question in questions]
+    stems = [normalized_key(question["stem"]) for question in questions]
+    if len(set(ids)) != len(ids):
+        raise ValueError("Question IDs must be unique")
+    if len(set(stems)) != len(stems):
+        raise ValueError("Question stems must be unique")
+
+    per_topic = Counter(question["code"] for question in questions)
+    if any(per_topic[topic["code"]] != QUESTIONS_PER_TOPIC for topic in topics):
+        raise ValueError(f"Every topic must have {QUESTIONS_PER_TOPIC} questions: {per_topic}")
+
+    answer_balance = Counter(question["answer"] for question in questions)
+    if answer_balance != Counter({letter: 250 for letter in LETTERS}):
+        raise ValueError(f"Answer letters are not balanced: {answer_balance}")
+
+    covered_concepts = {
+        normalized_key(concept)
+        for question in questions
+        for concept in question["concepts"]
+    }
+    source_concepts = {
+        normalized_key(entry["term"])
+        for topic in topics
+        for entry in topic["terms"]
+    }
+    if covered_concepts != source_concepts:
+        raise ValueError("The generated bank does not cover every source concept")
+
+    for question in questions:
+        choices = question["choices"]
+        if len(choices) != 4 or len({normalized_key(choice) for choice in choices}) != 4:
+            raise ValueError(f"{question['id']} must have four distinct choices")
+        if question["answer"] not in LETTERS:
+            raise ValueError(f"{question['id']} has an invalid answer letter")
+        keyed = choices[LETTERS.index(question["answer"])]
+        if keyed != question["correctText"]:
+            raise ValueError(f"{question['id']} answer key does not match correctText")
+        if question["skill"] not in {"application", "analysis"}:
+            raise ValueError(f"{question['id']} has an invalid skill label")
+        if question["format"] not in {"scenario", "paired-evidence", "matched-pair"}:
+            raise ValueError(f"{question['id']} has an invalid question format")
+        require_https(question["sourceUrl"], f"{question['id']} source URL")
 
 
 def build_bank(repository_root: Path) -> dict[str, Any]:
-    content_dir = repository_root / "content"
-    topic_files = [content_dir / f"dp_terms_{letter}.json" for letter in "abcd"]
-    topics: list[dict[str, Any]] = []
-    for path in topic_files:
-        payload = load_json(path)
-        if not isinstance(payload, list):
-            raise ValueError(f"{path.name} must contain a JSON array")
-        topics.extend(payload)
+    topics = load_topics(repository_root)
+    questions: list[dict[str, Any]] = []
+    topic_summaries: list[dict[str, Any]] = []
 
-    actual_framework = [
-        (
-            normalize(topic.get("code")),
-            normalize(topic.get("topic")),
-            normalize(topic.get("level")),
-        )
-        for topic in topics
-    ]
-    if actual_framework != EXPECTED_TOPICS:
-        raise ValueError(
-            "DP topic order, names, or levels do not match the official 40-topic framework"
-        )
-
-    vocabulary: list[dict[str, Any]] = []
-    topic_summary: list[dict[str, Any]] = []
     for topic in topics:
-        code = require_text(topic.get("code"), "topic code")
-        theme = require_text(topic.get("theme"), f"{code} theme")
-        topic_name = require_text(topic.get("topic"), f"{code} topic")
-        level = require_text(topic.get("level"), f"{code} level")
-        source_title = require_text(topic.get("sourceTitle"), f"{code} source title")
-        source_url = require_https(topic.get("sourceUrl"), f"{code} source URL")
-        terms = topic.get("terms")
-        if not isinstance(terms, list) or len(terms) < 10:
-            raise ValueError(f"{code} must contain at least 10 substantive terms")
-
-        for sequence, source_entry in enumerate(terms, start=1):
-            term = require_text(source_entry.get("term"), f"{code} term {sequence}")
-            definition = require_text(
-                source_entry.get("definition"), f"{code} definition {sequence}"
-            )
-            entry_source_title = normalize(source_entry.get("sourceTitle")) or source_title
-            entry_source_url = normalize(source_entry.get("sourceUrl")) or source_url
-            entry_source_url = require_https(
-                entry_source_url, f"{code} {term!r} source URL"
-            )
-            definition_words = word_count(definition)
-            if not 5 <= definition_words <= 32:
-                raise ValueError(
-                    f"{code} {term!r} definition has {definition_words} words; expected 5–32"
+        terms = topic["terms"]
+        topic_questions: list[dict[str, Any]] = []
+        for term_index in range(SCENARIO_QUESTIONS_PER_TOPIC):
+            topic_questions.append(
+                scenario_question(
+                    topic,
+                    terms,
+                    term_index,
+                    len(topic_questions) + 1,
+                    len(questions) + len(topic_questions),
                 )
-            if not definition[0].isupper() or definition[-1] not in ".!?":
-                raise ValueError(
-                    f"{code} {term!r} definition must be a complete sentence: {definition!r}"
-                )
-            vocabulary.append(
-                {
-                    "id": f"{code}-{sequence:02d}",
-                    "code": code,
-                    "section": f"{code} · {topic_name}",
-                    "theme": theme,
-                    "topic": topic_name,
-                    "level": level,
-                    "term": term,
-                    "definition": definition,
-                    "sourceTitle": entry_source_title,
-                    "sourceUrl": entry_source_url,
-                }
             )
-
-        topic_summary.append(
+        for comparison_index in range(COMPARISON_QUESTIONS_PER_TOPIC):
+            topic_questions.append(
+                comparison_question(
+                    topic,
+                    terms,
+                    comparison_index,
+                    len(topic_questions) + 1,
+                    len(questions) + len(topic_questions),
+                )
+            )
+        for match_index in range(MATCHED_PAIR_QUESTIONS_PER_TOPIC):
+            topic_questions.append(
+                matched_pair_question(
+                    topic,
+                    terms,
+                    match_index,
+                    len(topic_questions) + 1,
+                    len(questions) + len(topic_questions),
+                )
+            )
+        if len(topic_questions) != QUESTIONS_PER_TOPIC:
+            raise ValueError(f"{topic['code']} generated {len(topic_questions)} questions")
+        questions.extend(topic_questions)
+        topic_summaries.append(
             {
-                "code": code,
-                "theme": theme,
-                "topic": topic_name,
-                "level": level,
-                "count": len(terms),
+                "code": topic["code"],
+                "theme": topic["theme"],
+                "topic": topic["topic"],
+                "level": topic["level"],
+                "conceptCount": len(terms),
+                "questionCount": len(topic_questions),
             }
         )
 
-    require_unique(vocabulary, "term", "DP terms")
-    require_unique(vocabulary, "definition", "DP definitions")
-
-    word_parts_payload = load_json(content_dir / "word_parts.json")
-    source_title = require_text(
-        word_parts_payload.get("sourceTitle"), "word-parts source title"
-    )
-    source_url = require_https(
-        word_parts_payload.get("sourceUrl"), "word-parts source URL"
-    )
-    raw_word_parts = word_parts_payload.get("entries")
-    if not isinstance(raw_word_parts, list) or len(raw_word_parts) < 50:
-        raise ValueError("word_parts.json must contain at least 50 entries")
-
-    etymology: list[dict[str, Any]] = []
-    for sequence, source_entry in enumerate(raw_word_parts, start=1):
-        part = require_text(source_entry.get("part"), f"word part {sequence}")
-        meaning = require_text(source_entry.get("meaning"), f"{part} meaning")
-        examples = require_text(source_entry.get("examples"), f"{part} examples")
-        etymology.append(
-            {
-                "id": f"WP-{sequence:03d}",
-                "section": "Biological word parts",
-                "part": part,
-                "meaning": meaning,
-                "examples": examples,
-                "ambiguityGroup": normalize(source_entry.get("ambiguityGroup")),
-                "sourceTitle": source_title,
-                "sourceUrl": source_url,
-            }
-        )
-
-    require_unique(etymology, "part", "word parts")
-
-    counts = {
-        "topics": len(topic_summary),
-        "vocabulary": len(vocabulary),
-        "etymology": len(etymology),
-        "total": len(vocabulary) + len(etymology),
-    }
+    validate_questions(questions, topics)
+    sl_hl = sum(question["level"] == "SL/HL" for question in questions)
+    hl_only = sum(question["level"] == "HL" for question in questions)
+    source_concepts = sum(len(topic["terms"]) for topic in topics)
     return {
-        "schemaVersion": 2,
+        "schemaVersion": 3,
         "framework": {
             "title": "IB Diploma Programme Biology",
             "firstAssessment": 2025,
             "topicCount": 40,
             "url": FRAMEWORK_URL,
         },
-        "source": "content/dp_terms_*.json + content/word_parts.json",
+        "source": "content/dp_terms_*.json",
         "audit": {
-            "questionModel": "definition-to-term",
-            "contentStatus": "curated-and-validated",
+            "status": "generated-and-validated",
+            "questionStyle": "original Paper 1A-inspired practice",
+            "questionsPerTopic": QUESTIONS_PER_TOPIC,
+            "answerChoicesPerQuestion": 4,
         },
-        "counts": counts,
-        "topics": topic_summary,
-        "vocabulary": vocabulary,
-        "etymology": etymology,
+        "counts": {
+            "questions": len(questions),
+            "topics": len(topic_summaries),
+            "sourceConcepts": source_concepts,
+            "slHlQuestions": sl_hl,
+            "hlOnlyQuestions": hl_only,
+        },
+        "topics": topic_summaries,
+        "questions": questions,
     }
 
 
@@ -266,12 +538,10 @@ def main() -> int:
         json.dumps(bank, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
-
     counts = bank["counts"]
     print(
-        f"Built {output_path}: {counts['vocabulary']} DP terms across "
-        f"{counts['topics']} topics + {counts['etymology']} word parts = "
-        f"{counts['total']} verified entries"
+        f"Built {output_path}: {counts['questions']} original questions across "
+        f"{counts['topics']} topics from {counts['sourceConcepts']} audited concepts"
     )
     return 0
 

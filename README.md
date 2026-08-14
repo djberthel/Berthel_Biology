@@ -1,28 +1,29 @@
 # Berthel’s Biology
 
-A static IB Diploma Programme Biology terminology review site published with GitHub Pages. The content follows the 40-topic framework for first assessment 2025 and includes explicit SL/HL or HL-only labels.
+A static IB Diploma Programme Biology practice site published with GitHub Pages. The library contains 1,000 original multiple-choice questions across the 40-topic framework for first assessment 2025, with explicit SL/HL or HL-only labels.
 
 ## Project structure
 
 - `index.html` contains the accessible page structure.
 - `assets/styles.css` contains the responsive visual system.
-- `assets/quiz-core.js` contains data-independent quiz generation and validation.
+- `assets/quiz-core.js` samples the validated question library, balances answer letters, and summarizes every response state.
 - `assets/app.js` connects the quiz logic to the page.
 - `content/dp_terms_*.json` contains the reviewed DP terminology, grouped by the four themes and 40 official topics.
-- `content/word_parts.json` contains the curated biological roots and ambiguity exclusions.
-- `Vocab_Ety_Master_List.xlsx` is a filterable audit workbook with coverage, sources, and QA results.
-- `data/biology-bank.json` is the generated browser-ready study bank.
+- `content/word_parts.json` retains the curated biological roots for reference.
+- `Vocab_Ety_Master_List.xlsx` remains the filterable terminology audit workbook.
+- `data/biology-bank.json` is the generated browser-ready 1,000-question practice bank.
 
-The JSON files in `content/` are canonical. The workbook and browser bank are synchronized exports; this prevents stale spreadsheet aggregates and duplicated aliases from returning.
+The DP terminology JSON files are canonical concept sources. The browser question bank is rebuilt deterministically from them, preventing stale questions or duplicated concepts from returning.
 
 ## Content model
 
-- 673 DP Biology terms across all 40 topics
-- 106 curated biological word parts
-- Definitions are question prompts; concise terms are the choices
-- Mixed sets use a 75:25 ratio of DP terms to word parts
-- Synonymous word roots are tagged so they cannot appear as competing answers
-- Every definition is 5–32 words, source-linked, unique, and written as a complete sentence
+- 1,000 original multiple-choice questions: 25 for each of 40 topics
+- 400 scenario-based application questions
+- 320 paired-evidence analysis questions
+- 280 concept–description matching questions
+- Four same-topic or concept-linked choices per question
+- Exactly 250 stored answer keys for each letter A–D
+- 850 SL/HL questions and 150 questions from the six HL-only topics
 
 ## Updating the bank
 
@@ -33,7 +34,7 @@ npm run build:data
 npm test
 ```
 
-The data builder rejects framework drift, missing values, placeholders, duplicate terms, duplicate definitions, invalid source links, and definitions outside the length standard. The test suite generates all 779 possible questions across six seeded distractor arrangements (4,674 checked instances), and verifies one keyed answer and four distinct choices every time.
+The data builder rejects framework drift, missing values, duplicate terms, duplicate stems, repeated choices, unbalanced answer keys, missing sources, and incomplete topic coverage. The test suite regenerates and checks all 1,000 questions across six option arrangements, then verifies the correct, incorrect, and unanswered result states.
 
 ## Local preview
 
