@@ -94,9 +94,9 @@
       {"term": "70S ribosome", "definition": "The smaller ribosome type found in prokaryotes, mitochondria, and chloroplasts, containing 50S and 30S subunits."},
       {"term": "80S ribosome", "definition": "The larger ribosome type in the eukaryotic cytosol, containing 60S and 40S subunits."},
       {"term": "Electron microscope", "definition": "An instrument that uses electrons rather than visible light to resolve very small cellular structures."},
-      {"term": "Magnification", "definition": "The ratio of an image’s measured size to the specimen’s actual size."},
+      {"term": "Magnification", "definition": "The ratio of a specimen’s apparent measured size to its actual size."},
       {"term": "Resolution", "definition": "The ability to distinguish two nearby points as separate structures."},
-      {"term": "Scale bar", "definition": "A line on an image that represents a stated actual distance in the specimen."}
+      {"term": "Scale bar", "definition": "A marked line representing a stated actual distance within a specimen view."}
     ]
   },
   {
@@ -160,7 +160,7 @@
       {"term": "Taxonomy", "definition": "The science of naming, describing, and classifying organisms."},
       {"term": "Taxon", "definition": "A named group of organisms at any rank in a classification system."},
       {"term": "Clade (monophyletic group)", "definition": "A common ancestor together with all of its descendants."},
-      {"term": "Cladogram", "definition": "A branching diagram representing hypothesized relationships based on shared derived characteristics."},
+      {"term": "Cladogram", "definition": "A branching representation of hypothesized relationships based on shared derived characteristics."},
       {"term": "Node", "definition": "A branch point on a phylogenetic tree representing a common ancestor or lineage split."},
       {"term": "Synapomorphy", "definition": "A shared derived characteristic used as evidence that taxa belong to the same clade."},
       {"term": "Outgroup", "definition": "A comparison taxon outside the group being studied, used to identify ancestral character states."},

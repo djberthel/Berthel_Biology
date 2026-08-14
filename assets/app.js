@@ -2,7 +2,7 @@ import {
   clampQuestionCount,
   createStudyQuiz,
   summarizeQuiz,
-} from "./quiz-core.js?v=4.0.0";
+} from "./quiz-core.js?v=4.1.0";
 
 const $ = (selector, scope = document) => scope.querySelector(selector);
 const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
@@ -413,7 +413,7 @@ function validateBank(bank) {
 
 async function loadBank() {
   try {
-    const response = await fetch("data/biology-bank.json", { cache: "no-cache" });
+    const response = await fetch("data/biology-bank.json?v=4.1.0", { cache: "no-cache" });
     if (!response.ok) throw new Error(`Practice bank request failed (${response.status}).`);
     const bank = await response.json();
     const total = validateBank(bank);
@@ -424,9 +424,9 @@ async function loadBank() {
       .filter((topic) => topic.level === "HL")
       .length
       .toLocaleString();
-    elements.footerBankVersion.textContent = `Version 4.0 · ${total.toLocaleString()}-question DP bank`;
+    elements.footerBankVersion.textContent = `Version 4.1 · ${total.toLocaleString()} self-contained questions`;
     elements.startStudy.disabled = false;
-    setStatus("ready", `${total.toLocaleString()} questions ready`);
+    setStatus("ready", `${total.toLocaleString()} self-contained questions ready`);
   } catch (error) {
     setStatus("error", "Practice bank unavailable");
     showMessage(elements.studyError, error.message || "The practice bank could not be loaded.");

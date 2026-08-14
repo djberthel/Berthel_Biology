@@ -21,6 +21,7 @@ The DP terminology JSON files are canonical concept sources. The browser questio
 - 400 scenario-based application questions
 - 320 paired-evidence analysis questions
 - 280 concept–description matching questions
+- Self-contained text: no question depends on an unseen graph, image, table, diagram, or model
 - Four same-topic or concept-linked choices per question
 - Exactly 250 stored answer keys for each letter A–D
 - 850 SL/HL questions and 150 questions from the six HL-only topics
@@ -34,7 +35,7 @@ npm run build:data
 npm test
 ```
 
-The data builder rejects framework drift, missing values, duplicate terms, duplicate stems, repeated choices, unbalanced answer keys, missing sources, and incomplete topic coverage. The test suite regenerates and checks all 1,000 questions across six option arrangements, then verifies the correct, incorrect, and unanswered result states.
+The data builder rejects framework drift, missing values, duplicate terms, duplicate stems, repeated choices, unbalanced answer keys, missing sources, incomplete topic coverage, unresolved generated placeholders, and wording that depends on a missing visual. The test suite regenerates and checks all 1,000 questions across six option arrangements, then verifies the correct, incorrect, and unanswered result states.
 
 ## Local preview
 

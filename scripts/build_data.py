@@ -71,20 +71,53 @@ EXPECTED_TOPICS = (
 )
 
 SCENARIO_TEMPLATES = (
-    "A student records the following observation: {description} Which term most precisely identifies the concept?",
-    "A biological model is described by the statement below. {description} Which concept is represented?",
-    "Evidence from an investigation is summarized as follows: {description} Which term belongs in the conclusion?",
-    "Which term most precisely labels the following biological description? {description}",
-    "A student must annotate a diagram using this description: {description} Which label should be used?",
-    "During analysis, a student identifies the following feature: {description} Which concept best accounts for it?",
-    "An unfamiliar biological example has the property below. {description} Which term gives the most specific classification?",
+    "A student records this finding: {description} Which term most precisely identifies the concept?",
+    "A biological concept is defined as follows: {description} Which term matches the definition?",
+    "Evidence from an investigation supports this conclusion: {description} Which term best completes the conclusion?",
+    "Which term most precisely labels this biological description? {description}",
+    "A student is given this definition: {description} Which term is the best match?",
+    "Which concept best accounts for this biological feature? {description}",
+    "An unfamiliar biological example is described as follows: {description} Which term gives the most specific classification?",
 )
 
 MATCHED_PAIR_TEMPLATES = (
-    "Which option correctly matches a concept with its biological description?",
-    "A student constructs a revision table. Which row is scientifically accurate?",
-    "Which concept–description pairing should be retained after checking the table?",
-    "Four annotations are proposed for a biological model. Which annotation is correct?",
+    "which option correctly matches a concept with its biological definition?",
+    "which row contains a scientifically accurate concept–definition pair?",
+    "which concept–definition pairing is correct?",
+    "select the only accurately matched concept and description.",
+    "which option pairs a biological term with its correct meaning?",
+    "which pairing would be scientifically valid in a DP Biology glossary?",
+    "which term and definition belong together?",
+)
+
+MISSING_CONTEXT_PATTERNS = (
+    re.compile(
+        r"\b(?:graph|diagram|figure|image|table|chart|micrograph|illustration)\b",
+        re.IGNORECASE,
+    ),
+    re.compile(
+        r"\b(?:graph|diagram|figure|image|table|chart|micrograph|illustration|visual)\s+"
+        r"(?:above|below|shown|provided|displayed|presented|pictured)\b",
+        re.IGNORECASE,
+    ),
+    re.compile(
+        r"\b(?:above|below|shown|provided|displayed|presented|pictured)\s+"
+        r"(?:graph|diagram|figure|image|table|chart|micrograph|illustration|visual)\b",
+        re.IGNORECASE,
+    ),
+    re.compile(
+        r"\b(?:annotate|label|inspect|examine|study|refer to)\s+(?:the|this|a)\s+"
+        r"(?:graph|diagram|figure|image|table|chart|micrograph|illustration|visual|model)\b",
+        re.IGNORECASE,
+    ),
+    re.compile(r"\b(?:statement|property)\s+below\b", re.IGNORECASE),
+    re.compile(r"\bstudent checks revision table\b", re.IGNORECASE),
+    re.compile(r"\bannotations? (?:are|is) proposed for a biological model\b", re.IGNORECASE),
+    re.compile(
+        r"\b(?:data|results|values?|trend|pattern)\s+"
+        r"(?:shown|displayed|presented|plotted|provided)\b",
+        re.IGNORECASE,
+    ),
 )
 
 STOP_WORDS = {
@@ -135,18 +168,26 @@ def similarity(left: dict[str, str], right: dict[str, str]) -> float:
     return len(overlap) / len(union) if union else 0.0
 
 
-def sanitize_description(definition: str, hidden_terms: list[str]) -> str:
+def term_appears_in_text(term: str, text: str) -> bool:
+    term_text = normalize(term)
+    compact_term = re.sub(r"\W", "", normalized_key(term_text))
+    if len(compact_term) > 3:
+        return normalized_key(term_text) in normalized_key(text)
+    pattern = re.compile(rf"(?<!\w){re.escape(term_text)}(?!\w)", re.IGNORECASE)
+    return bool(pattern.search(normalize(text)))
+
+
+def question_description(definition: str, hidden_term: str) -> str:
     result = normalize(definition)
-    for term in sorted(hidden_terms, key=len, reverse=True):
-        pattern = re.compile(rf"(?<!\w){re.escape(term)}(?!\w)", re.IGNORECASE)
-        result = pattern.sub("this concept", result)
-        if normalized_key(term) in normalized_key(result):
-            extended_pattern = re.compile(
-                rf"{re.escape(term)}[A-Za-z0-9₀-₉⁺⁻]*",
-                re.IGNORECASE,
-            )
-            result = extended_pattern.sub("the corresponding form", result)
+    if term_appears_in_text(hidden_term, result):
+        raise ValueError(
+            f"Definition for {hidden_term!r} reveals the keyed term and must be rewritten"
+        )
     return result
+
+
+def requires_missing_context(stem: str) -> bool:
+    return any(pattern.search(stem) for pattern in MISSING_CONTEXT_PATTERNS)
 
 
 def place_correct(correct: str, distractors: list[str], target_letter: str) -> list[str]:
@@ -182,14 +223,19 @@ def scenario_question(
     global_index: int,
 ) -> dict[str, Any]:
     correct_entry = terms[term_index]
-    ranked = ranked_distractors(terms, term_index)
+    description = question_description(correct_entry["definition"], correct_entry["term"])
+    ranked = [
+        entry
+        for entry in ranked_distractors(terms, term_index)
+        if not term_appears_in_text(entry["term"], description)
+    ]
+    if len(ranked) < 3:
+        raise ValueError(
+            f"{topic['code']} {correct_entry['term']} does not have three unmentioned distractors"
+        )
     distractor_entries = ranked[:3]
     correct = correct_entry["term"]
     target_letter = LETTERS[global_index % len(LETTERS)]
-    description = sanitize_description(
-        correct_entry["definition"],
-        [correct, *(entry["term"] for entry in distractor_entries)],
-    )
     stem = SCENARIO_TEMPLATES[term_index % len(SCENARIO_TEMPLATES)].format(
         description=description
     )
@@ -245,9 +291,9 @@ def comparison_question(
         if entry["term"] != second["term"]
     ]
     third = ranked[comparison_index % len(ranked)]
-    hidden_terms = [first["term"], second["term"], third["term"]]
-    first_description = sanitize_description(first["definition"], hidden_terms)
-    second_description = sanitize_description(second["definition"], hidden_terms)
+    choice_terms = [first["term"], second["term"], third["term"]]
+    first_description = question_description(first["definition"], first["term"])
+    second_description = question_description(second["definition"], second["term"])
     stem = (
         f"Statement I: {first_description} "
         f"Statement II: {second_description} "
@@ -277,7 +323,7 @@ def comparison_question(
             f"Statement I describes {first['term']}; statement II describes {second['term']}."
         ),
         "concepts": [first["term"], second["term"]],
-        "choiceConcepts": hidden_terms,
+        "choiceConcepts": choice_terms,
         "sourceTitle": topic["sourceTitle"],
         "sourceUrl": topic["sourceUrl"],
     }
@@ -316,7 +362,7 @@ def matched_pair_question(
         "format": "matched-pair",
         "skill": "analysis",
         "stem": (
-            f"A student checks revision table {match_index + 1} for {topic['topic']}. "
+            f"For the topic {topic['topic']}, "
             f"{MATCHED_PAIR_TEMPLATES[match_index % len(MATCHED_PAIR_TEMPLATES)]}"
         ),
         "choices": choices,
@@ -424,6 +470,13 @@ def validate_questions(questions: list[dict[str, Any]], topics: list[dict[str, A
         raise ValueError("The generated bank does not cover every source concept")
 
     for question in questions:
+        if requires_missing_context(question["stem"]):
+            raise ValueError(
+                f"{question['id']} depends on missing visual or external context: "
+                f"{question['stem']}"
+            )
+        if re.search(r"\b(?:this concept|the corresponding form)\b", question["stem"], re.IGNORECASE):
+            raise ValueError(f"{question['id']} contains an unresolved placeholder")
         choices = question["choices"]
         if len(choices) != 4 or len({normalized_key(choice) for choice in choices}) != 4:
             raise ValueError(f"{question['id']} must have four distinct choices")
@@ -509,6 +562,8 @@ def build_bank(repository_root: Path) -> dict[str, Any]:
             "questionStyle": "original Paper 1A-inspired practice",
             "questionsPerTopic": QUESTIONS_PER_TOPIC,
             "answerChoicesPerQuestion": 4,
+            "selfContainedStems": True,
+            "requiresExternalVisuals": False,
         },
         "counts": {
             "questions": len(questions),
