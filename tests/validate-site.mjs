@@ -42,6 +42,8 @@ assert.match(bank.framework.url, /^https:\/\/ibo\.org\//);
 assert.equal(bank.audit.questionStyle, "original Paper 1A-inspired practice");
 assert.equal(bank.audit.questionsPerTopic, 25);
 assert.equal(bank.audit.answerChoicesPerQuestion, 4);
+assert.equal(bank.audit.selfContainedStems, true);
+assert.equal(bank.audit.requiresExternalVisuals, false);
 assert.equal(bank.counts.questions, 1000);
 assert.equal(bank.counts.topics, 40);
 assert.equal(bank.counts.sourceConcepts, 673);
@@ -74,6 +76,16 @@ assert.equal(comparisonQuestions.length, 320, "eight paired-evidence questions a
 assert.equal(matchedPairQuestions.length, 280, "seven concept-matching questions are included per topic");
 
 const answerCounts = new Map(["A", "B", "C", "D"].map((letter) => [letter, 0]));
+const missingContextPatterns = [
+  /\b(?:graph|diagram|figure|image|table|chart|micrograph|illustration)\b/i,
+  /\b(?:graph|diagram|figure|image|table|chart|micrograph|illustration|visual)\s+(?:above|below|shown|provided|displayed|presented|pictured)\b/i,
+  /\b(?:above|below|shown|provided|displayed|presented|pictured)\s+(?:graph|diagram|figure|image|table|chart|micrograph|illustration|visual)\b/i,
+  /\b(?:annotate|label|inspect|examine|study|refer to)\s+(?:the|this|a)\s+(?:graph|diagram|figure|image|table|chart|micrograph|illustration|visual|model)\b/i,
+  /\b(?:statement|property)\s+below\b/i,
+  /\bstudent checks revision table\b/i,
+  /\bannotations? (?:are|is) proposed for a biological model\b/i,
+  /\b(?:data|results|values?|trend|pattern)\s+(?:shown|displayed|presented|plotted|provided)\b/i,
+];
 for (const question of bank.questions) {
   assert.match(question.id, /^[A-D]\d\.\d-Q\d{2}$/);
   assert.ok(["SL/HL", "HL"].includes(question.level));
@@ -81,6 +93,18 @@ for (const question of bank.questions) {
   assert.ok(["scenario", "paired-evidence", "matched-pair"].includes(question.format));
   assert.ok(question.stem.split(/\s+/).length >= 7, `${question.id} has a substantive stem`);
   assert.ok(question.stem.split(/\s+/).length <= 100, `${question.id} stem remains readable`);
+  for (const pattern of missingContextPatterns) {
+    assert.doesNotMatch(
+      question.stem,
+      pattern,
+      `${question.id} must not depend on a missing visual or external context`,
+    );
+  }
+  assert.doesNotMatch(
+    question.stem,
+    /\b(?:this concept|the corresponding form)\b/i,
+    `${question.id} has no unresolved generated placeholder`,
+  );
   assert.equal(question.choices.length, 4, `${question.id} has four choices`);
   assert.equal(
     new Set(question.choices.map(normalizedKey)).size,
@@ -104,11 +128,13 @@ for (const question of bank.questions) {
   if (question.format === "scenario") {
     assert.equal(question.skill, "application");
     assert.equal(question.concepts.length, 1);
-    assert.equal(
-      normalizedKey(question.stem).includes(normalizedKey(question.correctText)),
-      false,
-      `${question.id} does not reveal the keyed term in its stem`,
-    );
+    for (const choice of question.choices) {
+      assert.equal(
+        normalizedKey(question.stem).includes(normalizedKey(choice)),
+        false,
+        `${question.id} does not reveal an answer choice in its stem`,
+      );
+    }
   } else if (question.format === "paired-evidence") {
     assert.equal(question.skill, "analysis");
     assert.equal(question.concepts.length, 2);
@@ -184,8 +210,9 @@ assert.equal(new Set(htmlIds).size, htmlIds.length, "HTML ids must be unique");
 assert.match(html, /1,000 original Paper 1A-inspired questions/i);
 assert.match(html, /data-mode="all" aria-pressed="true"/);
 assert.match(html, /theme-color" content="#ffffff"/);
-assert.match(html, /styles\.css\?v=4\.0\.0/);
-assert.match(html, /app\.js\?v=4\.0\.0/);
+assert.match(html, /styles\.css\?v=4\.1\.0/);
+assert.match(html, /app\.js\?v=4\.1\.0/);
+assert.match(html, /no external figures are required/i);
 assert.match(html, /aria-live="polite"/);
 assert.doesNotMatch(html, /custom quiz|customView|customTab|tablist/i);
 assert.doesNotMatch(app, /customQuiz|makeCustomPrompt|normalizeCustomQuiz|activateView/i);
@@ -233,5 +260,5 @@ try {
 }
 
 console.log(
-  "Validated: 1,000 original questions, 40 topics, 673 concepts, 4 choices each, and all-question results states.",
+  "Validated: 1,000 self-contained questions, 40 topics, 673 concepts, 4 choices each, and all-question result states.",
 );
