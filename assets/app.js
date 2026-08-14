@@ -1,8 +1,9 @@
 import {
   clampQuestionCount,
   createStudyQuiz,
+  getStudyModeCount,
   summarizeQuiz,
-} from "./quiz-core.js?v=4.1.0";
+} from "./quiz-core.js?v=4.2.0";
 
 const $ = (selector, scope = document) => scope.querySelector(selector);
 const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
@@ -14,6 +15,7 @@ const elements = {
   hlTopicCount: $("#hlTopicCount"),
   footerBankVersion: $("#footerBankVersion"),
   studyBuilder: $("#studyBuilder"),
+  levelSummary: $("#levelSummary"),
   studyCount: $("#studyCount"),
   startStudy: $("#startStudy"),
   studyError: $("#studyError"),
@@ -23,8 +25,14 @@ const elements = {
 
 const state = {
   bank: null,
-  mode: "all",
+  mode: "sl",
   studyQuiz: null,
+};
+
+const MODE_LANGUAGE = {
+  sl: (count) => `SL course · ${count.toLocaleString()} core questions; HL-only material is excluded.`,
+  hl: (count) => `HL course · ${count.toLocaleString()} questions covering the core and all HL extensions.`,
+  "hl-extension": (count) => `HL extension · ${count.toLocaleString()} questions from HL-only topics.`,
 };
 
 function setStatus(tone, message) {
@@ -47,6 +55,12 @@ function syncQuickCounts() {
   $$('[data-count]').forEach((button) => {
     button.classList.toggle("is-active", button.dataset.count === value);
   });
+}
+
+function syncLevelSummary() {
+  if (!state.bank) return;
+  const count = getStudyModeCount(state.bank, state.mode);
+  elements.levelSummary.textContent = MODE_LANGUAGE[state.mode](count);
 }
 
 function showStudySetup() {
@@ -143,7 +157,7 @@ function renderQuiz(container, quiz, callbacks) {
 
     position.textContent = `Question ${currentIndex + 1} of ${quiz.questions.length}`;
     progressFill.style.width = `${((currentIndex + 1) / quiz.questions.length) * 100}%`;
-    typeBadge.textContent = `${question.section} · ${question.level} · ${question.skill}`;
+    typeBadge.textContent = `${question.section} · ${question.levelLabel} · ${question.skill}`;
     answerState.textContent = chosen ? "Answered" : "Unanswered";
     prompt.textContent = question.prompt;
     instruction.textContent = question.instruction;
@@ -413,7 +427,7 @@ function validateBank(bank) {
 
 async function loadBank() {
   try {
-    const response = await fetch("data/biology-bank.json?v=4.1.0", { cache: "no-cache" });
+    const response = await fetch("data/biology-bank.json?v=4.2.0", { cache: "no-cache" });
     if (!response.ok) throw new Error(`Practice bank request failed (${response.status}).`);
     const bank = await response.json();
     const total = validateBank(bank);
@@ -424,7 +438,12 @@ async function loadBank() {
       .filter((topic) => topic.level === "HL")
       .length
       .toLocaleString();
-    elements.footerBankVersion.textContent = `Version 4.1 · ${total.toLocaleString()} self-contained questions`;
+    $$('[data-mode]', elements.studyBuilder).forEach((button) => {
+      const count = getStudyModeCount(bank, button.dataset.mode);
+      $("[data-mode-count]", button).textContent = count.toLocaleString();
+    });
+    syncLevelSummary();
+    elements.footerBankVersion.textContent = `Version 4.2 · ${total.toLocaleString()} self-contained questions`;
     elements.startStudy.disabled = false;
     setStatus("ready", `${total.toLocaleString()} self-contained questions ready`);
   } catch (error) {
@@ -442,6 +461,7 @@ function wireEvents() {
         candidate.classList.toggle("is-active", active);
         candidate.setAttribute("aria-pressed", String(active));
       });
+      syncLevelSummary();
     });
   });
 

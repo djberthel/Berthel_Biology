@@ -83,6 +83,7 @@ function normalizeQuestion(entry, correctLetter, random) {
     rationale: normalizeText(entry.rationale),
     section: `${normalizeText(entry.code)} · ${normalizeText(entry.topic)}`,
     level: normalizeText(entry.level),
+    levelLabel: entry.level === "HL" ? "HL extension" : "SL/HL core",
     skill: normalizeText(entry.skill),
     format: normalizeText(entry.format),
     sourceTitle: normalizeText(entry.sourceTitle),
@@ -94,8 +95,15 @@ function modeQuestions(bank, mode) {
   const questions = Array.isArray(bank?.questions) ? bank.questions : [];
   if (mode === "all") return questions;
   if (mode === "sl") return questions.filter((question) => question.level === "SL/HL");
-  if (mode === "hl") return questions.filter((question) => question.level === "HL");
+  if (mode === "hl") return questions;
+  if (mode === "hl-extension") {
+    return questions.filter((question) => question.level === "HL");
+  }
   throw new Error("Unknown study mode.");
+}
+
+export function getStudyModeCount(bank, mode) {
+  return modeQuestions(bank, mode).length;
 }
 
 export function auditQuestionBank(bank, random = Math.random) {
