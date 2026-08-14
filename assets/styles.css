@@ -721,6 +721,7 @@ textarea:focus {
   display: flex;
   gap: 10px;
   align-items: center;
+  flex-wrap: wrap;
   margin-bottom: 18px;
 }
 
@@ -747,7 +748,8 @@ textarea:focus {
 
 .quiz-prompt {
   max-width: 860px;
-  font-size: clamp(2rem, 5vw, 4.3rem);
+  font-size: clamp(1.55rem, 3.1vw, 2.85rem);
+  line-height: 1.13;
   overflow-wrap: anywhere;
 }
 
@@ -1036,6 +1038,19 @@ textarea:focus {
   margin: 0;
   color: var(--muted);
   font-size: 0.84rem;
+}
+
+.source-link {
+  grid-column: 1 / -1;
+  width: fit-content;
+  color: var(--text);
+  font-size: 0.8rem;
+  text-decoration-color: var(--border-strong);
+  text-underline-offset: 3px;
+}
+
+.source-link:hover {
+  text-decoration-color: var(--accent);
 }
 
 .perfect-note {
