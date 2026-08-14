@@ -1,1872 +1,223 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A focused biology vocabulary and etymology review workspace.">
+  <meta name="theme-color" content="#09090a">
   <title>Berthel’s Biology</title>
-
-  <!-- KaTeX fonts (KaTeX_Main is Latin Modern) -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
-
-  <!-- SheetJS (XLSX parser) -->
-  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-
-  <style>
-    :root{
-      --bg0:#050607;
-      --bg1:#0a0c0f;
-      --card:#0b0e12;
-      --card2:#0e1218;
-      --line:rgba(255,255,255,.10);
-      --line2:rgba(255,255,255,.14);
-      --txt:rgba(255,255,255,.92);
-      --muted:rgba(255,255,255,.68);
-      --faint:rgba(255,255,255,.45);
-      --good: #2ee59d;
-      --bad:  #ff4d4d;
-      --warn: #ffd24d;
-      --btn:#10151c;
-      --btn2:#0d1117;
-      --shadow: 0 20px 60px rgba(0,0,0,.55);
-      --radius: 22px;
-    }
-
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
-    body{
-      margin:0;
-      color:var(--txt);
-      background:
-        radial-gradient(1100px 600px at 20% 10%, rgba(255,255,255,.08), transparent 60%),
-        radial-gradient(900px 520px at 85% 20%, rgba(255,255,255,.06), transparent 60%),
-        linear-gradient(180deg, var(--bg0), var(--bg1));
-      font-family: "KaTeX_Main","Latin Modern Roman","CMU Serif","Computer Modern Serif",serif;
-      font-size: 18px;
-      line-height: 1.35;
-      letter-spacing: .1px;
-    }
-
-    .wrap{
-      max-width: 1080px;
-      margin: 36px auto 48px;
-      padding: 0 18px;
-    }
-
-    .header{
-      position: relative;
-      display:flex;
-      align-items:center;
-      gap:18px;
-      padding: 22px 22px;
-      border:1px solid var(--line);
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
-      box-shadow: var(--shadow);
-    }
-
-    .avatar{
-      width: 58px;
-      height: 58px;
-      border-radius: 16px;
-      overflow:hidden;
-      border: 1px solid var(--line2);
-      background: rgba(255,255,255,.03);
-      flex: 0 0 auto;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-    }
-    .avatar img{
-      width:100%;
-      height:100%;
-      object-fit: cover;
-      display:block;
-    }
-
-    .titleblock{ min-width: 0; }
-    h1{
-      margin:0;
-      font-size: 34px;
-      letter-spacing: .2px;
-    }
-    .subtitle{
-      margin-top: 6px;
-      color: var(--muted);
-      font-size: 18px;
-    }
-
-    .versionBadge{
-      position:absolute;
-      right: 18px;
-      top: 18px;
-      padding: 10px 12px;
-      border-radius: 14px;
-      border:1px solid var(--line);
-      background: rgba(0,0,0,.25);
-      color: var(--muted);
-      font-size: 14px;
-      cursor: pointer;
-      user-select: none;
-    }
-    .versionBadge:hover{ border-color: var(--line2); color: var(--txt); }
-
-    .nav{
-      margin-top: 16px;
-      display:flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-    .tabBtn{
-      border:1px solid var(--line);
-      background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.02));
-      color: var(--txt);
-      padding: 12px 16px;
-      border-radius: 16px;
-      cursor:pointer;
-      font-size: 18px;
-    }
-    .tabBtn:hover{ border-color: var(--line2); }
-    .tabBtn.active{
-      border-color: rgba(255,255,255,.28);
-      box-shadow: 0 0 0 1px rgba(255,255,255,.06) inset;
-    }
-
-    .panel{
-      margin-top: 18px;
-      border:1px solid var(--line);
-      border-radius: var(--radius);
-      background: rgba(0,0,0,.18);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
-    .panelInner{ padding: 22px; }
-
-    .muted{ color: var(--muted); }
-    .faint{ color: var(--faint); }
-    .hr{
-      height:1px;
-      background: var(--line);
-      margin: 18px 0;
-    }
-
-    .row{
-      display:flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      align-items:center;
-    }
-    .spacer{ flex:1 1 auto; }
-
-    .input{
-      width: 340px;
-      max-width: 100%;
-      padding: 14px 14px;
-      border-radius: 16px;
-      border:1px solid var(--line);
-      background: rgba(0,0,0,.25);
-      color: var(--txt);
-      font-size: 18px;
-      outline: none;
-    }
-    .input:focus{ border-color: rgba(255,255,255,.28); }
-
-    .btn{
-      padding: 14px 16px;
-      border-radius: 16px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.045);
-      color: var(--txt);
-      cursor:pointer;
-      font-size: 18px;
-      white-space: nowrap;
-    }
-    .btn:hover{ border-color: var(--line2); }
-    .btn.primary{
-      background: rgba(255,255,255,.90);
-      color: #0b0e12;
-      border-color: rgba(255,255,255,.80);
-    }
-    .btn.ghost{
-      background: rgba(0,0,0,.18);
-    }
-    .btn.danger{
-      border-color: rgba(255,77,77,.45);
-      background: rgba(255,77,77,.08);
-    }
-
-    .pillRow{
-      display:flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 8px;
-      margin-bottom: 12px;
-    }
-    .pill{
-      border:1px solid rgba(255,255,255,.20);
-      background: rgba(255,255,255,.08);
-      color: rgba(255,255,255,.92);
-      padding: 10px 14px;
-      border-radius: 999px;
-      cursor:pointer;
-      font-size: 18px;
-      transition: background .15s ease, border-color .15s ease, color .15s ease;
-    }
-    .pill:hover{
-      border-color: rgba(255,255,255,.32);
-      background: rgba(255,255,255,.11);
-    }
-    .pill.active{
-      border-color: rgba(255,255,255,.40);
-      background: rgba(255,255,255,.16);
-      color: #ffffff;
-      box-shadow: 0 0 0 1px rgba(255,255,255,.06) inset;
-    }
-
-    .statusLine{
-      margin-top: 10px;
-      padding: 12px 14px;
-      border-radius: 16px;
-      border: 1px solid rgba(46,229,157,.22);
-      background: rgba(46,229,157,.07);
-      color: var(--good);
-    }
-    .errorLine{
-      margin-top: 10px;
-      padding: 12px 14px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,77,77,.25);
-      background: rgba(255,77,77,.08);
-      color: var(--bad);
-    }
-
-    /* Tabs */
-    section[data-tab] { display:none; }
-    section[data-tab].active { display:block; }
-
-    /* Quiz UI */
-    .quizShell{
-      margin-top: 16px;
-      border:1px solid var(--line);
-      border-radius: var(--radius);
-      background: rgba(0,0,0,.18);
-      overflow:hidden;
-    }
-    .quizTop{
-      padding: 16px 18px;
-      display:flex;
-      align-items:flex-start;
-      gap: 12px;
-      border-bottom: 1px solid var(--line);
-      background: rgba(255,255,255,.02);
-    }
-    .qMeta{
-      color: var(--muted);
-      font-size: 16px;
-      margin-bottom: 6px;
-    }
-    .qPrompt{
-      font-size: 30px;
-      line-height: 1.15;
-      margin:0;
-      word-break: break-word;
-    }
-    .qRight{
-      margin-left:auto;
-      display:flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      align-items:center;
-    }
-
-    .optList{
-      padding: 18px;
-      display:flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .optBtn{
-      width:100%;
-      text-align:left;
-      border-radius: 18px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.02);
-      padding: 14px 16px;
-      cursor:pointer;
-      display:flex;
-      align-items:flex-start;
-      gap: 14px;
-      font-size: 20px;
-    }
-    .optBtn:hover{ border-color: var(--line2); }
-    .optBtn.selected{
-      border-color: rgba(255,255,255,.35);
-      box-shadow: 0 0 0 1px rgba(255,255,255,.07) inset;
-      background: rgba(255,255,255,.04);
-    }
-    .optLabel{
-      flex:0 0 auto;
-      width: 30px;
-      height: 30px;
-      border-radius: 10px;
-      border:1px solid var(--line2);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight: 700;
-      color: var(--muted);
-      margin-top: 2px;
-    }
-    .optText{
-      flex: 1 1 auto;
-      color: var(--txt);
-    }
-
-    .quizBottom{
-      padding: 16px 18px;
-      border-top: 1px solid var(--line);
-      display:flex;
-      align-items:center;
-      gap: 12px;
-      flex-wrap: wrap;
-      background: rgba(255,255,255,.02);
-    }
-
-    /* Summary */
-    .summaryTitle{
-      font-size: 28px;
-      margin: 0 0 10px 0;
-    }
-    .scoreLine{
-      font-size: 18px;
-      color: var(--muted);
-      margin: 6px 0 14px 0;
-    }
-    .adviceBox{
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.02);
-      border-radius: 18px;
-      padding: 14px 16px;
-      margin-top: 10px;
-    }
-    .adviceBox strong{ color: var(--txt); }
-    .good{ color: var(--good); }
-    .bad{ color: var(--bad); }
-    .warn{ color: var(--warn); }
-
-    .resultTableWrap{
-      margin-top: 16px;
-      border:1px solid var(--line);
-      border-radius: 18px;
-      overflow:hidden;
-    }
-    table{
-      width:100%;
-      border-collapse: collapse;
-      font-size: 16px;
-    }
-    thead th{
-      text-align:left;
-      padding: 12px 12px;
-      color: var(--muted);
-      border-bottom:1px solid var(--line);
-      background: rgba(255,255,255,.02);
-    }
-    tbody td{
-      padding: 10px 12px;
-      border-bottom:1px solid rgba(255,255,255,.06);
-      vertical-align: top;
-    }
-    tbody tr:last-child td{ border-bottom:none; }
-    .tag{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.02);
-      color: var(--muted);
-      font-size: 14px;
-      white-space: nowrap;
-    }
-
-    /* Updates */
-    .updateItem{
-      padding: 14px 14px;
-      border:1px solid rgba(255,255,255,.08);
-      background: rgba(255,255,255,.02);
-      border-radius: 18px;
-      margin-top: 10px;
-    }
-    .updateStamp{
-      color: var(--muted);
-      font-size: 14px;
-      margin-bottom: 8px;
-    }
-    .updateMsg{
-      color: var(--txt);
-      font-size: 18px;
-      white-space: pre-wrap;
-    }
-
-    /* Modal */
-    .modalBack{
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.66);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding: 18px;
-      z-index: 9999;
-    }
-    .modalBack.show{ display:flex; }
-
-    .modal{
-      width: min(720px, 100%);
-      border-radius: 22px;
-      border:1px solid rgba(255,255,255,.14);
-      background: #0a0d12;
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
-    .modalHead{
-      padding: 16px 18px;
-      border-bottom: 1px solid var(--line);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-      background: rgba(255,255,255,.02);
-    }
-    .modalTitle{ font-size: 18px; color: var(--txt); }
-    .modalBody{ padding: 18px; }
-    .modalClose{
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      color: var(--txt);
-      border-radius: 12px;
-      padding: 8px 10px;
-      cursor:pointer;
-      font-size: 14px;
-    }
-    .textarea{
-      width:100%;
-      min-height: 140px;
-      padding: 14px 14px;
-      border-radius: 16px;
-      border:1px solid var(--line);
-      background: rgba(0,0,0,.25);
-      color: var(--txt);
-      font-size: 16px;
-      outline:none;
-      resize: vertical;
-      font-family: inherit;
-    }
-
-    /* Make everything reliably clickable */
-    button, input, textarea { pointer-events: auto; }
-  </style>
+  <link rel="stylesheet" href="assets/styles.css">
 </head>
 
 <body>
-  <div class="wrap">
-    <div class="header">
-      <div class="avatar" title="Avatar">
-        <img id="avatarImg" src="Chinstrap_LOgo.jfif" alt="Avatar"
-             onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22><rect width=%2260%22 height=%2260%22 rx=%2216%22 fill=%22%2311141b%22/><path d=%22M18 42c5-10 19-10 24 0%22 stroke=%22%23ffffff%22 stroke-opacity=%22.65%22 stroke-width=%222%22 fill=%22none%22/><circle cx=%2223%22 cy=%2226%22 r=%224%22 fill=%22%23ffffff%22 fill-opacity=%22.55%22/><circle cx=%2237%22 cy=%2226%22 r=%224%22 fill=%22%23ffffff%22 fill-opacity=%22.55%22/></svg>';"/>
-      </div>
-      <div class="titleblock">
-        <h1>Berthel’s Biology</h1>
-        <div class="subtitle">Professional student testing and review workspace.</div>
+  <a class="skip-link" href="#mainContent">Skip to content</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand-row">
+        <div class="brand-mark" aria-hidden="true">
+          <img src="Chinstrap_LOgo.jfif" alt="">
+        </div>
+        <div class="brand-copy">
+          <p class="eyebrow">Independent biology review</p>
+          <h1>Berthel’s Biology</h1>
+          <p>Build precise, distraction-resistant study sets from a verified vocabulary bank.</p>
+        </div>
+        <div class="bank-indicator" id="bankStatus" data-tone="loading" aria-live="polite">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span>Loading study bank</span>
+        </div>
       </div>
 
-      <!-- Click this badge to open admin -->
-      <div class="versionBadge" id="versionBadge" title="Version (click for admin)">v—</div>
+      <nav class="primary-nav" role="tablist" aria-label="Review workspaces">
+        <button
+          class="nav-tab is-active"
+          id="studyTab"
+          type="button"
+          role="tab"
+          aria-selected="true"
+          aria-controls="studyView"
+          data-view="study"
+        >
+          Study bank
+        </button>
+        <button
+          class="nav-tab"
+          id="customTab"
+          type="button"
+          role="tab"
+          aria-selected="false"
+          aria-controls="customView"
+          data-view="custom"
+        >
+          Custom quiz
+        </button>
+      </nav>
     </div>
+  </header>
 
-    <div class="nav" role="tablist" aria-label="Site tabs">
-      <button class="tabBtn active" data-go="home" role="tab" aria-selected="true">Home</button>
-      <button class="tabBtn" data-go="etyvocab" role="tab" aria-selected="false">Etymology &amp; Vocabulary</button>
-      <button class="tabBtn" data-go="custom" role="tab" aria-selected="false">Custom Content</button>
-    </div>
-
-    <!-- HOME -->
-    <section class="panel active" data-tab="home">
-      <div class="panelInner">
-        <div class="muted" style="font-size:18px;">Update notes</div>
-        <div class="faint">Updates are timestamped (Beijing time).</div>
-
-        <div class="hr"></div>
-
-        <div id="updatesList"></div>
-      </div>
-    </section>
-
-    <!-- ETY/VOCAB -->
-    <section class="panel" data-tab="etyvocab">
-      <div class="panelInner">
-        <div style="font-size:34px; margin:0 0 8px 0;">Etymology &amp; Vocabulary</div>
-
-        <div class="pillRow" role="group" aria-label="Mode">
-          <button class="pill active" data-mode="mixed">Mixed</button>
-          <button class="pill" data-mode="vocab">Vocabulary</button>
-          <button class="pill" data-mode="ety">Etymology</button>
+  <main class="page-shell" id="mainContent">
+    <section
+      class="workspace"
+      id="studyView"
+      role="tabpanel"
+      aria-labelledby="studyTab"
+      data-view-panel="study"
+    >
+      <div class="workspace-heading">
+        <div>
+          <p class="eyebrow">Curated review bank</p>
+          <h2>Build a focused study set</h2>
+          <p>Every set samples without replacement. Every option is distinct. The bank is rebuilt from the two canonical workbook sheets—not the duplicated aggregate.</p>
         </div>
 
-        <div id="presetStatus" class="muted">Loading preset…</div>
-        <div id="presetCounts" class="statusLine" style="display:none;"></div>
-        <div id="presetError" class="errorLine" style="display:none;"></div>
-
-        <div class="hr"></div>
-
-        <div class="row">
-          <div style="min-width:260px;">
-            <div class="muted">Number of questions (1–100)</div>
-            <input id="etyN" class="input" inputmode="numeric" placeholder="e.g., 25" />
+        <div class="metric-grid" aria-label="Study bank totals">
+          <div class="metric-card">
+            <span class="metric-value" id="vocabCount">—</span>
+            <span class="metric-label">Vocabulary</span>
           </div>
-          <button class="btn primary" id="etyStart">Start</button>
-          <div class="spacer"></div>
-        </div>
-
-        <div id="etyQuizArea" style="display:none;"></div>
-        <div id="etySummaryArea" style="display:none;"></div>
-      </div>
-    </section>
-
-    <!-- CUSTOM -->
-    <section class="panel" data-tab="custom">
-      <div class="panelInner">
-        <div style="font-size:34px; margin:0 0 8px 0;">Custom Content</div>
-        <div class="muted">
-          Use the MCQ JSON Machine to generate a quiz JSON from your uploaded content, then paste it here to run the quiz and receive a professional results summary.
-        </div>
-
-        <div class="hr"></div>
-
-        <div class="row">
-          <div style="min-width:260px;">
-            <div class="muted">Number of questions (1–100)</div>
-            <input id="customN" class="input" inputmode="numeric" placeholder="e.g., 20" />
+          <div class="metric-card">
+            <span class="metric-value" id="etyCount">—</span>
+            <span class="metric-label">Word parts</span>
           </div>
-          <div class="spacer"></div>
-        </div>
-
-        <div style="margin-top:14px;">
-          <div class="muted">Upload content (optional, for prompt generation)</div>
-          <input id="customFile" type="file" accept=".txt,.md,.csv,.doc,.docx,.pdf" style="margin-top:8px;color:var(--muted);"/>
-          <textarea id="customText" class="textarea" placeholder="Or paste content here (optional)"></textarea>
-
-          <div class="row" style="margin-top:10px;">
-            <button class="btn ghost" id="buildPrompt">Generate prompt for MCQ JSON Machine</button>
-            <button class="btn ghost" id="copyPrompt" style="display:none;">Copy prompt</button>
-          </div>
-
-          <div id="promptBox" class="adviceBox" style="display:none; margin-top:10px;">
-            <div class="muted" style="margin-bottom:10px;">Prompt (send this to your MCQ JSON Machine):</div>
-            <pre id="promptText" style="white-space:pre-wrap; margin:0; color:var(--txt); font-size:16px;"></pre>
+          <div class="metric-card metric-card-accent">
+            <span class="metric-value" id="totalCount">—</span>
+            <span class="metric-label">Verified entries</span>
           </div>
         </div>
-
-        <div class="hr"></div>
-
-        <div class="muted">Paste quiz JSON from the MCQ JSON Machine</div>
-        <textarea id="customJson" class="textarea" placeholder='{"title":"...","questions":[{"stem":"...","choices":["...","...","...","..."],"answer":"B","rationale":"..."}]}'></textarea>
-
-        <div class="row" style="margin-top:10px;">
-          <button class="btn primary" id="loadCustomQuiz">Load quiz</button>
-          <div class="spacer"></div>
-          <div id="customError" class="errorLine" style="display:none; flex:1 1 100%;"></div>
-        </div>
-
-        <div id="customQuizArea" style="display:none;"></div>
-        <div id="customSummaryArea" style="display:none;"></div>
-      </div>
-    </section>
-  </div>
-
-  <!-- ADMIN MODAL -->
-  <div class="modalBack" id="adminBack" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true" aria-label="Admin">
-      <div class="modalHead">
-        <div class="modalTitle" id="adminTitle">Admin</div>
-        <button class="modalClose" id="adminClose">Close</button>
       </div>
 
-      <div class="modalBody">
-        <div id="adminLogin">
-          <div class="muted" style="margin-bottom:10px;">Password</div>
-          <input id="adminPass" class="input" type="password" placeholder="Enter password" style="width:100%;" />
-          <div class="row" style="margin-top:10px;">
-            <button class="btn primary" id="adminEnter">Enter</button>
-            <div class="spacer"></div>
-            <div id="adminErr" class="errorLine" style="display:none;flex:1 1 100%;"></div>
+      <section class="surface setup-card" id="studyBuilder" aria-labelledby="studyBuilderTitle">
+        <div class="surface-heading">
+          <div>
+            <p class="step-label">Set up</p>
+            <h3 id="studyBuilderTitle">Choose the material and length</h3>
           </div>
+          <p class="surface-note">Suggested: 20 questions for routine review.</p>
         </div>
 
-        <div id="adminPanel" style="display:none;">
-          <div class="muted">Post a new update</div>
-          <textarea id="adminMsg" class="textarea" placeholder="Write a concise update note."></textarea>
+        <div class="setup-grid">
+          <fieldset class="control-group">
+            <legend>Material</legend>
+            <div class="segmented-control" id="studyMode" aria-label="Study material">
+              <button class="segment-button is-active" type="button" data-mode="mixed" aria-pressed="true">Mixed</button>
+              <button class="segment-button" type="button" data-mode="vocab" aria-pressed="false">Vocabulary</button>
+              <button class="segment-button" type="button" data-mode="ety" aria-pressed="false">Word parts</button>
+            </div>
+          </fieldset>
 
-          <div class="row" style="margin-top:10px;">
-            <button class="btn primary" id="postUpdate">Post update</button>
-            <button class="btn ghost" id="downloadUpdates">Download updates.json</button>
-            <button class="btn danger" id="logoutAdmin">Logout</button>
-            <div class="spacer"></div>
-          </div>
-
-          <div class="hr"></div>
-
-          <div class="muted" style="margin-bottom:10px;">
-            Current updates (served to users from <span class="faint">updates.json</span>)
-          </div>
-          <div id="adminUpdatesPreview"></div>
-
-          <div class="adviceBox" style="margin-top:14px;">
-            <div class="muted">
-              Note: “All users” requires updating <span class="faint">updates.json</span> on the server. This panel can generate that file; upload it to replace the old one.
+          <div class="control-group">
+            <label for="studyCount">Questions</label>
+            <div class="count-control">
+              <input id="studyCount" type="number" min="1" max="100" inputmode="numeric" value="20">
+              <span>1–100</span>
+            </div>
+            <div class="quick-counts" aria-label="Quick question counts">
+              <button type="button" data-count="10">10</button>
+              <button class="is-active" type="button" data-count="20">20</button>
+              <button type="button" data-count="40">40</button>
             </div>
           </div>
+
+          <div class="launch-group">
+            <button class="button button-primary button-large" id="startStudy" type="button" disabled>
+              Start study set
+              <span aria-hidden="true">→</span>
+            </button>
+            <p>Answers A–D also work from the keyboard.</p>
+          </div>
         </div>
 
+        <div class="inline-message" id="studyError" data-tone="error" role="alert" hidden></div>
+      </section>
+
+      <div id="studyQuiz" hidden></div>
+      <div id="studyResults" hidden></div>
+    </section>
+
+    <section
+      class="workspace"
+      id="customView"
+      role="tabpanel"
+      aria-labelledby="customTab"
+      data-view-panel="custom"
+      hidden
+    >
+      <div class="workspace-heading workspace-heading-compact">
+        <div>
+          <p class="eyebrow">Bring your own material</p>
+          <h2>Run a custom multiple-choice quiz</h2>
+          <p>Generate a strict prompt from source text, then paste the resulting JSON back here. Validation happens before the first question appears.</p>
+        </div>
       </div>
+
+      <div id="customBuilder" class="custom-grid">
+        <section class="surface custom-card" aria-labelledby="promptBuilderTitle">
+          <div class="surface-heading">
+            <div>
+              <p class="step-label">Step 1</p>
+              <h3 id="promptBuilderTitle">Prepare the generation prompt</h3>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field field-small">
+              <label for="customCount">Questions</label>
+              <input id="customCount" type="number" min="1" max="100" inputmode="numeric" value="10">
+            </div>
+            <div class="field">
+              <label for="customFile">Plain-text file <span>(optional)</span></label>
+              <input id="customFile" type="file" accept=".txt,.md,.csv,text/plain,text/markdown,text/csv">
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="customSource">Source content</label>
+            <textarea id="customSource" rows="11" placeholder="Paste notes, a reading extract, or your own review material."></textarea>
+          </div>
+
+          <button class="button button-secondary" id="buildPrompt" type="button">Generate prompt</button>
+
+          <div class="generated-prompt" id="generatedPrompt" hidden>
+            <div class="generated-prompt-heading">
+              <strong>Ready to copy</strong>
+              <button class="text-button" id="copyPrompt" type="button">Copy prompt</button>
+            </div>
+            <pre id="promptOutput"></pre>
+          </div>
+        </section>
+
+        <section class="surface custom-card" aria-labelledby="customJsonTitle">
+          <div class="surface-heading">
+            <div>
+              <p class="step-label">Step 2</p>
+              <h3 id="customJsonTitle">Validate and launch</h3>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="customJson">Quiz JSON</label>
+            <textarea id="customJson" class="code-input" rows="18" spellcheck="false" placeholder='{"title":"Cell respiration","questions":[...]}'></textarea>
+          </div>
+
+          <button class="button button-primary" id="loadCustom" type="button">Validate and start</button>
+          <div class="inline-message" id="customError" data-tone="error" role="alert" hidden></div>
+        </section>
+      </div>
+
+      <div id="customQuiz" hidden></div>
+      <div id="customResults" hidden></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div>
+      <strong>Berthel’s Biology</strong>
+      <span>Version 2.0 · 800-entry validated bank</span>
     </div>
-  </div>
+    <a href="https://github.com/djberthel/Berthel_Biology">View source on GitHub</a>
+  </footer>
 
-<script>
-/* =========================
-   GLOBALS / CONFIG
-========================= */
-const ADMIN_PASSWORD = "temetnosce";
-const PRESET_XLSX = "Vocab_Ety_Master_List.xlsx";
-const UPDATES_JSON = "updates.json";
-
-const STATE = {
-  tab: "home",
-  mode: "mixed",           // mixed | vocab | ety
-  vocab: [],
-  ety: [],
-  tfidf: { vocab:null, ety:null },
-  updates: [],
-  etyQuiz: null,
-  customQuiz: null
-};
-
-/* =========================
-   TIME (Beijing UTC+8)
-========================= */
-function nowBJT(){
-  const now = new Date();
-  const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-  return new Date(utc + 8 * 3600000);
-}
-function fmtBJT(dt){
-  const pad = (n)=> String(n).padStart(2,"0");
-  return `${dt.getFullYear()}-${pad(dt.getMonth()+1)}-${pad(dt.getDate())} ${pad(dt.getHours())}:${pad(dt.getMinutes())}:${pad(dt.getSeconds())}`;
-}
-function setVersionBadge(){
-  const v = fmtBJT(nowBJT());
-  document.getElementById("versionBadge").textContent = `v${v} (BJT)`;
-}
-
-/* =========================
-   NAV / TABS
-========================= */
-function setTab(tab){
-  STATE.tab = tab;
-  document.querySelectorAll(".tabBtn").forEach(b=>{
-    const on = (b.dataset.go === tab);
-    b.classList.toggle("active", on);
-    b.setAttribute("aria-selected", on ? "true" : "false");
-  });
-  document.querySelectorAll("section[data-tab]").forEach(s=>{
-    s.classList.toggle("active", s.dataset.tab === tab);
-  });
-}
-
-document.querySelectorAll(".tabBtn").forEach(btn=>{
-  btn.addEventListener("click", ()=> setTab(btn.dataset.go));
-});
-
-/* =========================
-   TEXT UTIL
-========================= */
-function normSpace(x){
-  return String(x ?? "").replace(/\s+/g," ").trim();
-}
-function stripExamples(s){
-  let out = String(s ?? "");
-  out = out.replace(/Examples?:\s*[^.\n]+/gi, "");
-  out = out.replace(/\(e\.g\.[^)]+\)/gi, "");
-  out = out.replace(/\[e\.g\.[^\]]+\]/gi, "");
-  out = out.replace(/\s+/g," ").trim();
-  return out;
-}
-function looksLikeHeaderJunk(s){
-  const t = normSpace(s).toLowerCase();
-  if(!t) return true;
-  if(t.includes("clean index")) return true;
-  if(t.includes("glossary")) return true;
-  if(t.includes("word parts")) return true;
-  if(t === "term" || t === "definition" || t === "meaning") return true;
-  if(t.length <= 1) return true;
-  return false;
-}
-function wordCount(s){
-  const t = normSpace(s);
-  if(!t) return 0;
-  return t.split(" ").length;
-}
-
-/* =========================
-   PRESET LOADING (XLSX)
-========================= */
-function findHeader(headers, candidates){
-  const low = headers.map(h=> String(h).trim());
-  const lowMap = new Map(low.map(h=> [h.toLowerCase(), h]));
-  for(const c of candidates){
-    const key = String(c).toLowerCase();
-    if(lowMap.has(key)) return lowMap.get(key);
-  }
-  for(const h of low){
-    const hl = h.toLowerCase();
-    for(const c of candidates){
-      const cl = String(c).toLowerCase();
-      if(hl === cl) return h;
-      if(hl.includes(cl)) return h;
-    }
-  }
-  return null;
-}
-
-function rowToEntries(rows){
-  if(!rows || rows.length===0) return {vocab:[], ety:[]};
-  const headers = Object.keys(rows[0] || {});
-
-  const vocabTermCol = findHeader(headers, ["term","word","vocabulary","vocab","entry","glossary term","key"]);
-  const vocabDefCol  = findHeader(headers, ["definition","glossary definition","meaning","vocab definition","desc","description","value"]);
-
-  const etyPartCol = findHeader(headers, [
-    "etymology","ety","word part","word parts","wordpart","wordparts",
-    "morpheme","prefix","suffix","root","affix","word part(s)","word-part","word-part(s)"
-  ]);
-
-  const etyMeaningCol = findHeader(headers, [
-    "etymology meaning","ety meaning","word part meaning","morpheme meaning",
-    "root meaning","affix meaning","translation","meaning","definition"
-  ]);
-
-  const topicCol = findHeader(headers, ["topic","unit","chapter","subtopic","code","syllabus","strand"]);
-
-  const outV = [], outE = [];
-
-  for(const r of rows){
-    const topic = normSpace(topicCol ? r[topicCol] : "");
-
-    const term = stripExamples(normSpace(vocabTermCol ? r[vocabTermCol] : ""));
-    const def  = stripExamples(normSpace(vocabDefCol  ? r[vocabDefCol]  : ""));
-    if(term && def && !looksLikeHeaderJunk(term) && !looksLikeHeaderJunk(def)){
-      if(wordCount(term) > 6 && wordCount(def) < 4) {
-      } else {
-        outV.push({ kind:"vocab", stem: term, answerText: def, topic });
-      }
-    }
-
-    const wpRaw = stripExamples(normSpace(etyPartCol ? r[etyPartCol] : ""));
-    let meaningRaw = stripExamples(normSpace(etyMeaningCol ? r[etyMeaningCol] : ""));
-
-    if(wpRaw && !meaningRaw && def) meaningRaw = def;
-
-    const wp = wpRaw || "";
-    const meaning = meaningRaw || "";
-
-    if(wp && meaning && !looksLikeHeaderJunk(wp) && !looksLikeHeaderJunk(meaning)){
-      if(wordCount(wp) > 8 && wp.includes(" ")) {
-      } else {
-        outE.push({ kind:"ety", stem: wp, answerText: meaning, topic });
-      }
-    }
-  }
-
-  return {vocab: outV, ety: outE};
-}
-
-async function loadPreset(){
-  const status = document.getElementById("presetStatus");
-  const counts = document.getElementById("presetCounts");
-  const err    = document.getElementById("presetError");
-
-  status.textContent = "Loading preset…";
-  counts.style.display = "none";
-  err.style.display = "none";
-
-  try{
-    if(!window.XLSX) throw new Error("XLSX library failed to load.");
-    const res = await fetch(PRESET_XLSX, { cache: "no-store" });
-    if(!res.ok) throw new Error(`Failed to fetch ${PRESET_XLSX} (HTTP ${res.status}).`);
-    const buf = await res.arrayBuffer();
-
-    const wb = XLSX.read(buf, { type:"array" });
-    let allV = [];
-    let allE = [];
-
-    for(const name of wb.SheetNames){
-      const ws = wb.Sheets[name];
-      const rows = XLSX.utils.sheet_to_json(ws, { defval:"", raw:false });
-      const {vocab, ety} = rowToEntries(rows);
-      allV = allV.concat(vocab);
-      allE = allE.concat(ety);
-    }
-
-    const dedup = (arr)=> {
-      const seen = new Set();
-      const out = [];
-      for(const x of arr){
-        const k = `${x.kind}||${x.stem.toLowerCase()}||${x.answerText.toLowerCase()}`;
-        if(seen.has(k)) continue;
-        seen.add(k);
-        out.push(x);
-      }
-      return out;
-    };
-    allV = dedup(allV);
-    allE = dedup(allE);
-
-    STATE.vocab = allV;
-    STATE.ety   = allE;
-
-    STATE.tfidf.vocab = buildTFIDF(STATE.vocab.map(e=> e.answerText));
-    STATE.tfidf.ety   = buildTFIDF(STATE.ety.map(e=> e.answerText));
-
-    status.textContent = "Preset loaded.";
-    counts.textContent = `Preset loaded. Vocabulary: ${STATE.vocab.length} | Etymology: ${STATE.ety.length}`;
-    counts.style.display = "block";
-
-    if(STATE.ety.length === 0){
-      err.textContent =
-        "Etymology entries are currently 0. This almost always means the spreadsheet headers don’t match the expected word-part/meaning columns. Ensure the sheet has a clear Word Part + Meaning (or Etymology + Meaning) structure.";
-      err.style.display = "block";
-    }
-  } catch(e){
-    status.textContent = "Preset not loaded.";
-    err.textContent = String(e.message || e);
-    err.style.display = "block";
-  }
-}
-
-/* =========================
-   SIMPLE TF-IDF COSINE
-========================= */
-function tokenize(s){
-  const t = String(s ?? "").toLowerCase()
-    .replace(/[^a-z0-9\s-]/g," ")
-    .replace(/\s+/g," ")
-    .trim();
-  if(!t) return [];
-  const parts = t.split(" ");
-  const stop = new Set(["the","a","an","and","or","to","of","in","on","for","with","by","from","as","is","are","was","were","be","being","that","this","these","those","into","at","it","its"]);
-  return parts.filter(w=> w && w.length>1 && !stop.has(w));
-}
-function buildTFIDF(texts){
-  const docs = texts.map(tokenize);
-  const df = new Map();
-  for(const doc of docs){
-    const uniq = new Set(doc);
-    for(const w of uniq) df.set(w, (df.get(w)||0)+1);
-  }
-  const N = docs.length;
-  const idf = new Map();
-  for(const [w,c] of df.entries()){
-    idf.set(w, Math.log((N+1)/(c+1)) + 1);
-  }
-  const vecs = docs.map(doc=>{
-    const tf = new Map();
-    for(const w of doc) tf.set(w, (tf.get(w)||0)+1);
-    const v = new Map();
-    let norm = 0;
-    for(const [w,c] of tf.entries()){
-      const wgt = (c / doc.length) * (idf.get(w)||0);
-      v.set(w, wgt);
-      norm += wgt*wgt;
-    }
-    return { v, norm: Math.sqrt(norm) || 1e-9 };
-  });
-  return { idf, vecs };
-}
-function cosineVec(a, b){
-  let dot = 0;
-  const A = a.v.size < b.v.size ? a : b;
-  const B = A === a ? b : a;
-  for(const [w,wa] of A.v.entries()){
-    const wb = B.v.get(w);
-    if(wb) dot += wa*wb;
-  }
-  return dot / (a.norm * b.norm);
-}
-
-/* =========================
-   DISTRACTOR SELECTION
-========================= */
-function pickDistractors(pool, tfidfIndex, correctIdx, want=3){
-  const correct = pool[correctIdx];
-  const correctVec = tfidfIndex.vecs[correctIdx];
-
-  const candidates = [];
-  for(let i=0;i<pool.length;i++){
-    if(i===correctIdx) continue;
-    if(pool[i].answerText.toLowerCase() === correct.answerText.toLowerCase()) continue;
-    candidates.push(i);
-  }
-
-  let cand = candidates;
-  if(correct.topic){
-    const sameTopic = candidates.filter(i=> (pool[i].topic||"") === correct.topic);
-    if(sameTopic.length >= 18) cand = sameTopic;
-  }
-
-  const ranked = cand.map(i=>{
-    const sim = cosineVec(correctVec, tfidfIndex.vecs[i]);
-    return {i, sim};
-  }).sort((a,b)=> b.sim - a.sim);
-
-  const picked = [];
-  const correctWc = wordCount(correct.answerText);
-
-  function okLength(s){
-    const wc = wordCount(s);
-    if(correctWc === 0 || wc === 0) return false;
-    const ratio = wc / correctWc;
-    return (ratio >= 0.80 && ratio <= 1.20) && (Math.abs(wc - correctWc) <= 6);
-  }
-
-  for(const r of ranked){
-    if(picked.length >= want) break;
-    const opt = pool[r.i].answerText;
-    if(!okLength(opt)) continue;
-    if(picked.some(pi => normSpace(pool[pi].answerText).toLowerCase() === normSpace(opt).toLowerCase())) continue;
-    picked.push(r.i);
-  }
-
-  if(picked.length < want){
-    for(const r of ranked){
-      if(picked.length >= want) break;
-      const opt = pool[r.i].answerText;
-      const wc = wordCount(opt);
-      const ratio = correctWc ? (wc / correctWc) : 1;
-      if(ratio < 0.65 || ratio > 1.45) continue;
-      if(picked.includes(r.i)) continue;
-      picked.push(r.i);
-    }
-  }
-
-  while(picked.length < want && candidates.length){
-    const i = candidates[Math.floor(Math.random()*candidates.length)];
-    if(i !== correctIdx && !picked.includes(i)) picked.push(i);
-  }
-
-  return picked.slice(0,want);
-}
-
-/* =========================
-   QUIZ BUILDING
-========================= */
-function clampInt1to100(x){
-  const n = parseInt(String(x||"").trim(), 10);
-  if(!Number.isFinite(n)) return null;
-  if(n<1 || n>100) return null;
-  return n;
-}
-
-function shuffle(arr){
-  const a = arr.slice();
-  for(let i=a.length-1;i>0;i--){
-    const j = Math.floor(Math.random()*(i+1));
-    [a[i],a[j]] = [a[j],a[i]];
-  }
-  return a;
-}
-
-function makeKeyLetters(N){
-  const letters = ["A","B","C","D"];
-  const base = Math.floor(N/4);
-  const rem  = N % 4;
-
-  let bag = [];
-  for(const L of letters){
-    for(let k=0;k<base;k++) bag.push(L);
-  }
-  const extras = shuffle(letters).slice(0, rem);
-  for(const L of extras) bag.push(L);
-
-  for(let tries=0; tries<200; tries++){
-    const key = shuffle(bag);
-    let ok = true;
-    for(let i=3;i<key.length;i++){
-      if(key[i]===key[i-1] && key[i]===key[i-2] && key[i]===key[i-3]) { ok=false; break; }
-    }
-    if(ok) return key;
-  }
-  return shuffle(bag);
-}
-
-function buildEtyVocabQuiz(mode, N){
-  let pool = [];
-  let tfidfIndex = null;
-  if(mode === "vocab"){
-    pool = STATE.vocab;
-    tfidfIndex = STATE.tfidf.vocab;
-  } else if(mode === "ety"){
-    pool = STATE.ety;
-    tfidfIndex = STATE.tfidf.ety;
-  } else {
-    pool = null;
-  }
-
-  const key = makeKeyLetters(N);
-  const questions = [];
-
-  function sampleIndices(arr, count){
-    const idx = arr.map((_,i)=>i);
-    return shuffle(idx).slice(0, Math.min(count, idx.length));
-  }
-
-  if(mode === "mixed"){
-    const vCount = STATE.vocab.length;
-    const eCount = STATE.ety.length;
-
-    const types = [];
-    for(let i=0;i<N;i++){
-      if(vCount===0 && eCount===0) break;
-      if(vCount===0) types.push("ety");
-      else if(eCount===0) types.push("vocab");
-      else types.push(i%2===0 ? "vocab" : "ety");
-    }
-
-    const needV = types.filter(t=>t==="vocab").length;
-    const needE = types.filter(t=>t==="ety").length;
-
-    const vIdx = sampleIndices(STATE.vocab, needV);
-    const eIdx = sampleIndices(STATE.ety, needE);
-
-    let vi=0, ei=0;
-
-    for(let q=0;q<types.length;q++){
-      const t = types[q];
-      const correctLetter = key[q];
-      if(t==="vocab"){
-        const correctIdx = vIdx[vi++] ?? Math.floor(Math.random()*STATE.vocab.length);
-        questions.push(buildOneQuestion(STATE.vocab, STATE.tfidf.vocab, correctIdx, correctLetter, "vocab"));
-      } else {
-        const correctIdx = eIdx[ei++] ?? Math.floor(Math.random()*STATE.ety.length);
-        questions.push(buildOneQuestion(STATE.ety, STATE.tfidf.ety, correctIdx, correctLetter, "ety"));
-      }
-    }
-  } else {
-    const idxs = sampleIndices(pool, N);
-    for(let q=0;q<idxs.length;q++){
-      questions.push(buildOneQuestion(pool, tfidfIndex, idxs[q], key[q], mode));
-    }
-  }
-
-  return {
-    mode,
-    N: questions.length,
-    key,
-    questions,
-    answers: Array(questions.length).fill(null),
-    startedAtBJT: fmtBJT(nowBJT())
-  };
-}
-
-function buildOneQuestion(pool, tfidfIndex, correctIdx, correctLetter, kind){
-  const entry = pool[correctIdx];
-
-  const prompt = entry.stem;
-
-  const stemLine = (kind==="vocab")
-    ? `Which definition best matches “${prompt}”?`
-    : `What does the word part “${prompt}” most closely mean?`;
-
-  const dis = pickDistractors(pool, tfidfIndex, correctIdx, 3).map(i=> pool[i].answerText);
-
-  const letters = ["A","B","C","D"];
-  const correctText = entry.answerText;
-
-  const d3 = shuffle(dis).slice(0,3);
-
-  const opts = [];
-  for(const L of letters){
-    opts.push({ letter:L, text:"" });
-  }
-
-  const correctPos = letters.indexOf(correctLetter);
-  opts[correctPos].text = correctText;
-
-  let di = 0;
-  for(let i=0;i<opts.length;i++){
-    if(i===correctPos) continue;
-    opts[i].text = d3[di++] || d3[0] || correctText;
-  }
-
-  for(const o of opts){
-    o.text = stripExamples(normSpace(o.text));
-  }
-
-  return {
-    kind,
-    stemLine,
-    prompt,
-    topic: entry.topic || "",
-    options: opts,
-    correctLetter,
-    correctText,
-    rationale: ""
-  };
-}
-
-/* =========================
-   QUIZ RENDERING
-========================= */
-function renderQuiz(container, quiz, onFinish){
-  container.innerHTML = "";
-  const shell = document.createElement("div");
-  shell.className = "quizShell";
-
-  const top = document.createElement("div");
-  top.className = "quizTop";
-
-  const left = document.createElement("div");
-  left.style.minWidth = "0";
-  const meta = document.createElement("div");
-  meta.className = "qMeta";
-
-  const h = document.createElement("h2");
-  h.className = "qPrompt";
-
-  left.appendChild(meta);
-  left.appendChild(h);
-
-  const right = document.createElement("div");
-  right.className = "qRight";
-
-  const changeBtn = document.createElement("button");
-  changeBtn.className = "btn ghost";
-  changeBtn.textContent = "Change number";
-  changeBtn.addEventListener("click", ()=>{
-    container.dispatchEvent(new CustomEvent("changeNumber"));
-  });
-
-  right.appendChild(changeBtn);
-  top.appendChild(left);
-  top.appendChild(right);
-
-  const optList = document.createElement("div");
-  optList.className = "optList";
-
-  const bottom = document.createElement("div");
-  bottom.className = "quizBottom";
-
-  const backBtn = document.createElement("button");
-  backBtn.className = "btn ghost";
-  backBtn.textContent = "Back";
-
-  const finishBtn = document.createElement("button");
-  finishBtn.className = "btn ghost";
-  finishBtn.textContent = "Finish now";
-
-  const nextBtn = document.createElement("button");
-  nextBtn.className = "btn primary";
-  nextBtn.textContent = "Next";
-
-  bottom.appendChild(backBtn);
-  bottom.appendChild(finishBtn);
-  bottom.appendChild(document.createElement("div")).className = "spacer";
-  bottom.appendChild(nextBtn);
-
-  shell.appendChild(top);
-  shell.appendChild(optList);
-  shell.appendChild(bottom);
-
-  container.appendChild(shell);
-
-  let idx = 0;
-
-  function paint(){
-    const q = quiz.questions[idx];
-    meta.textContent = `Question ${idx+1} of ${quiz.questions.length}`;
-    h.textContent = q.prompt;
-
-    optList.innerHTML = "";
-    const stem = document.createElement("div");
-    stem.className = "muted";
-    stem.style.fontSize = "18px";
-    stem.style.marginBottom = "8px";
-    stem.textContent = q.stemLine;
-    optList.appendChild(stem);
-
-    q.options.forEach((opt)=>{
-      const b = document.createElement("button");
-      b.className = "optBtn";
-      const selected = (quiz.answers[idx] === opt.letter);
-      if(selected) b.classList.add("selected");
-
-      const lab = document.createElement("div");
-      lab.className = "optLabel";
-      lab.textContent = opt.letter;
-
-      const txt = document.createElement("div");
-      txt.className = "optText";
-      txt.textContent = opt.text;
-
-      b.appendChild(lab);
-      b.appendChild(txt);
-
-      b.addEventListener("click", ()=>{
-        quiz.answers[idx] = opt.letter;
-        paint();
-      });
-
-      optList.appendChild(b);
-    });
-
-    backBtn.disabled = (idx===0);
-    nextBtn.textContent = (idx === quiz.questions.length-1) ? "Finish" : "Next";
-  }
-
-  backBtn.addEventListener("click", ()=>{
-    if(idx>0){ idx--; paint(); }
-  });
-
-  nextBtn.addEventListener("click", ()=>{
-    if(idx < quiz.questions.length-1){
-      idx++; paint();
-    } else {
-      onFinish();
-    }
-  });
-
-  finishBtn.addEventListener("click", onFinish);
-
-  paint();
-}
-
-/* =========================
-   SUMMARY RENDERING
-========================= */
-function summarizeQuiz(quiz){
-  const total = quiz.questions.length;
-  let correct = 0;
-  let attempted = 0;
-
-  const rows = [];
-  const missed = [];
-
-  for(let i=0;i<total;i++){
-    const q = quiz.questions[i];
-    const chosen = quiz.answers[i];
-    const isAttempted = chosen !== null && chosen !== undefined;
-    if(isAttempted) attempted++;
-    const ok = (chosen === q.correctLetter);
-    if(ok) correct++;
-    if(!ok) missed.push({ i, q });
-
-    rows.push({
-      i: i+1,
-      kind: q.kind,
-      prompt: q.prompt,
-      chosen: chosen || "—",
-      correct: q.correctLetter,
-      ok
-    });
-  }
-
-  const pct = total ? (correct/total)*100 : 0;
-
-  return { total, attempted, correct, pct, rows, missed };
-}
-
-function adviceForPct(pct){
-  if(pct >= 90){
-    return { tone:"good", title:"Strong accuracy.", msg:"Increase the question count gradually while keeping accuracy stable. Review only the few misses; don’t churn everything." };
-  }
-  if(pct >= 75){
-    return { tone:"good", title:"Good baseline.", msg:"Retake at the same question count until your accuracy is consistently high, then increase the count." };
-  }
-  if(pct >= 50){
-    return { tone:"warn", title:"Mixed performance.", msg:"Reduce the question count, review the misses carefully, then retake until accuracy stabilizes." };
-  }
-  return { tone:"bad", title:"Low accuracy.", msg:"Cut the question count sharply, review the correct answers, and retake in small batches until you stop guessing." };
-}
-
-function renderSummary(container, quiz, onRetrySame, onNewSet, onChangeNumber){
-  const s = summarizeQuiz(quiz);
-  container.innerHTML = "";
-
-  const title = document.createElement("div");
-  title.className = "summaryTitle";
-  title.textContent = "Results summary";
-
-  const scoreLine = document.createElement("div");
-  scoreLine.className = "scoreLine";
-  scoreLine.textContent =
-    `Score: ${s.correct}/${s.total} (${s.pct.toFixed(1)}%).  Attempted: ${s.attempted}/${s.total}. ` +
-    `Unanswered questions count as incorrect (by design).`;
-
-  const adv = adviceForPct(s.pct);
-  const advice = document.createElement("div");
-  advice.className = "adviceBox";
-  advice.innerHTML = `<strong class="${adv.tone}">${adv.title}</strong> <span class="muted">${adv.msg}</span>`;
-
-  const actions = document.createElement("div");
-  actions.className = "row";
-  actions.style.marginTop = "14px";
-  const retryBtn = document.createElement("button");
-  retryBtn.className = "btn ghost";
-  retryBtn.textContent = "Retry same set";
-
-  const newBtn = document.createElement("button");
-  newBtn.className = "btn ghost";
-  newBtn.textContent = "Generate new set";
-
-  const changeBtn = document.createElement("button");
-  changeBtn.className = "btn primary";
-  changeBtn.textContent = "Change number";
-
-  retryBtn.addEventListener("click", onRetrySame);
-  newBtn.addEventListener("click", onNewSet);
-  changeBtn.addEventListener("click", onChangeNumber);
-
-  actions.appendChild(retryBtn);
-  actions.appendChild(newBtn);
-  actions.appendChild(document.createElement("div")).className = "spacer";
-  actions.appendChild(changeBtn);
-
-  const wrap = document.createElement("div");
-  wrap.className = "resultTableWrap";
-  const table = document.createElement("table");
-  table.innerHTML = `
-    <thead>
-      <tr>
-        <th style="width:80px;">#</th>
-        <th style="width:120px;">Type</th>
-        <th>Prompt</th>
-        <th style="width:120px;">Chosen</th>
-        <th style="width:120px;">Correct</th>
-        <th style="width:120px;">Result</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  `;
-  const tb = table.querySelector("tbody");
-
-  for(const r of s.rows){
-    const tr = document.createElement("tr");
-    const typeName = (r.kind==="ety") ? "Etymology" : (r.kind==="vocab" ? "Vocabulary" : "Custom");
-    const badge = `<span class="tag">${typeName}</span>`;
-    const res = r.ok
-      ? `<span class="good">Correct</span>`
-      : `<span class="bad">Incorrect</span>`;
-
-    tr.innerHTML = `
-      <td>${r.i}</td>
-      <td>${badge}</td>
-      <td>${escapeHtml(r.prompt)}</td>
-      <td>${escapeHtml(r.chosen)}</td>
-      <td>${escapeHtml(r.correct)}</td>
-      <td>${res}</td>
-    `;
-    tb.appendChild(tr);
-  }
-
-  wrap.appendChild(table);
-
-  const review = document.createElement("div");
-  review.className = "adviceBox";
-  review.style.marginTop = "14px";
-
-  if(s.missed.length === 0){
-    review.innerHTML = `<strong class="good">No misses.</strong> <span class="muted">Move up the question count.</span>`;
-  } else {
-    const lines = s.missed.map(m=>{
-      const q = m.q;
-      const label = q.kind==="ety" ? "Word part" : (q.kind==="vocab" ? "Term" : "Question");
-      return `• ${label}: ${q.prompt}\n  Correct: (${q.correctLetter}) ${q.correctText}`;
-    }).join("\n\n");
-
-    review.innerHTML = `<strong class="warn">Review the misses.</strong>
-      <div class="muted" style="margin-top:10px; white-space:pre-wrap; max-height:480px; overflow:auto;">${escapeHtml(lines)}</div>`;
-  }
-
-  container.appendChild(title);
-  container.appendChild(scoreLine);
-  container.appendChild(advice);
-  container.appendChild(actions);
-  container.appendChild(wrap);
-  container.appendChild(review);
-}
-
-function escapeHtml(s){
-  return String(s ?? "")
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-}
-
-/* =========================
-   ETY/VOCAB WIRES
-========================= */
-document.querySelectorAll(".pill").forEach(p=>{
-  p.addEventListener("click", ()=>{
-    document.querySelectorAll(".pill").forEach(x=> x.classList.remove("active"));
-    p.classList.add("active");
-    STATE.mode = p.dataset.mode;
-  });
-});
-
-document.getElementById("etyStart").addEventListener("click", ()=>{
-  const n = clampInt1to100(document.getElementById("etyN").value);
-  const err = document.getElementById("presetError");
-  if(n === null){
-    err.textContent = "Enter an integer from 1 to 100.";
-    err.style.display = "block";
-    return;
-  }
-  if(STATE.vocab.length===0 && STATE.ety.length===0){
-    err.textContent = "Preset is not loaded. Ensure Vocab_Ety_Master_List.xlsx is in the same directory.";
-    err.style.display = "block";
-    return;
-  }
-  if(STATE.mode==="ety" && STATE.ety.length===0){
-    err.textContent = "Etymology pool is empty. Fix the spreadsheet headers so word parts + meanings are detected.";
-    err.style.display = "block";
-    return;
-  }
-  if(STATE.mode==="vocab" && STATE.vocab.length===0){
-    err.textContent = "Vocabulary pool is empty. Fix the spreadsheet so terms + definitions are detected.";
-    err.style.display = "block";
-    return;
-  }
-  err.style.display = "none";
-
-  startEtyQuiz(n);
-});
-
-function startEtyQuiz(n){
-  const quizArea = document.getElementById("etyQuizArea");
-  const sumArea  = document.getElementById("etySummaryArea");
-
-  sumArea.style.display = "none";
-  quizArea.style.display = "block";
-  quizArea.innerHTML = "";
-
-  STATE.etyQuiz = buildEtyVocabQuiz(STATE.mode, n);
-
-  renderQuiz(quizArea, STATE.etyQuiz, ()=>{
-    quizArea.style.display = "none";
-    sumArea.style.display = "block";
-
-    renderSummary(sumArea, STATE.etyQuiz,
-      ()=>{
-        STATE.etyQuiz.answers = Array(STATE.etyQuiz.questions.length).fill(null);
-        sumArea.style.display = "none";
-        quizArea.style.display = "block";
-        renderQuiz(quizArea, STATE.etyQuiz, ()=> {
-          quizArea.style.display="none";
-          sumArea.style.display="block";
-          renderSummary(sumArea, STATE.etyQuiz, ()=>{}, ()=>{}, ()=>{});
-          renderSummary(sumArea, STATE.etyQuiz,
-            ()=>{ startEtyQuiz(STATE.etyQuiz.questions.length); },
-            ()=>{ startEtyQuiz(STATE.etyQuiz.questions.length); },
-            ()=>{ changeEtyNumber(); }
-          );
-        });
-      },
-      ()=>{
-        startEtyQuiz(STATE.etyQuiz.questions.length);
-      },
-      ()=>{
-        changeEtyNumber();
-      }
-    );
-  });
-
-  quizArea.addEventListener("changeNumber", changeEtyNumber, { once:true });
-}
-
-function changeEtyNumber(){
-  document.getElementById("etyQuizArea").style.display = "none";
-  document.getElementById("etySummaryArea").style.display = "none";
-}
-
-/* =========================
-   CUSTOM JSON QUIZ
-========================= */
-document.getElementById("buildPrompt").addEventListener("click", async ()=>{
-  const n = clampInt1to100(document.getElementById("customN").value);
-  if(n === null){
-    showCustomError("Enter an integer from 1 to 100.");
-    return;
-  }
-  hideCustomError();
-
-  const file = document.getElementById("customFile").files[0];
-  let text = normSpace(document.getElementById("customText").value);
-
-  if(file && !text){
-    try{
-      text = await file.text();
-      text = text.trim();
-    } catch(e){}
-  }
-
-  const prompt = makeCustomPrompt(n, text);
-  document.getElementById("promptText").textContent = prompt;
-  document.getElementById("promptBox").style.display = "block";
-  document.getElementById("copyPrompt").style.display = "inline-block";
-});
-
-document.getElementById("copyPrompt").addEventListener("click", async ()=>{
-  const p = document.getElementById("promptText").textContent || "";
-  try{
-    await navigator.clipboard.writeText(p);
-    const btn = document.getElementById("copyPrompt");
-    const old = btn.textContent;
-    btn.textContent = "Copied";
-    setTimeout(()=> btn.textContent = old, 900);
-  } catch(e){
-    showCustomError("Clipboard copy failed. Select and copy manually.");
-  }
-});
-
-function makeCustomPrompt(n, content){
-  const safeContent = content ? content : "[PASTE YOUR CONTENT HERE]";
-  return [
-`You are the “MCQ JSON Machine”. Generate a quiz JSON.`,
-``,
-`INPUTS`,
-`- Number of MCQs: ${n}`,
-`- Source policy: use ONLY the provided content. No outside facts.`,
-``,
-`OUTPUT FORMAT (STRICT)`,
-`Return ONE JSON object with:`,
-`{`,
-`  "title": "Auto-infer a short unit title (no codes in title)",`,
-`  "questions": [`,
-`    {`,
-`      "stem": "Question stem (standalone, no 'as in the notes')",`,
-`      "choices": ["A text","B text","C text","D text"],`,
-`      "answer": "A|B|C|D",`,
-`      "rationale": "One short sentence explaining why the correct choice is correct."`,
-`    }`,
-`  ]`,
-`}`,
-``,
-`CONSTRAINTS`,
-`- Exactly ${n} questions.`,
-`- Exactly 4 choices each.`,
-`- Exactly one best answer.`,
-`- Distractors must be plausible and semantically close (no junk).`,
-`- Avoid clueing by length or grammar; keep options parallel.`,
-``,
-`CONTENT`,
-`<<<`,
-safeContent,
-`>>>`
-  ].join("\n");
-}
-
-function showCustomError(msg){
-  const el = document.getElementById("customError");
-  el.textContent = msg;
-  el.style.display = "block";
-}
-function hideCustomError(){
-  const el = document.getElementById("customError");
-  el.style.display = "none";
-}
-
-document.getElementById("loadCustomQuiz").addEventListener("click", ()=>{
-  hideCustomError();
-  const n = clampInt1to100(document.getElementById("customN").value);
-  if(n === null){
-    showCustomError("Enter an integer from 1 to 100.");
-    return;
-  }
-
-  const raw = document.getElementById("customJson").value.trim();
-  if(!raw){
-    showCustomError("Paste the JSON output from the MCQ JSON Machine.");
-    return;
-  }
-
-  let obj;
-  try{
-    obj = JSON.parse(raw);
-  }catch(e){
-    showCustomError("JSON parse failed. Ensure it’s valid JSON (no trailing commas, use double quotes).");
-    return;
-  }
-
-  const quiz = normalizeCustomQuiz(obj, n);
-  if(!quiz.ok){
-    showCustomError(quiz.error);
-    return;
-  }
-
-  startCustomQuiz(quiz.data);
-});
-
-function normalizeCustomQuiz(obj, n){
-  if(!obj || typeof obj !== "object") return {ok:false, error:"JSON must be an object."};
-
-  const title = normSpace(obj.title || "Custom quiz");
-  const qs = obj.questions;
-  if(!Array.isArray(qs) || qs.length===0) return {ok:false, error:"JSON must include a non-empty questions array."};
-  if(qs.length !== n) return {ok:false, error:`Expected exactly ${n} questions, but got ${qs.length}.`};
-
-  const questions = [];
-  for(let i=0;i<qs.length;i++){
-    const q = qs[i];
-    const stem = normSpace(q.stem);
-    const choices = q.choices || q.options;
-    const ans = normSpace(q.answer).toUpperCase();
-    const rationale = normSpace(q.rationale || "");
-
-    if(!stem) return {ok:false, error:`Question ${i+1}: missing stem.`};
-    if(!Array.isArray(choices) || choices.length!==4) return {ok:false, error:`Question ${i+1}: choices must be an array of 4 strings.`};
-    if(!["A","B","C","D"].includes(ans)) return {ok:false, error:`Question ${i+1}: answer must be A, B, C, or D.`};
-
-    const opts = ["A","B","C","D"].map((L, j)=> ({ letter:L, text: stripExamples(normSpace(choices[j])) }));
-    const correctText = opts[["A","B","C","D"].indexOf(ans)].text;
-
-    questions.push({
-      kind: "custom",
-      prompt: stem,
-      stemLine: "Choose the best option (A–D).",
-      topic: "",
-      options: opts,
-      correctLetter: ans,
-      correctText,
-      rationale
-    });
-  }
-
-  return {
-    ok:true,
-    data:{
-      mode:"custom",
-      N: questions.length,
-      questions,
-      answers: Array(questions.length).fill(null),
-      startedAtBJT: fmtBJT(nowBJT()),
-      title
-    }
-  };
-}
-
-function startCustomQuiz(quiz){
-  const quizArea = document.getElementById("customQuizArea");
-  const sumArea  = document.getElementById("customSummaryArea");
-
-  STATE.customQuiz = quiz;
-
-  sumArea.style.display = "none";
-  quizArea.style.display = "block";
-  quizArea.innerHTML = "";
-
-  renderQuiz(quizArea, STATE.customQuiz, ()=>{
-    quizArea.style.display = "none";
-    sumArea.style.display = "block";
-
-    renderSummary(sumArea, STATE.customQuiz,
-      ()=>{
-        STATE.customQuiz.answers = Array(STATE.customQuiz.questions.length).fill(null);
-        sumArea.style.display="none";
-        quizArea.style.display="block";
-        renderQuiz(quizArea, STATE.customQuiz, ()=>{
-          quizArea.style.display="none";
-          sumArea.style.display="block";
-          renderSummary(sumArea, STATE.customQuiz,
-            ()=>{}, ()=>{}, ()=>{ changeCustomNumber(); }
-          );
-        });
-      },
-      ()=>{
-        changeCustomNumber();
-      },
-      ()=>{
-        changeCustomNumber();
-      }
-    );
-  });
-
-  quizArea.addEventListener("changeNumber", changeCustomNumber, { once:true });
-}
-
-function changeCustomNumber(){
-  document.getElementById("customQuizArea").style.display = "none";
-  document.getElementById("customSummaryArea").style.display = "none";
-}
-
-/* =========================
-   UPDATES + ADMIN
-========================= */
-const DEFAULT_UPDATES = [
-  {
-    ts: "—",
-    msg:
-`Next update (scheduled):
-- Fix numeric input acceptance (1–100) for Etymology/Vocabulary generator.
-- Ensure full results summary includes every question.
-- Improve distractor plausibility and option formatting (A–D), and add retry/new-set flow.`
-  }
-];
-
-async function loadUpdates(){
-  try{
-    const res = await fetch(UPDATES_JSON, { cache:"no-store" });
-    if(!res.ok) throw new Error("No updates.json");
-    const data = await res.json();
-    if(!Array.isArray(data)) throw new Error("updates.json must be an array.");
-    STATE.updates = data.map(x=> ({
-      ts: normSpace(x.ts),
-      msg: normSpace(x.msg)
-    })).filter(x=> x.msg);
-  } catch(e){
-    STATE.updates = DEFAULT_UPDATES.slice();
-  }
-  renderUpdates();
-}
-
-function renderUpdates(){
-  const list = document.getElementById("updatesList");
-  list.innerHTML = "";
-  for(const u of STATE.updates){
-    const item = document.createElement("div");
-    item.className = "updateItem";
-
-    const stamp = document.createElement("div");
-    stamp.className = "updateStamp";
-    stamp.textContent = u.ts && u.ts !== "—" ? u.ts : "Update";
-
-    const msg = document.createElement("div");
-    msg.className = "updateMsg";
-    msg.textContent = u.msg;
-
-    item.appendChild(stamp);
-    item.appendChild(msg);
-    list.appendChild(item);
-  }
-}
-
-const adminBack = document.getElementById("adminBack");
-const adminClose = document.getElementById("adminClose");
-const adminErr = document.getElementById("adminErr");
-
-function openAdmin(){
-  adminBack.classList.add("show");
-  adminBack.setAttribute("aria-hidden","false");
-  adminErr.style.display = "none";
-
-  const authed = localStorage.getItem("bb_admin") === "1";
-  document.getElementById("adminLogin").style.display = authed ? "none" : "block";
-  document.getElementById("adminPanel").style.display = authed ? "block" : "none";
-  if(authed) renderAdminPreview();
-}
-
-function closeAdmin(){
-  adminBack.classList.remove("show");
-  adminBack.setAttribute("aria-hidden","true");
-}
-
-document.getElementById("versionBadge").addEventListener("click", openAdmin);
-adminClose.addEventListener("click", closeAdmin);
-adminBack.addEventListener("click", (e)=>{ if(e.target === adminBack) closeAdmin(); });
-
-document.getElementById("adminEnter").addEventListener("click", ()=>{
-  const p = document.getElementById("adminPass").value;
-  if(p === ADMIN_PASSWORD){
-    localStorage.setItem("bb_admin","1");
-    document.getElementById("adminLogin").style.display = "none";
-    document.getElementById("adminPanel").style.display = "block";
-    document.getElementById("adminPass").value = "";
-    adminErr.style.display = "none";
-    renderAdminPreview();
-  } else {
-    adminErr.textContent = "Incorrect password.";
-    adminErr.style.display = "block";
-  }
-});
-
-document.getElementById("logoutAdmin").addEventListener("click", ()=>{
-  localStorage.removeItem("bb_admin");
-  document.getElementById("adminPanel").style.display = "none";
-  document.getElementById("adminLogin").style.display = "block";
-});
-
-document.getElementById("postUpdate").addEventListener("click", ()=>{
-  const msg = normSpace(document.getElementById("adminMsg").value);
-  if(!msg){
-    adminErr.textContent = "Write an update message.";
-    adminErr.style.display = "block";
-    return;
-  }
-  adminErr.style.display = "none";
-
-  const ts = fmtBJT(nowBJT());
-  STATE.updates.unshift({ ts, msg });
-  document.getElementById("adminMsg").value = "";
-
-  renderUpdates();
-  renderAdminPreview();
-});
-
-function renderAdminPreview(){
-  const box = document.getElementById("adminUpdatesPreview");
-  box.innerHTML = "";
-  for(const u of STATE.updates.slice(0, 20)){
-    const item = document.createElement("div");
-    item.className = "updateItem";
-    const stamp = document.createElement("div");
-    stamp.className = "updateStamp";
-    stamp.textContent = u.ts;
-    const msg = document.createElement("div");
-    msg.className = "updateMsg";
-    msg.textContent = u.msg;
-    item.appendChild(stamp);
-    item.appendChild(msg);
-    box.appendChild(item);
-  }
-}
-
-document.getElementById("downloadUpdates").addEventListener("click", ()=>{
-  const data = JSON.stringify(STATE.updates, null, 2);
-  const blob = new Blob([data], { type:"application/json" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = "updates.json";
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  URL.revokeObjectURL(url);
-});
-
-/* =========================
-   INIT
-========================= */
-(function init(){
-  setVersionBadge();
-  setTab("home");
-  loadUpdates();
-  loadPreset();
-
-  window.addEventListener("keydown", (e)=>{
-    if(e.key === "Escape" && adminBack.classList.contains("show")) closeAdmin();
-  });
-})();
-</script>
+  <script type="module" src="assets/app.js"></script>
 </body>
 </html>

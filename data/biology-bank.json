@@ -1,0 +1,5113 @@
+{
+  "schemaVersion": 1,
+  "source": "Vocab_Ety_Master_List.xlsx",
+  "counts": {
+    "vocabulary": 500,
+    "etymology": 300,
+    "total": 800
+  },
+  "vocabulary": [
+    {
+      "id": "1",
+      "section": "A",
+      "term": "Abiotic",
+      "definition": "the non-living components of an ecosystem."
+    },
+    {
+      "id": "2",
+      "section": "A",
+      "term": "Abscisic acid (ABA)",
+      "definition": "plant hormone involved in stress responses and stomatal closure."
+    },
+    {
+      "id": "3",
+      "section": "A",
+      "term": "Absorption spectrum",
+      "definition": "the amount of each wavelength of light absorbed by chlorophyll."
+    },
+    {
+      "id": "4",
+      "section": "A",
+      "term": "Accuracy",
+      "definition": "closeness of a measurement to the true value."
+    },
+    {
+      "id": "5",
+      "section": "A",
+      "term": "Acetyl-CoA",
+      "definition": "two-carbon acetyl group carrier entering the citric acid cycle; formed from pyruvate or fatty acids."
+    },
+    {
+      "id": "6",
+      "section": "A",
+      "term": "Acetylcholine",
+      "definition": "neurotransmitter used at neuromuscular junctions and many synapses."
+    },
+    {
+      "id": "7",
+      "section": "A",
+      "term": "Action potential",
+      "definition": "the potential difference produced across the plasma membrane of the nerve cell when stimulated, reversing the resting potential from about −70 mv to about +40 mv."
+    },
+    {
+      "id": "8",
+      "section": "A",
+      "term": "Action spectrum",
+      "definition": "the wavelengths of light that bring about photosynthesis."
+    },
+    {
+      "id": "9",
+      "section": "A",
+      "term": "Activation energy",
+      "definition": "energy required by a substrate molecule before it can undergo a chemical change."
+    },
+    {
+      "id": "10",
+      "section": "A",
+      "term": "Active site",
+      "definition": "a region of an enzyme molecule where the substrate molecule binds."
+    },
+    {
+      "id": "11",
+      "section": "A",
+      "term": "Active transport",
+      "definition": "movement of particles from lower to higher concentration using energy from atp that has been created during respiration. movement is through carrier proteins."
+    },
+    {
+      "id": "12",
+      "section": "A",
+      "term": "Adaptive immunity",
+      "definition": "specific immune response with antigen recognition and immunological memory."
+    },
+    {
+      "id": "13",
+      "section": "A",
+      "term": "Addict",
+      "definition": "someone who cannot control or abandon their drug use."
+    },
+    {
+      "id": "14",
+      "section": "A",
+      "term": "Addiction",
+      "definition": "physiological and psychological ongoing compulsion to take a mood-altering drug, being unable to give it up without experiencing very unpleasant side-effects."
+    },
+    {
+      "id": "15",
+      "section": "A",
+      "term": "Adenosine diphosphate (ADP)",
+      "definition": "molecule phosphorylated to atp during respiration and photosynthesis."
+    },
+    {
+      "id": "16",
+      "section": "A",
+      "term": "Adenosine monophosphate (AMP)",
+      "definition": "adenine nucleotide; component of rna and product of atp dephosphorylation."
+    },
+    {
+      "id": "17",
+      "section": "A",
+      "term": "Adenosine triphosphate (ATP)",
+      "definition": "universal energy carrier; hydrolysis of terminal phosphate releases usable energy."
+    },
+    {
+      "id": "18",
+      "section": "A",
+      "term": "Adhesion",
+      "definition": "the force by which individual molecules stick to surrounding materials and surfaces."
+    },
+    {
+      "id": "19",
+      "section": "A",
+      "term": "Adipose tissue",
+      "definition": "a tissue found beneath the skin layer, containing fat cells."
+    },
+    {
+      "id": "20",
+      "section": "A",
+      "term": "Alien species",
+      "definition": "species that are introduced into an area by human activity."
+    },
+    {
+      "id": "21",
+      "section": "A",
+      "term": "Allele",
+      "definition": "alternative form of a gene at the same locus."
+    },
+    {
+      "id": "22",
+      "section": "A",
+      "term": "Alleles",
+      "definition": "different versions of the same gene (one from the father, one from the mother)."
+    },
+    {
+      "id": "23",
+      "section": "A",
+      "term": "Allergen",
+      "definition": "something that causes an allergic response."
+    },
+    {
+      "id": "24",
+      "section": "A",
+      "term": "Allergy",
+      "definition": "an exaggerated response by the body to antigens."
+    },
+    {
+      "id": "25",
+      "section": "A",
+      "term": "Allopatric speciation",
+      "definition": "speciation due to geographic isolation."
+    },
+    {
+      "id": "26",
+      "section": "A",
+      "term": "Altricial",
+      "definition": "born in an undeveloped state after a short gestation period."
+    },
+    {
+      "id": "27",
+      "section": "A",
+      "term": "Altruism",
+      "definition": "selfless concern for the well-being of others."
+    },
+    {
+      "id": "28",
+      "section": "A",
+      "term": "Amphipathic",
+      "definition": "a molecule that is partly hydrophilic and partly hydrophobic."
+    },
+    {
+      "id": "29",
+      "section": "A",
+      "term": "Anabolism",
+      "definition": "the synthesis of complex molecules from simpler molecules including the formation of macromolecules from monomers by condensation reactions."
+    },
+    {
+      "id": "30",
+      "section": "A",
+      "term": "Analogous structures",
+      "definition": "anatomical features that appear similar in structure but have a different evolutionary origin."
+    },
+    {
+      "id": "31",
+      "section": "A",
+      "term": "Anaphase",
+      "definition": "stage where sister chromatids (or homologs in meiosis i) separate toward opposite poles."
+    },
+    {
+      "id": "32",
+      "section": "A",
+      "term": "Anesthetic",
+      "definition": "a drug that can bring about reversible loss of consciousness."
+    },
+    {
+      "id": "33",
+      "section": "A",
+      "term": "Antibiotics",
+      "definition": "organic compounds which selectively inhibit or kill other microorganisms."
+    },
+    {
+      "id": "34",
+      "section": "A",
+      "term": "Antibody",
+      "definition": "a protein produced by b lymphocytes when in the presence of a specific antigen, which then binds with the antigen, aiding its destruction."
+    },
+    {
+      "id": "35",
+      "section": "A",
+      "term": "Anticodon",
+      "definition": "triplet on trna complementary to an mrna codon."
+    },
+    {
+      "id": "36",
+      "section": "A",
+      "term": "Antidiuretic hormone (ADH)",
+      "definition": "hormone secreted by the pituitary gland that controls the permeability of the walls of the collecting ducts of the kidney."
+    },
+    {
+      "id": "37",
+      "section": "A",
+      "term": "Antigen",
+      "definition": "a substance capable of binding specifically to an antibody and triggering an immune response."
+    },
+    {
+      "id": "38",
+      "section": "A",
+      "term": "Antithrombin",
+      "definition": "a small glycoprotein molecule that occurs in the blood plasma."
+    },
+    {
+      "id": "39",
+      "section": "A",
+      "term": "Aseptic",
+      "definition": "without contamination by any other organism."
+    },
+    {
+      "id": "40",
+      "section": "A",
+      "term": "ATP synthase",
+      "definition": "enzyme complex that uses proton flow to phosphorylate adp to atp."
+    },
+    {
+      "id": "41",
+      "section": "A",
+      "term": "Autotrophic",
+      "definition": "an organism that synthesizes its organic molecules from simple inorganic substances."
+    },
+    {
+      "id": "42",
+      "section": "A",
+      "term": "Auxin",
+      "definition": "plant hormone regulating cell elongation, apical dominance, and tropisms."
+    },
+    {
+      "id": "43",
+      "section": "A",
+      "term": "Axon",
+      "definition": "carries impulses to other cells – either to other neurons or to body cells (muscle cells or gland cells)."
+    },
+    {
+      "id": "44",
+      "section": "B",
+      "term": "B cell",
+      "definition": "lymphocyte that differentiates into plasma cells to produce antibodies."
+    },
+    {
+      "id": "45",
+      "section": "B",
+      "term": "Balanced diet",
+      "definition": "essential and non-essential nutrients, taken in correct proportions."
+    },
+    {
+      "id": "46",
+      "section": "B",
+      "term": "Base pairing",
+      "definition": "specific hydrogen bonding between nucleic acid bases (a–t/u and c–g)."
+    },
+    {
+      "id": "47",
+      "section": "B",
+      "term": "Basophil",
+      "definition": "white blood cell that circulates in the blood."
+    },
+    {
+      "id": "48",
+      "section": "B",
+      "term": "Behaviour",
+      "definition": "the way in which organisms respond to the environment and to other members of the same species."
+    },
+    {
+      "id": "49",
+      "section": "B",
+      "term": "Benzene",
+      "definition": "a cyclic hydrocarbon of molecular formula c6h6."
+    },
+    {
+      "id": "50",
+      "section": "B",
+      "term": "Bilayer",
+      "definition": "two rows of phospholipids, with the fatty acids pointing towards each other and the phosphates on the outside."
+    },
+    {
+      "id": "51",
+      "section": "B",
+      "term": "Bile salts",
+      "definition": "organic salts composed of cholic acid, which is manufactured by the liver from cholesterol, that are combined with an amino acid–sodium complex."
+    },
+    {
+      "id": "52",
+      "section": "B",
+      "term": "Bioaccumulation",
+      "definition": "the build-up of non-biodegradable or slowly biodegradable chemicals in the body."
+    },
+    {
+      "id": "53",
+      "section": "B",
+      "term": "Biochemical oxygen demand (BOD)",
+      "definition": "a measure of the amount of dissolved oxygen required to break down the organic material in a given volume of water through aerobic biological activity."
+    },
+    {
+      "id": "54",
+      "section": "B",
+      "term": "Biofilm",
+      "definition": "microorganisms that are stuck to each other and, usually, to a surface; frequently embedded in and held by a polysaccharide matrix, secreted by the cells of the biofilm."
+    },
+    {
+      "id": "55",
+      "section": "B",
+      "term": "Bioinformatics",
+      "definition": "the storage, manipulation, and analysis of biological information via computer science."
+    },
+    {
+      "id": "56",
+      "section": "B",
+      "term": "Biomagnification",
+      "definition": "the process by which chemical substances become concentrated in the tissues of organisms at higher trophic levels."
+    },
+    {
+      "id": "57",
+      "section": "B",
+      "term": "Biopharming",
+      "definition": "technique that uses genetically modified animals and plants to produce proteins for therapeutic use."
+    },
+    {
+      "id": "58",
+      "section": "B",
+      "term": "Bioremediation",
+      "definition": "the process of exploiting microorganisms in the removal of pollutants from the environment."
+    },
+    {
+      "id": "59",
+      "section": "B",
+      "term": "Biotechnology",
+      "definition": "the industrial and commercial application of biological science, exploiting organisms – mostly microorganisms – to produce foods, drugs, enzymes, or chemicals."
+    },
+    {
+      "id": "60",
+      "section": "B",
+      "term": "Biotic",
+      "definition": "the living part of an ecosystem (the community)."
+    },
+    {
+      "id": "61",
+      "section": "B",
+      "term": "BLAST",
+      "definition": "an acronym for basic local alignment search."
+    },
+    {
+      "id": "62",
+      "section": "B",
+      "term": "Blood pressure",
+      "definition": "the pressure of the blood flowing through the arteries."
+    },
+    {
+      "id": "63",
+      "section": "B",
+      "term": "Bottleneck effect",
+      "definition": "genetic drift from a sharp reduction in population size."
+    },
+    {
+      "id": "64",
+      "section": "B",
+      "term": "Bowman’s capsule",
+      "definition": "cup-shaped structure collecting filtrate from the glomerulus."
+    },
+    {
+      "id": "65",
+      "section": "B",
+      "term": "Brain stem",
+      "definition": "a region of the brain that connects the cerebellum with the spinal cord, including the medulla."
+    },
+    {
+      "id": "66",
+      "section": "C",
+      "term": "Calvin cycle",
+      "definition": "a cycle of reactions in the stroma of the chloroplast by which some of the product of the light-independent reactions is reformed as the acceptor molecule for carbon dioxide (ribulose bisphosphate)."
+    },
+    {
+      "id": "67",
+      "section": "C",
+      "term": "Cardiac cycle",
+      "definition": "the sequence of events of a heartbeat, by which blood is pumped all over the body."
+    },
+    {
+      "id": "68",
+      "section": "C",
+      "term": "Carpel",
+      "definition": "female part of flower, consisting of stigma, style, and ovary."
+    },
+    {
+      "id": "69",
+      "section": "C",
+      "term": "Carrying capacity",
+      "definition": "the maximum number of a species or the ‘load’ that can be sustainably supported by a given environment. the population size at which environmental resistance limits further population growth."
+    },
+    {
+      "id": "70",
+      "section": "C",
+      "term": "Catabolism",
+      "definition": "the breakdown of complex molecules into simpler molecules including the hydrolysis of macromolecules into monomers."
+    },
+    {
+      "id": "71",
+      "section": "C",
+      "term": "Catalyst",
+      "definition": "a substance that speeds up the rate of a chemical reaction. catalysts are effective in small amounts and remain unchanged at the end of the reaction."
+    },
+    {
+      "id": "72",
+      "section": "C",
+      "term": "cDNA",
+      "definition": "dna synthesized from an mrna template using reverse transcriptase; lacks introns."
+    },
+    {
+      "id": "73",
+      "section": "C",
+      "term": "Cell cycle",
+      "definition": "cells arise by the division of existing cells, grow, and then divide."
+    },
+    {
+      "id": "74",
+      "section": "C",
+      "term": "Cell respiration",
+      "definition": "the controlled release of energy from organic compounds to produce atp."
+    },
+    {
+      "id": "75",
+      "section": "C",
+      "term": "Cell wall",
+      "definition": "rigid outer layer (plants, fungi, bacteria) that provides support and prevents osmotic lysis."
+    },
+    {
+      "id": "76",
+      "section": "C",
+      "term": "Centromere",
+      "definition": "chromosomal region where sister chromatids are joined and spindle attaches via kinetochores."
+    },
+    {
+      "id": "77",
+      "section": "C",
+      "term": "Chemiosmosis",
+      "definition": "process by which the synthesis of atp is coupled to electron transport via the movement of protons."
+    },
+    {
+      "id": "78",
+      "section": "C",
+      "term": "Chemoheterotrophy",
+      "definition": "form of nutrition in which organisms obtain their nutrients from molecules taken in from the environment. in this form of heterotrophy, complex organic molecules are the source of food."
+    },
+    {
+      "id": "79",
+      "section": "C",
+      "term": "Chi-squared test",
+      "definition": "statistical test comparing observed and expected frequencies."
+    },
+    {
+      "id": "80",
+      "section": "C",
+      "term": "Chiasma",
+      "definition": "visible point of crossing over between homologous chromosomes."
+    },
+    {
+      "id": "81",
+      "section": "C",
+      "term": "Chimera",
+      "definition": "an organism with some cells that are genetically different from other cells in the body."
+    },
+    {
+      "id": "82",
+      "section": "C",
+      "term": "Chloroplast",
+      "definition": "organelle of photosynthesis; thylakoids capture light and stroma hosts carbon fixation; has its own dna."
+    },
+    {
+      "id": "83",
+      "section": "C",
+      "term": "Chromatin",
+      "definition": "dna-protein complex (mainly histones) that packages genetic material in eukaryotes."
+    },
+    {
+      "id": "84",
+      "section": "C",
+      "term": "Citric acid cycle (Krebs cycle)",
+      "definition": "mitochondrial cycle that oxidizes acetyl-coa to co2, producing nadh, fadh2, and atp/gtp."
+    },
+    {
+      "id": "85",
+      "section": "C",
+      "term": "Clade",
+      "definition": "a group of organisms that have evolved from a common ancestor."
+    },
+    {
+      "id": "86",
+      "section": "C",
+      "term": "Cladistics",
+      "definition": "a classification system used to construct evolutionary trees."
+    },
+    {
+      "id": "87",
+      "section": "C",
+      "term": "Cladogram",
+      "definition": "a diagram used in cladistics which shows relations among organisms."
+    },
+    {
+      "id": "88",
+      "section": "C",
+      "term": "Climograph",
+      "definition": "a graphical model that shows the relationship between temperature, precipitation, and ecosystem type."
+    },
+    {
+      "id": "89",
+      "section": "C",
+      "term": "Cloning",
+      "definition": "production of genetically identical copies of dna, cells, or organisms."
+    },
+    {
+      "id": "90",
+      "section": "C",
+      "term": "Co-dominant",
+      "definition": "both alleles are fully expressed in the heterozygote phenotype."
+    },
+    {
+      "id": "91",
+      "section": "C",
+      "term": "Codon",
+      "definition": "triplet of mrna bases specifying an amino acid or stop signal."
+    },
+    {
+      "id": "92",
+      "section": "C",
+      "term": "Cohesion",
+      "definition": "force by which individual molecules stick together."
+    },
+    {
+      "id": "93",
+      "section": "C",
+      "term": "Coleoptile",
+      "definition": "a protective sheath that surrounds the emerging root or stem."
+    },
+    {
+      "id": "94",
+      "section": "C",
+      "term": "Collecting duct",
+      "definition": "nephron duct where water reabsorption is regulated (e.g., by adh)."
+    },
+    {
+      "id": "95",
+      "section": "C",
+      "term": "Common ancestor",
+      "definition": "a population of one species that has evolved into more than one species or groups."
+    },
+    {
+      "id": "96",
+      "section": "C",
+      "term": "Community",
+      "definition": "a group of populations of different species living and interacting with each other in a habitat."
+    },
+    {
+      "id": "97",
+      "section": "C",
+      "term": "Competitive exclusion",
+      "definition": "when one species outcompetes and excludes another, when their niches overlap."
+    },
+    {
+      "id": "98",
+      "section": "C",
+      "term": "Competitive inhibitor",
+      "definition": "inhibitor that competes with substrate for an enzyme’s active site, reducing enzyme activity."
+    },
+    {
+      "id": "99",
+      "section": "C",
+      "term": "Complementary DNA (cDNA)",
+      "definition": "dna synthesized from an mrna template using reverse transcriptase; lacks introns."
+    },
+    {
+      "id": "100",
+      "section": "C",
+      "term": "Condensation",
+      "definition": "reaction in which two molecules combine to form a larger molecule, producing h2o as a by-product."
+    },
+    {
+      "id": "101",
+      "section": "C",
+      "term": "Conditioning",
+      "definition": "a form of learning associated with a reward (or punishment)."
+    },
+    {
+      "id": "102",
+      "section": "C",
+      "term": "Consumers",
+      "definition": "heterotrophs that feed on living organisms by ingestion."
+    },
+    {
+      "id": "103",
+      "section": "C",
+      "term": "Control group",
+      "definition": "baseline group for comparison, lacking the experimental treatment."
+    },
+    {
+      "id": "104",
+      "section": "C",
+      "term": "Corpus luteum",
+      "definition": "a hormone-secreting structure that develops from an ovarian follicle after an oocyte has been discharged. it degenerates after a few days unless pregnancy has begun."
+    },
+    {
+      "id": "105",
+      "section": "C",
+      "term": "Cortical granules",
+      "definition": "prevent polyspermy during fertilization."
+    },
+    {
+      "id": "106",
+      "section": "C",
+      "term": "CRISPR-Cas9",
+      "definition": "genome editing system using guide rna and cas nuclease to cut specific dna targets."
+    },
+    {
+      "id": "107",
+      "section": "C",
+      "term": "Crista",
+      "definition": "fold of the inner mitochondrial membrane increasing surface area for oxidative phosphorylation."
+    },
+    {
+      "id": "108",
+      "section": "C",
+      "term": "Crossing over",
+      "definition": "exchange of dna between non-sister chromatids of homologous chromosomes in prophase i."
+    },
+    {
+      "id": "109",
+      "section": "C",
+      "term": "Cytokinesis",
+      "definition": "division of the cytoplasm."
+    },
+    {
+      "id": "110",
+      "section": "C",
+      "term": "Cytokinin",
+      "definition": "plant hormone promoting cell division and delaying senescence."
+    },
+    {
+      "id": "111",
+      "section": "C",
+      "term": "Cytoskeleton",
+      "definition": "network of protein filaments that maintains cell shape, enables transport, and drives cell movement/division."
+    },
+    {
+      "id": "112",
+      "section": "C",
+      "term": "Cytosol",
+      "definition": "aqueous component of cytoplasm where many metabolic reactions occur."
+    },
+    {
+      "id": "113",
+      "section": "C",
+      "term": "Cytotoxic T cell",
+      "definition": "t cell that kills infected or abnormal cells by inducing apoptosis."
+    },
+    {
+      "id": "114",
+      "section": "D",
+      "term": "Deamination",
+      "definition": "the removal of nh2 from an amino acid."
+    },
+    {
+      "id": "115",
+      "section": "D",
+      "term": "Decarboxylation",
+      "definition": "chemical reaction that releases carbon dioxide."
+    },
+    {
+      "id": "116",
+      "section": "D",
+      "term": "Denatured",
+      "definition": "when a protein loses its three-dimensional shape."
+    },
+    {
+      "id": "117",
+      "section": "D",
+      "term": "Dependent variable",
+      "definition": "measured response that changes with the independent variable."
+    },
+    {
+      "id": "118",
+      "section": "D",
+      "term": "Detritivores",
+      "definition": "heterotrophs that obtain organic nutrients from detritus by internal digestion."
+    },
+    {
+      "id": "119",
+      "section": "D",
+      "term": "Diabetes",
+      "definition": "failure to regulate blood glucose levels."
+    },
+    {
+      "id": "120",
+      "section": "D",
+      "term": "Diabetic",
+      "definition": "a person whose body is failing to regulate blood glucose levels correctly."
+    },
+    {
+      "id": "121",
+      "section": "D",
+      "term": "Diastole",
+      "definition": "relaxation of heart muscle."
+    },
+    {
+      "id": "122",
+      "section": "D",
+      "term": "Dichotomous key",
+      "definition": "a stepwise tool for identification where there are two options based on different characteristics at each step."
+    },
+    {
+      "id": "123",
+      "section": "D",
+      "term": "Dietary minerals",
+      "definition": "essential chemical elements that cannot be made by the body."
+    },
+    {
+      "id": "124",
+      "section": "D",
+      "term": "Diffusion",
+      "definition": "movement of particles from higher to lower concentration through the phospholipid bilayer."
+    },
+    {
+      "id": "125",
+      "section": "D",
+      "term": "Digestive juice",
+      "definition": "the fluid secreted onto food in the gut to aid digestion."
+    },
+    {
+      "id": "126",
+      "section": "D",
+      "term": "Directional selection",
+      "definition": "selection favoring one extreme phenotype."
+    },
+    {
+      "id": "127",
+      "section": "D",
+      "term": "Disease",
+      "definition": "a disorder of structure or function of the body."
+    },
+    {
+      "id": "128",
+      "section": "D",
+      "term": "Disruptive selection",
+      "definition": "selection favoring both extreme phenotypes over intermediates."
+    },
+    {
+      "id": "129",
+      "section": "D",
+      "term": "DNA",
+      "definition": "hereditary polymer of deoxyribonucleotides storing genetic information in most organisms."
+    },
+    {
+      "id": "130",
+      "section": "D",
+      "term": "DNA ligase",
+      "definition": "enzyme that joins dna fragments by forming phosphodiester bonds."
+    },
+    {
+      "id": "131",
+      "section": "D",
+      "term": "DNA ligation",
+      "definition": "joining of dna fragments by dna ligase to form recombinant dna."
+    },
+    {
+      "id": "132",
+      "section": "D",
+      "term": "DNA methylation",
+      "definition": "addition of methyl groups to dna (often cytosine) that can reduce transcription."
+    },
+    {
+      "id": "133",
+      "section": "D",
+      "term": "DNA polymerase",
+      "definition": "enzyme that synthesizes dna during replication using a dna template."
+    },
+    {
+      "id": "134",
+      "section": "D",
+      "term": "DNA profiling",
+      "definition": "identification using dna markers (often strs/vntrs) to compare individuals."
+    },
+    {
+      "id": "135",
+      "section": "D",
+      "term": "Dominant",
+      "definition": "an allele that always shows through. an allele that causes the homozygous form and the heterozygous form to look the same as each other."
+    },
+    {
+      "id": "136",
+      "section": "E",
+      "term": "Ecological niche",
+      "definition": "role of a species and its resource use within an ecosystem."
+    },
+    {
+      "id": "137",
+      "section": "E",
+      "term": "Ecology",
+      "definition": "the study of living things in their environment."
+    },
+    {
+      "id": "138",
+      "section": "E",
+      "term": "Ecosystem",
+      "definition": "a community of organisms and the environment in which they live and interact."
+    },
+    {
+      "id": "139",
+      "section": "E",
+      "term": "Electron carrier",
+      "definition": "substance that can accept and release electrons."
+    },
+    {
+      "id": "140",
+      "section": "E",
+      "term": "Electron transport chain",
+      "definition": "membrane protein complexes transferring electrons to pump protons and drive atp synthesis."
+    },
+    {
+      "id": "141",
+      "section": "E",
+      "term": "Embolus",
+      "definition": "a thrombus that breaks free and is circulated in the bloodstream."
+    },
+    {
+      "id": "142",
+      "section": "E",
+      "term": "End-product inhibition",
+      "definition": "when the product of the last reaction in a metabolic pathway inhibits the enzyme that catalyses the first reaction of the pathway."
+    },
+    {
+      "id": "143",
+      "section": "E",
+      "term": "Endemic species",
+      "definition": "species restricted to a particular region."
+    },
+    {
+      "id": "144",
+      "section": "E",
+      "term": "Endocrine glands",
+      "definition": "secrete hormones directly into the bloodstream."
+    },
+    {
+      "id": "145",
+      "section": "E",
+      "term": "Endocytosis",
+      "definition": "formation of vesicles as the plasma membrane pinches inwardly, taking material into the cell."
+    },
+    {
+      "id": "146",
+      "section": "E",
+      "term": "Endometrium",
+      "definition": "the lining of the uterus."
+    },
+    {
+      "id": "147",
+      "section": "E",
+      "term": "Endopeptidase",
+      "definition": "a protease enzyme that breaks peptide linkages in the interior of the protein, producing shorter-chain polypeptides."
+    },
+    {
+      "id": "148",
+      "section": "E",
+      "term": "Endorphin",
+      "definition": "a peptide that is a natural painkiller, produced in the pituitary gland."
+    },
+    {
+      "id": "149",
+      "section": "E",
+      "term": "Endothelium",
+      "definition": "the innermost lining layer of arteries and veins. it is one cell thick, and is very smooth, reducing friction between blood cells and blood vessels."
+    },
+    {
+      "id": "150",
+      "section": "E",
+      "term": "Enhancer",
+      "definition": "regulatory dna sequence that increases transcription when bound by activator proteins."
+    },
+    {
+      "id": "151",
+      "section": "E",
+      "term": "Environmental resistance",
+      "definition": "when limiting factors affect population growth."
+    },
+    {
+      "id": "152",
+      "section": "E",
+      "term": "Enzyme",
+      "definition": "a biological catalyst made of protein."
+    },
+    {
+      "id": "153",
+      "section": "E",
+      "term": "Enzyme inhibitor",
+      "definition": "a substance which slows or blocks enzyme action."
+    },
+    {
+      "id": "154",
+      "section": "E",
+      "term": "Epidemiology",
+      "definition": "the study of the occurrence, distribution, and control of diseases."
+    },
+    {
+      "id": "155",
+      "section": "E",
+      "term": "Epigenetics",
+      "definition": "the study of heritable changes in gene activity that are not caused by changes in the. essential nutrient a nutrient that cannot be synthesized by the body and, therefore, has to be included in the diet."
+    },
+    {
+      "id": "156",
+      "section": "E",
+      "term": "ETC (electron transport chain)",
+      "definition": "membrane protein complexes transferring electrons to pump protons and drive atp synthesis."
+    },
+    {
+      "id": "157",
+      "section": "E",
+      "term": "Ethology",
+      "definition": "the study of animal behaviour in natural conditions."
+    },
+    {
+      "id": "158",
+      "section": "E",
+      "term": "Ethylene",
+      "definition": "gaseous plant hormone promoting fruit ripening and leaf abscission."
+    },
+    {
+      "id": "159",
+      "section": "E",
+      "term": "Eukaryote",
+      "definition": "organism with membrane-bound nucleus and organelles."
+    },
+    {
+      "id": "160",
+      "section": "E",
+      "term": "Eutrophication",
+      "definition": "the natural or artificial nutrient enrichment of a body of water."
+    },
+    {
+      "id": "161",
+      "section": "E",
+      "term": "Evolution",
+      "definition": "the gradual development of new types of living organism over geological time, from its earliest beginnings to the diversity of organisms known about today, both living and extinct."
+    },
+    {
+      "id": "162",
+      "section": "E",
+      "term": "Exocytosis",
+      "definition": "vesicles fuse with the membrane and material is exported from the cell."
+    },
+    {
+      "id": "163",
+      "section": "E",
+      "term": "Exon",
+      "definition": "the section of the gene that carries meaningful information (i.e. codes for amino acids)."
+    },
+    {
+      "id": "164",
+      "section": "E",
+      "term": "Exponential growth",
+      "definition": "an increasing or accelerating rate of growth."
+    },
+    {
+      "id": "165",
+      "section": "E",
+      "term": "Expressed sequence tag (EST)",
+      "definition": "short dna sequence derived from a cdna clone that tags part of an expressed gene transcript."
+    },
+    {
+      "id": "166",
+      "section": "E",
+      "term": "Exsitu conservation",
+      "definition": "the preservation of species outside their natural habitats."
+    },
+    {
+      "id": "167",
+      "section": "F",
+      "term": "Facilitated diffusion",
+      "definition": "movement of particles from higher to lower concentration through integral proteins (carrier or channel proteins). movement is passive."
+    },
+    {
+      "id": "168",
+      "section": "F",
+      "term": "FAD",
+      "definition": "electron carrier reduced to fadh2 in the citric acid cycle and reoxidized in electron transport."
+    },
+    {
+      "id": "169",
+      "section": "F",
+      "term": "FADH2",
+      "definition": "reduced electron carrier donating electrons to the electron transport chain."
+    },
+    {
+      "id": "170",
+      "section": "F",
+      "term": "Fermentation",
+      "definition": "anaerobic pathway regenerating nad+ by reducing pyruvate derivatives (e.g., lactate, ethanol)."
+    },
+    {
+      "id": "171",
+      "section": "F",
+      "term": "Fertilization",
+      "definition": "the fusion of male and female gametes to form a zygote."
+    },
+    {
+      "id": "172",
+      "section": "F",
+      "term": "Food chain",
+      "definition": "a sequence of organisms within a habitat in which each is the food of the next, starting with a producer, which is photosynthetic."
+    },
+    {
+      "id": "173",
+      "section": "F",
+      "term": "Food web",
+      "definition": "interconnected food chains."
+    },
+    {
+      "id": "174",
+      "section": "F",
+      "term": "Founder effect",
+      "definition": "genetic drift when a new population is established by a small number of individuals."
+    },
+    {
+      "id": "175",
+      "section": "F",
+      "term": "Frameshift mutation",
+      "definition": "insertion or deletion not in multiples of three that alters the reading frame."
+    },
+    {
+      "id": "176",
+      "section": "F",
+      "term": "Freeze-etching",
+      "definition": "cells are rapidly frozen and then fractured."
+    },
+    {
+      "id": "177",
+      "section": "F",
+      "term": "Fundamental niche",
+      "definition": "describes the full range of conditions and resources in which a species could survive and reproduce."
+    },
+    {
+      "id": "178",
+      "section": "G",
+      "term": "Gametogenesis",
+      "definition": "the production of sex cells (gametes)."
+    },
+    {
+      "id": "179",
+      "section": "G",
+      "term": "Gas exchange",
+      "definition": "exchange of gases between an organism and its environment (e.g., o2 uptake and co2 release)."
+    },
+    {
+      "id": "180",
+      "section": "G",
+      "term": "Gel electrophoresis",
+      "definition": "a process used to separate proteins or fragments of dna according to size."
+    },
+    {
+      "id": "181",
+      "section": "G",
+      "term": "Gene",
+      "definition": "a heritable factor that consists of a length of dna and influences a specific characteristic."
+    },
+    {
+      "id": "182",
+      "section": "G",
+      "term": "Gene editing",
+      "definition": "directed alteration of dna sequence in a genome (e.g., crispr)."
+    },
+    {
+      "id": "183",
+      "section": "G",
+      "term": "Gene flow",
+      "definition": "movement of alleles between populations via migration and breeding."
+    },
+    {
+      "id": "184",
+      "section": "G",
+      "term": "Gene knockout (KO)",
+      "definition": "procedure that produces an organism with one non-functional gene, allowing researchers to investigate the function of that gene."
+    },
+    {
+      "id": "185",
+      "section": "G",
+      "term": "Gene pool",
+      "definition": "all the genes (and their alleles) present in an interbreeding population."
+    },
+    {
+      "id": "186",
+      "section": "G",
+      "term": "Gene therapy",
+      "definition": "an application of genetic engineering to overcome the effects of genetic disorders by introducing a correct, working copy of a gene directly into the genome of a patient’s affected cells."
+    },
+    {
+      "id": "187",
+      "section": "G",
+      "term": "Genetic drift",
+      "definition": "random change in allele frequencies, strongest in small populations."
+    },
+    {
+      "id": "188",
+      "section": "G",
+      "term": "Genetic engineering",
+      "definition": "involves the transfer of a gene or genes from one organism (the donor) to another (the recipient). the result is a genetically modified (gm) organism."
+    },
+    {
+      "id": "189",
+      "section": "G",
+      "term": "Genetic marker",
+      "definition": "a gene or dna sequence (such as a single nucleotide polymorphism, snp, or tandem repeats) with a known location on a chromosome."
+    },
+    {
+      "id": "190",
+      "section": "G",
+      "term": "Genetic profiling",
+      "definition": "the identification of individual organisms or species using dna."
+    },
+    {
+      "id": "191",
+      "section": "G",
+      "term": "Genome",
+      "definition": "the whole of the genetic information of an organism."
+    },
+    {
+      "id": "192",
+      "section": "G",
+      "term": "Genotype",
+      "definition": "the ‘genetic makeup’ of a person; the genetic information in the cell."
+    },
+    {
+      "id": "193",
+      "section": "G",
+      "term": "Germination",
+      "definition": "the resumption of growth by an embryonic plant in a seed or fruit, at the expense of stored food."
+    },
+    {
+      "id": "194",
+      "section": "G",
+      "term": "Gestation",
+      "definition": "the period of development in the mother’s body, lasting from conception to birth."
+    },
+    {
+      "id": "195",
+      "section": "G",
+      "term": "Gibberellin",
+      "definition": "plant hormone promoting stem elongation, seed germination, and flowering in some species."
+    },
+    {
+      "id": "196",
+      "section": "G",
+      "term": "Global warming",
+      "definition": "an increase in the average temperature of the earth’s atmosphere."
+    },
+    {
+      "id": "197",
+      "section": "G",
+      "term": "Glomerulus",
+      "definition": "capillary knot in a nephron where blood is filtered into bowman’s capsule."
+    },
+    {
+      "id": "198",
+      "section": "G",
+      "term": "Glucagon",
+      "definition": "hormone that raises blood glucose by stimulating glycogen breakdown and glucose release."
+    },
+    {
+      "id": "199",
+      "section": "G",
+      "term": "Gluconeogenesis",
+      "definition": "synthesis of glucose from non-carbohydrate precursors (e.g., amino acids, glycerol)."
+    },
+    {
+      "id": "200",
+      "section": "G",
+      "term": "Glycogen",
+      "definition": "animal storage polysaccharide of glucose; stored mainly in liver and muscle."
+    },
+    {
+      "id": "201",
+      "section": "G",
+      "term": "Glycogenesis",
+      "definition": "synthesis of glycogen from glucose."
+    },
+    {
+      "id": "202",
+      "section": "G",
+      "term": "Glycogenolysis",
+      "definition": "breakdown of glycogen to glucose."
+    },
+    {
+      "id": "203",
+      "section": "G",
+      "term": "Glycolysis",
+      "definition": "a linear series of reactions in which a 6-carbon sugar molecule is broken down to two molecules of the. glyphosate a systemic herbicide used to kill weeds in crops."
+    },
+    {
+      "id": "204",
+      "section": "G",
+      "term": "Golgi apparatus",
+      "definition": "organelle that modifies, sorts, and packages proteins and lipids into vesicles."
+    },
+    {
+      "id": "205",
+      "section": "G",
+      "term": "Gradualism",
+      "definition": "evolution that takes place through a long sequence of continuous intermediate forms."
+    },
+    {
+      "id": "206",
+      "section": "G",
+      "term": "Greenhouse gases",
+      "definition": "atmospheric gases that absorb infra-red radiation, causing world temperatures to be warmer than they would otherwise be."
+    },
+    {
+      "id": "207",
+      "section": "G",
+      "term": "Gross primary production (GPP)",
+      "definition": "the amount of glucose produced by the plant in a specific area in a specific period of time."
+    },
+    {
+      "id": "208",
+      "section": "G",
+      "term": "Guard cell",
+      "definition": "epidermal cell controlling stomatal opening via changes in turgor."
+    },
+    {
+      "id": "209",
+      "section": "H",
+      "term": "Haploid",
+      "definition": "having one set of chromosomes (n)."
+    },
+    {
+      "id": "210",
+      "section": "H",
+      "term": "Hardy–Weinberg equilibrium",
+      "definition": "model where allele frequencies remain constant if assumptions are met (no selection, mutation, migration, drift)."
+    },
+    {
+      "id": "211",
+      "section": "H",
+      "term": "Helicase",
+      "definition": "enzyme that unwinds the dna double helix during replication."
+    },
+    {
+      "id": "212",
+      "section": "H",
+      "term": "Helper T cell",
+      "definition": "t cell that activates b cells and other immune cells via cytokines."
+    },
+    {
+      "id": "213",
+      "section": "H",
+      "term": "Hepatitis B",
+      "definition": "a disease of the liver caused by a virus."
+    },
+    {
+      "id": "214",
+      "section": "H",
+      "term": "Heritable",
+      "definition": "can be passed from one generation to another, from parents to offspring."
+    },
+    {
+      "id": "215",
+      "section": "H",
+      "term": "Heterotrophic",
+      "definition": "an organism that obtains organic molecules from other organisms."
+    },
+    {
+      "id": "216",
+      "section": "H",
+      "term": "Heterozygous",
+      "definition": "two different alleles for a particular characteristic in each cell."
+    },
+    {
+      "id": "217",
+      "section": "H",
+      "term": "Hierarchy",
+      "definition": "a structure made from many different levels. in biology it relates to the different levels of classification from kingdom to species."
+    },
+    {
+      "id": "218",
+      "section": "H",
+      "term": "Histamine",
+      "definition": "a small organic molecule produced by two types of white blood cell (mast cells and basophils) and which increases permeability of capillaries to white blood cells and antibodies."
+    },
+    {
+      "id": "219",
+      "section": "H",
+      "term": "Histone",
+      "definition": "basic protein that packages dna into nucleosomes and helps regulate gene expression."
+    },
+    {
+      "id": "220",
+      "section": "H",
+      "term": "Homeostasis",
+      "definition": "the maintenance of a constant internal environment."
+    },
+    {
+      "id": "221",
+      "section": "H",
+      "term": "Homologous chromosomes",
+      "definition": "chromosome pair with the same genes in the same loci, one from each parent."
+    },
+    {
+      "id": "222",
+      "section": "H",
+      "term": "Homologous structures",
+      "definition": "anatomical features that occupy similar positions in an organism, have an underlying basic structure in common, but may have evolved different functions."
+    },
+    {
+      "id": "223",
+      "section": "H",
+      "term": "Homozygous",
+      "definition": "two identical alleles for a particular characteristic in each cell."
+    },
+    {
+      "id": "224",
+      "section": "H",
+      "term": "Hormones",
+      "definition": "chemical messengers that are produced and secreted from the cells of the ductless or endocrine glands."
+    },
+    {
+      "id": "225",
+      "section": "H",
+      "term": "Hybridoma cell",
+      "definition": "hybrid cell used in the production of monoclonal antibodies, created by fusing a b lymphocyte with a cancer cell."
+    },
+    {
+      "id": "226",
+      "section": "H",
+      "term": "Hydrolysis",
+      "definition": "a chemical process in which a molecule of water is added to a substance, splitting it into smaller subunits."
+    },
+    {
+      "id": "227",
+      "section": "H",
+      "term": "Hydrophilic",
+      "definition": "attracted to water (i.e. ‘water-loving’); hydrogen bonds readily form between the phosphate head and water molecules."
+    },
+    {
+      "id": "228",
+      "section": "H",
+      "term": "Hydrophobic",
+      "definition": "repelled by water (i.e. ‘water-hating’)."
+    },
+    {
+      "id": "229",
+      "section": "H",
+      "term": "Hypertension",
+      "definition": "a condition of persistently raised blood pressure."
+    },
+    {
+      "id": "230",
+      "section": "H",
+      "term": "Hypertonic",
+      "definition": "when the external solution is more concentrated (i.e. has a higher solute potential) than the cell solution (cytosol), and there is a net flow of water out of the cell by osmosis."
+    },
+    {
+      "id": "231",
+      "section": "H",
+      "term": "Hypotonic",
+      "definition": "when the external solution is less concentrated (i.e. has a lower solute potential) than the cell solution (cytosol), and there is a net inflow of water into the cell by osmosis."
+    },
+    {
+      "id": "232",
+      "section": "I",
+      "term": "Immunity",
+      "definition": "the ability of the body to resist an infection by a pathogen."
+    },
+    {
+      "id": "233",
+      "section": "I",
+      "term": "In situ conservation",
+      "definition": "the conservation of species in their natural habitat."
+    },
+    {
+      "id": "234",
+      "section": "I",
+      "term": "Independent assortment",
+      "definition": "random orientation of homologous chromosome pairs in meiosis i, generating variation."
+    },
+    {
+      "id": "235",
+      "section": "I",
+      "term": "Independent variable",
+      "definition": "factor deliberately changed in an investigation."
+    },
+    {
+      "id": "236",
+      "section": "I",
+      "term": "Indicator species",
+      "definition": "an organism used to assess a specific environmental condition."
+    },
+    {
+      "id": "237",
+      "section": "I",
+      "term": "Inducer",
+      "definition": "molecule that increases gene expression, often by inactivating a repressor."
+    },
+    {
+      "id": "238",
+      "section": "I",
+      "term": "Innate behaviour",
+      "definition": "behaviour that is inherited from parents and so develops independently of the environmental context. innate behaviour includes behaviour that is due to a reflex action."
+    },
+    {
+      "id": "239",
+      "section": "I",
+      "term": "Innate immunity",
+      "definition": "non-specific defenses present from birth (barriers, phagocytes, inflammation)."
+    },
+    {
+      "id": "240",
+      "section": "I",
+      "term": "Insulin",
+      "definition": "hormone that lowers blood glucose by promoting uptake and storage of glucose."
+    },
+    {
+      "id": "241",
+      "section": "I",
+      "term": "Intercalated disc",
+      "definition": "a double membrane with gap junctions, through which are cytoplasmic connections between adjacent cardiac cells."
+    },
+    {
+      "id": "242",
+      "section": "I",
+      "term": "Intergovernmental organizations (IGOs)",
+      "definition": "organizations established through international agreements."
+    },
+    {
+      "id": "243",
+      "section": "I",
+      "term": "Intermediate filament",
+      "definition": "cytoskeletal filament providing tensile strength and structural stability."
+    },
+    {
+      "id": "244",
+      "section": "I",
+      "term": "Interspecific competition",
+      "definition": "competition between two species."
+    },
+    {
+      "id": "245",
+      "section": "I",
+      "term": "Intraspecific competition",
+      "definition": "competition between individuals of the same species."
+    },
+    {
+      "id": "246",
+      "section": "I",
+      "term": "Intron",
+      "definition": "non-coding nucleotide sequence of the dna of chromosomes, present in eukaryotic chromosomes."
+    },
+    {
+      "id": "247",
+      "section": "I",
+      "term": "Invasive species",
+      "definition": "an alien species that has increased rapidly in number, having a negative effect on the environment and on native species."
+    },
+    {
+      "id": "248",
+      "section": "I",
+      "term": "Isomer",
+      "definition": "two or more compounds with the same formula but a different arrangement of atoms in the molecule, and different corresponding properties."
+    },
+    {
+      "id": "249",
+      "section": "I",
+      "term": "Isotonic",
+      "definition": "when the external solution is the same concentration (i.e. has the same solute potential) as the cell solution (cytosol), and there is no net entry or exit of water from the cell by osmosis."
+    },
+    {
+      "id": "250",
+      "section": "J",
+      "term": "Jaundice",
+      "definition": "condition in which the skin develops a yellowish tinge along with the whites of the eye (sclera)."
+    },
+    {
+      "id": "251",
+      "section": "J",
+      "term": "Joint",
+      "definition": "the junction between two or more bones, usually formed of connective tissue and cartilage."
+    },
+    {
+      "id": "252",
+      "section": "K",
+      "term": "Karyogram",
+      "definition": "photograph showing individual chromosomes arranged in homologous pairs in descending order of size."
+    },
+    {
+      "id": "253",
+      "section": "K",
+      "term": "Karyotype",
+      "definition": "the number and type of chromosomes in the nucleus."
+    },
+    {
+      "id": "254",
+      "section": "K",
+      "term": "Keystone species",
+      "definition": "species that have a key role in an ecosystem."
+    },
+    {
+      "id": "255",
+      "section": "K",
+      "term": "Kinetochore",
+      "definition": "protein structure on centromere where spindle microtubules attach during division."
+    },
+    {
+      "id": "256",
+      "section": "L",
+      "term": "Lac operon",
+      "definition": "prokaryotic operon controlling lactose metabolism; inducible by lactose/allolactose."
+    },
+    {
+      "id": "257",
+      "section": "L",
+      "term": "Lactate fermentation",
+      "definition": "fermentation in animals where pyruvate is reduced to lactate to regenerate nad+."
+    },
+    {
+      "id": "258",
+      "section": "L",
+      "term": "Lactation",
+      "definition": "the production and secretion of milk by the mammary glands after birth."
+    },
+    {
+      "id": "259",
+      "section": "L",
+      "term": "Lagging strand",
+      "definition": "dna strand synthesized discontinuously as okazaki fragments."
+    },
+    {
+      "id": "260",
+      "section": "L",
+      "term": "Leading strand",
+      "definition": "dna strand synthesized continuously in the direction of fork movement."
+    },
+    {
+      "id": "261",
+      "section": "L",
+      "term": "Learnt behaviour",
+      "definition": "behaviour that develops as a result of experience."
+    },
+    {
+      "id": "262",
+      "section": "L",
+      "term": "Limiting factor",
+      "definition": "something present in the environment in such short supply that it restricts life processes; it is a variable that restricts the rate of photosynthesis."
+    },
+    {
+      "id": "263",
+      "section": "L",
+      "term": "Link reaction",
+      "definition": "the reactions that connect glycolysis to the reactions of the krebs cycle by producing acetyl."
+    },
+    {
+      "id": "264",
+      "section": "L",
+      "term": "Linked genes",
+      "definition": "characteristics controlled by genes on the same chromosomes."
+    },
+    {
+      "id": "265",
+      "section": "L",
+      "term": "Locus",
+      "definition": "specific position of a gene or marker on a chromosome."
+    },
+    {
+      "id": "266",
+      "section": "L",
+      "term": "Lumen",
+      "definition": "the hollow interior of a blood vessel, through which the blood passes."
+    },
+    {
+      "id": "267",
+      "section": "L",
+      "term": "Lysosome",
+      "definition": "vesicle containing hydrolytic enzymes for intracellular digestion and recycling (autophagy)."
+    },
+    {
+      "id": "268",
+      "section": "M",
+      "term": "Macroplastic",
+      "definition": "large debris that is easily visible, such as bottles, plastic bags, rubbish, and other material that have not degraded."
+    },
+    {
+      "id": "269",
+      "section": "M",
+      "term": "Malnutrition",
+      "definition": "a serious condition that occurs when a person’s diet doesn’t contain the right amount of nutrients."
+    },
+    {
+      "id": "270",
+      "section": "M",
+      "term": "Malpighian tubule",
+      "definition": "a tubular excretory organ which opens into the gut in insects."
+    },
+    {
+      "id": "271",
+      "section": "M",
+      "term": "Mast cell",
+      "definition": "white blood cell found in connective tissue."
+    },
+    {
+      "id": "272",
+      "section": "M",
+      "term": "Maximum sustainable yield (MSY)",
+      "definition": "the maximum average catch that a stock can sustain over a long period of time."
+    },
+    {
+      "id": "273",
+      "section": "M",
+      "term": "Medicine",
+      "definition": "the science and practice of the diagnosis, treatment, and prevention of disease."
+    },
+    {
+      "id": "274",
+      "section": "M",
+      "term": "Meiosis",
+      "definition": "two-stage nuclear division producing haploid cells and generating genetic variation."
+    },
+    {
+      "id": "275",
+      "section": "M",
+      "term": "Melanism",
+      "definition": "development of a dark-coloured pigment, melanin, in the outer surface of an organism."
+    },
+    {
+      "id": "276",
+      "section": "M",
+      "term": "Memory",
+      "definition": "the ability to record sensory stimuli, events, and information."
+    },
+    {
+      "id": "277",
+      "section": "M",
+      "term": "Memory cell",
+      "definition": "long-lived lymphocyte that enables faster secondary immune responses."
+    },
+    {
+      "id": "278",
+      "section": "M",
+      "term": "Menstrual cycle",
+      "definition": "monthly cycle of ovulation and menstruation in human females."
+    },
+    {
+      "id": "279",
+      "section": "M",
+      "term": "Menstruation",
+      "definition": "shedding of the endometrium from the uterus."
+    },
+    {
+      "id": "280",
+      "section": "M",
+      "term": "Meristem",
+      "definition": "a group of cells in plants that retains the ability to divide by mitosis."
+    },
+    {
+      "id": "281",
+      "section": "M",
+      "term": "Mesocosm",
+      "definition": "enclosed experimental area that is set up to explore ecological relationships. because it is a contained experimental area it can be closely controlled and variables monitored."
+    },
+    {
+      "id": "282",
+      "section": "M",
+      "term": "Metabolic pathway",
+      "definition": "sequence of enzyme-catalysed biochemical reactions in cells."
+    },
+    {
+      "id": "283",
+      "section": "M",
+      "term": "Metabolism",
+      "definition": "the web of all the enzyme-catalysed reactions in a cell or organism."
+    },
+    {
+      "id": "284",
+      "section": "M",
+      "term": "Metaphase",
+      "definition": "stage where chromosomes align at the cell equator attached to spindle fibres."
+    },
+    {
+      "id": "285",
+      "section": "M",
+      "term": "Methylation",
+      "definition": "the reversible addition of a methyl group (–ch3) within the chromatin, to histone tails or usually to the dna molecule itself."
+    },
+    {
+      "id": "286",
+      "section": "M",
+      "term": "Microarray",
+      "definition": "a collection of microscopic dna spots attached to a solid surface."
+    },
+    {
+      "id": "287",
+      "section": "M",
+      "term": "Microfilament (actin filament)",
+      "definition": "thin actin filament involved in cell shape, muscle contraction, and cytokinesis."
+    },
+    {
+      "id": "288",
+      "section": "M",
+      "term": "Microorganisms",
+      "definition": "organisms that are too small to be studied by the naked eye."
+    },
+    {
+      "id": "289",
+      "section": "M",
+      "term": "Microplastics",
+      "definition": "tiny plastic particles up to 5 mm in diameter."
+    },
+    {
+      "id": "290",
+      "section": "M",
+      "term": "Micropropagation",
+      "definition": "technique that rapidly multiplies stock plant material, in vitro, to produce large numbers of offspring, all genetically identical to the parent plant."
+    },
+    {
+      "id": "291",
+      "section": "M",
+      "term": "Microtubule",
+      "definition": "hollow tubulin filament involved in intracellular transport, spindle formation, and cilia/flagella."
+    },
+    {
+      "id": "292",
+      "section": "M",
+      "term": "Missense mutation",
+      "definition": "base substitution that changes one amino acid in a protein."
+    },
+    {
+      "id": "293",
+      "section": "M",
+      "term": "Mitochondrion",
+      "definition": "organelle where aerobic respiration generates atp; has inner membrane cristae and its own dna."
+    },
+    {
+      "id": "294",
+      "section": "M",
+      "term": "Mitosis",
+      "definition": "nuclear division producing two genetically identical nuclei from one parent nucleus."
+    },
+    {
+      "id": "295",
+      "section": "M",
+      "term": "Mitotic index",
+      "definition": "the number of cells undergoing mitosis divided by the total number of cells visible."
+    },
+    {
+      "id": "296",
+      "section": "M",
+      "term": "Model organism",
+      "definition": "non-human species studied as a proxy to understand biological processes in other organisms."
+    },
+    {
+      "id": "297",
+      "section": "M",
+      "term": "Monoclonal antibody",
+      "definition": "antibody produced by a single clone."
+    },
+    {
+      "id": "298",
+      "section": "M",
+      "term": "Monohybrid",
+      "definition": "genetic cross involving one characteristic/ gene, such as eye colour."
+    },
+    {
+      "id": "299",
+      "section": "M",
+      "term": "Monomer",
+      "definition": "a molecule that can be bonded to other identical molecules to form a polymer."
+    },
+    {
+      "id": "300",
+      "section": "M",
+      "term": "mRNA (messenger RNA)",
+      "definition": "rna copy of a gene that carries coding information to ribosomes."
+    },
+    {
+      "id": "301",
+      "section": "M",
+      "term": "Mucosa",
+      "definition": "the internal linings of lungs, trachea, and gut."
+    },
+    {
+      "id": "302",
+      "section": "M",
+      "term": "Mutation",
+      "definition": "a change in the amount or the chemical structure (i.e. base sequence) of dna of a chromosome."
+    },
+    {
+      "id": "303",
+      "section": "M",
+      "term": "Mutation rate",
+      "definition": "frequency at which mutations occur per gene or genome per generation."
+    },
+    {
+      "id": "304",
+      "section": "M",
+      "term": "Mutualism",
+      "definition": "both organisms gain from a relationship."
+    },
+    {
+      "id": "305",
+      "section": "M",
+      "term": "Myelin sheath",
+      "definition": "insulating layer around axons that increases conduction speed."
+    },
+    {
+      "id": "306",
+      "section": "M",
+      "term": "Myogenic",
+      "definition": "the control of the heartbeat originates within the heart muscle itself, rather than from the nervous system."
+    },
+    {
+      "id": "307",
+      "section": "N",
+      "term": "NADH",
+      "definition": "reduced electron carrier that donates electrons to the mitochondrial electron transport chain."
+    },
+    {
+      "id": "308",
+      "section": "N",
+      "term": "NADP+",
+      "definition": "electron carrier reduced to nadph in photosynthesis."
+    },
+    {
+      "id": "309",
+      "section": "N",
+      "term": "NADPH",
+      "definition": "reduced electron carrier used in the calvin cycle for carbon fixation."
+    },
+    {
+      "id": "310",
+      "section": "N",
+      "term": "Native species",
+      "definition": "a species found in an area where it originated, i.e. occurs naturally within a particular ecosystem."
+    },
+    {
+      "id": "311",
+      "section": "N",
+      "term": "Natural selection",
+      "definition": "differential survival and reproduction of individuals with heritable traits."
+    },
+    {
+      "id": "312",
+      "section": "N",
+      "term": "Negative feedback",
+      "definition": "feedback that counteracts any deviation from equilibrium, and promotes stability."
+    },
+    {
+      "id": "313",
+      "section": "N",
+      "term": "Nephron",
+      "definition": "functional unit of the kidney that filters blood and forms urine."
+    },
+    {
+      "id": "314",
+      "section": "N",
+      "term": "Net primary productivity (NPP)",
+      "definition": "the gain by producers in energy or biomass per unit area per unit time remaining after allowing for respiratory losses."
+    },
+    {
+      "id": "315",
+      "section": "N",
+      "term": "Neurosecretory cell",
+      "definition": "a special type of neuron that secretes chemical messengers which travel round the body via the blood circulation."
+    },
+    {
+      "id": "316",
+      "section": "N",
+      "term": "Neurotransmitter",
+      "definition": "chemical released at the pre-synaptic membrane of an axon, on arrival of an action potential, which transmits the action potential across the synapse."
+    },
+    {
+      "id": "317",
+      "section": "N",
+      "term": "Node of Ranvier",
+      "definition": "gap in myelin sheath where ion channels concentrate and action potentials regenerate."
+    },
+    {
+      "id": "318",
+      "section": "N",
+      "term": "Non-competitive inhibitor",
+      "definition": "a substance that does not bind to the active site but to another part of the enzyme, slowing or blocking enzyme action."
+    },
+    {
+      "id": "319",
+      "section": "N",
+      "term": "Non-essential nutrients",
+      "definition": "those nutrients which are made in the body or which have a replacement nutrient that can fulfil the same dietary purpose."
+    },
+    {
+      "id": "320",
+      "section": "N",
+      "term": "Non-governmental organizations (NGOs)",
+      "definition": "non-profit organizations independent of government, often active in conservation and development."
+    },
+    {
+      "id": "321",
+      "section": "N",
+      "term": "Nonsense mutation",
+      "definition": "base substitution that creates a premature stop codon."
+    },
+    {
+      "id": "322",
+      "section": "N",
+      "term": "Nuclear envelope",
+      "definition": "double membrane surrounding nucleus with pores regulating transport."
+    },
+    {
+      "id": "323",
+      "section": "N",
+      "term": "Nuclear pore complex",
+      "definition": "protein complex that controls traffic of rna and proteins between nucleus and cytoplasm."
+    },
+    {
+      "id": "324",
+      "section": "N",
+      "term": "Nucleosome",
+      "definition": "unit of chromatin: dna wrapped around a histone octamer."
+    },
+    {
+      "id": "325",
+      "section": "N",
+      "term": "Nucleotide",
+      "definition": "monomer of nucleic acids composed of sugar, phosphate, and nitrogenous base."
+    },
+    {
+      "id": "326",
+      "section": "N",
+      "term": "Nucleus",
+      "definition": "membrane-bound organelle containing chromatin; site of transcription in eukaryotes."
+    },
+    {
+      "id": "327",
+      "section": "N",
+      "term": "Null hypothesis",
+      "definition": "statement that there is no effect or no difference; tested statistically."
+    },
+    {
+      "id": "328",
+      "section": "N",
+      "term": "Nutrient",
+      "definition": "substance required for growth, maintenance, and repair; obtained from the environment or diet."
+    },
+    {
+      "id": "329",
+      "section": "O",
+      "term": "Okazaki fragment",
+      "definition": "short dna fragment synthesized on the lagging strand during replication."
+    },
+    {
+      "id": "330",
+      "section": "O",
+      "term": "Oogenesis",
+      "definition": "the production of egg cells in ovaries."
+    },
+    {
+      "id": "331",
+      "section": "O",
+      "term": "Operator",
+      "definition": "dna site in an operon where a repressor binds to regulate transcription."
+    },
+    {
+      "id": "332",
+      "section": "O",
+      "term": "Operon",
+      "definition": "cluster of genes regulated together under one promoter (common in prokaryotes)."
+    },
+    {
+      "id": "333",
+      "section": "O",
+      "term": "Osmoconformer",
+      "definition": "animal that maintains the osmotic concentration (osmolarity) of its cells and body fluids at the same concentration as that of the environment."
+    },
+    {
+      "id": "334",
+      "section": "O",
+      "term": "Osmolarity",
+      "definition": "the concentration of a solution expressed as the total number of solute particles per litre."
+    },
+    {
+      "id": "335",
+      "section": "O",
+      "term": "Osmoreceptor",
+      "definition": "receptor in the central nervous system that responds to changes in the solute potential of the blood."
+    },
+    {
+      "id": "336",
+      "section": "O",
+      "term": "Osmoregulation",
+      "definition": "control of the water balance of the blood, tissue, or cytoplasm of a living organism."
+    },
+    {
+      "id": "337",
+      "section": "O",
+      "term": "Osmoregulator",
+      "definition": "animal that controls its internal osmolarity independently of environmental conditions."
+    },
+    {
+      "id": "338",
+      "section": "O",
+      "term": "Osmosis",
+      "definition": "the diffusion of water molecules across a partially permeable membrane, from lower to higher solute concentration. movement is passive."
+    },
+    {
+      "id": "339",
+      "section": "O",
+      "term": "Ovarian follicle",
+      "definition": "a fluid-filled spherical sac that contains and nourishes an immature egg, or oocyte."
+    },
+    {
+      "id": "340",
+      "section": "O",
+      "term": "Ovulation",
+      "definition": "release of oocyte (egg) from ovary."
+    },
+    {
+      "id": "341",
+      "section": "O",
+      "term": "Oxidation",
+      "definition": "loss of electrons from a substance."
+    },
+    {
+      "id": "342",
+      "section": "O",
+      "term": "Oxidative phosphorylation",
+      "definition": "atp production coupled to electron transport and chemiosmosis in mitochondria."
+    },
+    {
+      "id": "343",
+      "section": "P",
+      "term": "p-value",
+      "definition": "probability of observing data at least as extreme as the results, assuming the null hypothesis is true."
+    },
+    {
+      "id": "344",
+      "section": "P",
+      "term": "Parturition",
+      "definition": "the act of giving birth."
+    },
+    {
+      "id": "345",
+      "section": "P",
+      "term": "Passive transport",
+      "definition": "no direct energy needed."
+    },
+    {
+      "id": "346",
+      "section": "P",
+      "term": "Pathogen",
+      "definition": "organism or virus that causes a disease."
+    },
+    {
+      "id": "347",
+      "section": "P",
+      "term": "Pathway engineering",
+      "definition": "the practice of manipulating genetic and regulatory processes within the cells of microorganisms to produce metabolites of interest."
+    },
+    {
+      "id": "348",
+      "section": "P",
+      "term": "PCR",
+      "definition": "technique that amplifies a specific dna sequence through repeated cycles of replication in vitro."
+    },
+    {
+      "id": "349",
+      "section": "P",
+      "term": "Penicillin",
+      "definition": "an antibiotic produced by the fungus penicillium chrysogenum."
+    },
+    {
+      "id": "350",
+      "section": "P",
+      "term": "Peroxisome",
+      "definition": "organelle that oxidizes fatty acids and detoxifies reactive oxygen species (e.g., via catalase)."
+    },
+    {
+      "id": "351",
+      "section": "P",
+      "term": "Pesticide",
+      "definition": "chemical that is used to control harmful organisms which are a danger to crops or herds."
+    },
+    {
+      "id": "352",
+      "section": "P",
+      "term": "Phenotype",
+      "definition": "the outward effect of the genotype on the body."
+    },
+    {
+      "id": "353",
+      "section": "P",
+      "term": "Phenotypic expression",
+      "definition": "physical characteristics."
+    },
+    {
+      "id": "354",
+      "section": "P",
+      "term": "Phloem",
+      "definition": "plant vascular tissue transporting sugars and other organic solutes (translocation)."
+    },
+    {
+      "id": "355",
+      "section": "P",
+      "term": "Photolysis",
+      "definition": "the splitting of water using light energy."
+    },
+    {
+      "id": "356",
+      "section": "P",
+      "term": "Photoperiodism",
+      "definition": "day-length control of flowering in plants."
+    },
+    {
+      "id": "357",
+      "section": "P",
+      "term": "Photophosphorylation",
+      "definition": "the formation of atp, using light energy (in the light-dependent step of photosynthesis in the grana)."
+    },
+    {
+      "id": "358",
+      "section": "P",
+      "term": "Photosynthesis",
+      "definition": "the production of carbon compounds in cells using light energy."
+    },
+    {
+      "id": "359",
+      "section": "P",
+      "term": "Photosystem",
+      "definition": "light-harvesting complex in thylakoid membranes that initiates electron transport."
+    },
+    {
+      "id": "360",
+      "section": "P",
+      "term": "Photosystem I",
+      "definition": "photosystem that reduces nadp+ to nadph in the light-dependent reactions."
+    },
+    {
+      "id": "361",
+      "section": "P",
+      "term": "Photosystem II",
+      "definition": "photosystem that oxidizes water, releasing o2 and supplying electrons to the electron transport chain."
+    },
+    {
+      "id": "362",
+      "section": "P",
+      "term": "Phylogenetic tree",
+      "definition": "diagram representing evolutionary relationships among taxa."
+    },
+    {
+      "id": "363",
+      "section": "P",
+      "term": "Phytochrome",
+      "definition": "a photoreceptor protein that is able to absorb light of particular wavelength and change its structure as a consequence."
+    },
+    {
+      "id": "364",
+      "section": "P",
+      "term": "Placenta",
+      "definition": "a temporary organ that joins the mother and fetus, transferring oxygen and nutrients from the mother to the fetus, with carbon dioxide and other waste material transported from fetus to mother."
+    },
+    {
+      "id": "365",
+      "section": "P",
+      "term": "Plasma membrane",
+      "definition": "selective barrier of phospholipids and proteins controlling transport and cell signalling."
+    },
+    {
+      "id": "366",
+      "section": "P",
+      "term": "Plasmid",
+      "definition": "small circular dna molecule in bacteria used as a vector in genetic engineering."
+    },
+    {
+      "id": "367",
+      "section": "P",
+      "term": "Point mutation",
+      "definition": "change affecting a single nucleotide (substitution, insertion, or deletion)."
+    },
+    {
+      "id": "368",
+      "section": "P",
+      "term": "Pollination",
+      "definition": "the transfer of pollen from anther to stigma."
+    },
+    {
+      "id": "369",
+      "section": "P",
+      "term": "Polygenic inheritance",
+      "definition": "the inheritance of phenotypes that are determined by the collective effect of several genes."
+    },
+    {
+      "id": "370",
+      "section": "P",
+      "term": "Polymerase chain reaction (PCR)",
+      "definition": "a technology used to amplify a single piece or very few pieces of dna, generating many thousands of copies."
+    },
+    {
+      "id": "371",
+      "section": "P",
+      "term": "Polymorphic",
+      "definition": "there are a number of possible genotypes at the locus for any specific marker 1."
+    },
+    {
+      "id": "372",
+      "section": "P",
+      "term": "Polyploidy",
+      "definition": "an abrupt alteration in the number of whole sets of chromosomes."
+    },
+    {
+      "id": "373",
+      "section": "P",
+      "term": "Polyspermy",
+      "definition": "fertilization of an egg by many sperm."
+    },
+    {
+      "id": "374",
+      "section": "P",
+      "term": "Population",
+      "definition": "a group of organisms of the same species that live in the same area at the same time."
+    },
+    {
+      "id": "375",
+      "section": "P",
+      "term": "Population ecology",
+      "definition": "concerned with the study of factors that influence the numbers and structure of a population."
+    },
+    {
+      "id": "376",
+      "section": "P",
+      "term": "Positive feedback",
+      "definition": "feedback that increases change; it promotes deviation away from an equilibrium."
+    },
+    {
+      "id": "377",
+      "section": "P",
+      "term": "Postzygotic barrier",
+      "definition": "barrier after fertilization reducing hybrid viability or fertility."
+    },
+    {
+      "id": "378",
+      "section": "P",
+      "term": "Precision",
+      "definition": "closeness of repeated measurements to each other."
+    },
+    {
+      "id": "379",
+      "section": "P",
+      "term": "Precocial",
+      "definition": "species in which the young are relatively mature and mobile from the moment of birth."
+    },
+    {
+      "id": "380",
+      "section": "P",
+      "term": "Prezygotic barrier",
+      "definition": "reproductive barrier preventing fertilization (e.g., timing, behavior, gamete incompatibility)."
+    },
+    {
+      "id": "381",
+      "section": "P",
+      "term": "Primary defence",
+      "definition": "the first line of defence against a disease, preventing the pathogen from entering the body in the first place."
+    },
+    {
+      "id": "382",
+      "section": "P",
+      "term": "Primary productivity",
+      "definition": "rate at which producers convert energy into biomass (gpp or npp)."
+    },
+    {
+      "id": "383",
+      "section": "P",
+      "term": "Product",
+      "definition": "the substance formed when a substrate is converted in a reaction catalysed by an enzyme."
+    },
+    {
+      "id": "384",
+      "section": "P",
+      "term": "Prokaryote",
+      "definition": "organism without membrane-bound nucleus/organelles (bacteria and archaea)."
+    },
+    {
+      "id": "385",
+      "section": "P",
+      "term": "Promoter",
+      "definition": "dna sequence where rna polymerase and transcription factors bind to initiate transcription."
+    },
+    {
+      "id": "386",
+      "section": "P",
+      "term": "Promotor",
+      "definition": "a region of dna that initiates transcription of a particular gene."
+    },
+    {
+      "id": "387",
+      "section": "P",
+      "term": "Prophase",
+      "definition": "stage where chromosomes condense and the spindle begins to form."
+    },
+    {
+      "id": "388",
+      "section": "P",
+      "term": "Proteome",
+      "definition": "the entire set of proteins expressed by the genome of the individual organism."
+    },
+    {
+      "id": "389",
+      "section": "P",
+      "term": "Psychoactive drug",
+      "definition": "a drug that affects the mind."
+    },
+    {
+      "id": "390",
+      "section": "P",
+      "term": "Punctuated equilibria",
+      "definition": "where long periods of relative stability are punctuated by periods of rapid evolution."
+    },
+    {
+      "id": "391",
+      "section": "P",
+      "term": "Pyruvate",
+      "definition": "three-carbon product of glycolysis that can be oxidized aerobically or fermented."
+    },
+    {
+      "id": "392",
+      "section": "Q",
+      "term": "Quadrat",
+      "definition": "a square frame which outlines a known area for the purpose of sampling."
+    },
+    {
+      "id": "393",
+      "section": "R",
+      "term": "Rate of reaction",
+      "definition": "the amount of substrate that has disappeared from a reaction mixture, or the amount of product that has accumulated, in a period of time."
+    },
+    {
+      "id": "394",
+      "section": "R",
+      "term": "Realized niche",
+      "definition": "describes the actual conditions and resources in which a species exists due to biotic interactions."
+    },
+    {
+      "id": "395",
+      "section": "R",
+      "term": "Recessive",
+      "definition": "hidden by a dominant allele. an allele that affects an animal’s appearance only if it is present in the homozygous state."
+    },
+    {
+      "id": "396",
+      "section": "R",
+      "term": "Recombinant DNA",
+      "definition": "change involving joining together genes from different sources, typically from different species."
+    },
+    {
+      "id": "397",
+      "section": "R",
+      "term": "Reduction",
+      "definition": "addition of electrons to a substance."
+    },
+    {
+      "id": "398",
+      "section": "R",
+      "term": "Reflex",
+      "definition": "immediate, automatic, involuntary (unconscious) and quick responses that are short lived."
+    },
+    {
+      "id": "399",
+      "section": "R",
+      "term": "Reflex arc",
+      "definition": "neural pathway mediating a rapid automatic response."
+    },
+    {
+      "id": "400",
+      "section": "R",
+      "term": "Reliability",
+      "definition": "consistency of results across repeated trials."
+    },
+    {
+      "id": "401",
+      "section": "R",
+      "term": "Repressor",
+      "definition": "regulatory protein that binds dna to inhibit transcription."
+    },
+    {
+      "id": "402",
+      "section": "R",
+      "term": "Reproduction",
+      "definition": "the production of new individuals by an existing member or members of the same species."
+    },
+    {
+      "id": "403",
+      "section": "R",
+      "term": "Reproductive isolation",
+      "definition": "occurs when two potentially compatible populations are prevented from interbreeding."
+    },
+    {
+      "id": "404",
+      "section": "R",
+      "term": "Resolution",
+      "definition": "the ability to tell that two objects that are very close together are distinct objects rather than just one. the amount of detail that can be seen."
+    },
+    {
+      "id": "405",
+      "section": "R",
+      "term": "Response",
+      "definition": "the activity of a cell or organism in terms of movement, hormone secretion, or enzyme production, as a result of a stimulus."
+    },
+    {
+      "id": "406",
+      "section": "R",
+      "term": "Resting potential",
+      "definition": "the potential difference across a nerve cell membrane when it is not being stimulated. it is normally about −70 millivolts (mv)."
+    },
+    {
+      "id": "407",
+      "section": "R",
+      "term": "Restriction enzyme",
+      "definition": "endonuclease that cuts dna at specific recognition sequences."
+    },
+    {
+      "id": "408",
+      "section": "R",
+      "term": "Restriction site",
+      "definition": "specific dna sequence recognized and cut by a restriction enzyme."
+    },
+    {
+      "id": "409",
+      "section": "R",
+      "term": "Ribosome",
+      "definition": "ribonucleoprotein complex that synthesizes polypeptides by translating mrna."
+    },
+    {
+      "id": "410",
+      "section": "R",
+      "term": "RNA",
+      "definition": "polymer of ribonucleotides involved in gene expression and regulation."
+    },
+    {
+      "id": "411",
+      "section": "R",
+      "term": "RNA polymerase",
+      "definition": "enzyme that synthesizes rna during transcription."
+    },
+    {
+      "id": "412",
+      "section": "R",
+      "term": "Rough endoplasmic reticulum",
+      "definition": "membrane network with ribosomes; synthesizes and folds secreted and membrane proteins."
+    },
+    {
+      "id": "413",
+      "section": "R",
+      "term": "rRNA (ribosomal RNA)",
+      "definition": "rna component of ribosomes with structural and catalytic roles."
+    },
+    {
+      "id": "414",
+      "section": "R",
+      "term": "RuBisCO",
+      "definition": "enzyme that catalyzes the first step of co2 fixation in the calvin cycle."
+    },
+    {
+      "id": "415",
+      "section": "S",
+      "term": "Saprotrophs",
+      "definition": "heterotrophs that obtain organic nutrients from dead organisms by external digestion."
+    },
+    {
+      "id": "416",
+      "section": "S",
+      "term": "Secondary sexual characteristics",
+      "definition": "physical characteristics developing at puberty which distinguish the sexes but are not directly involved in reproduction, e.g. facial hair in males, development of breasts and wider hips in females."
+    },
+    {
+      "id": "417",
+      "section": "S",
+      "term": "Seed dispersal",
+      "definition": "the carrying of the seed away from the parent plant."
+    },
+    {
+      "id": "418",
+      "section": "S",
+      "term": "Selective reabsorption",
+      "definition": "reuptake of useful solutes from filtrate back into blood in the nephron."
+    },
+    {
+      "id": "419",
+      "section": "S",
+      "term": "Semiconservative replication",
+      "definition": "dna replication in which each daughter molecule has one parental and one new strand."
+    },
+    {
+      "id": "420",
+      "section": "S",
+      "term": "Sewage",
+      "definition": "the fluid waste of human communities, consisting largely of used water, faeces, and urine."
+    },
+    {
+      "id": "421",
+      "section": "S",
+      "term": "Sex linkage",
+      "definition": "a special case of linkage occurring when a gene is located on a sex chromosome (usually the x chromosome)."
+    },
+    {
+      "id": "422",
+      "section": "S",
+      "term": "Sexual (or mate) selection",
+      "definition": "the struggle between individuals of one sex (normally the males) for access to individuals of the opposite sex."
+    },
+    {
+      "id": "423",
+      "section": "S",
+      "term": "Sexual selection",
+      "definition": "selection arising from differences in mating success."
+    },
+    {
+      "id": "424",
+      "section": "S",
+      "term": "Short tandem repeat (STR)",
+      "definition": "short dna sequence repeated in tandem; repeat number varies among individuals."
+    },
+    {
+      "id": "425",
+      "section": "S",
+      "term": "Silencer",
+      "definition": "regulatory dna sequence that decreases transcription when bound by repressor proteins."
+    },
+    {
+      "id": "426",
+      "section": "S",
+      "term": "Silent mutation",
+      "definition": "base substitution that does not change the amino acid sequence."
+    },
+    {
+      "id": "427",
+      "section": "S",
+      "term": "Sink (phloem)",
+      "definition": "region that unloads sugars from phloem (e.g., roots, fruits, developing tissues)."
+    },
+    {
+      "id": "428",
+      "section": "S",
+      "term": "Sister chromatid",
+      "definition": "one of two identical copies of a replicated chromosome joined at the centromere."
+    },
+    {
+      "id": "429",
+      "section": "S",
+      "term": "Skeletal muscles",
+      "definition": "muscles that are attached to the moveable parts of skeletons; their contraction brings about locomotion."
+    },
+    {
+      "id": "430",
+      "section": "S",
+      "term": "Source (phloem)",
+      "definition": "region that loads sugars into phloem (e.g., mature leaves)."
+    },
+    {
+      "id": "431",
+      "section": "S",
+      "term": "Speciation",
+      "definition": "the evolution of new species."
+    },
+    {
+      "id": "432",
+      "section": "S",
+      "term": "Species",
+      "definition": "groups of organisms that can potentially interbreed to produce fertile offspring."
+    },
+    {
+      "id": "433",
+      "section": "S",
+      "term": "Spermatogenesis",
+      "definition": "the production of sperm in testes."
+    },
+    {
+      "id": "434",
+      "section": "S",
+      "term": "Spliceosome",
+      "definition": "complex that removes introns from pre-mrna and joins exons (splicing)."
+    },
+    {
+      "id": "435",
+      "section": "S",
+      "term": "Stabilizing selection",
+      "definition": "selection favoring intermediate phenotypes."
+    },
+    {
+      "id": "436",
+      "section": "S",
+      "term": "Stamen",
+      "definition": "male part of flower, consisting of anther and filament."
+    },
+    {
+      "id": "437",
+      "section": "S",
+      "term": "Standard deviation",
+      "definition": "measure of data spread around the mean."
+    },
+    {
+      "id": "438",
+      "section": "S",
+      "term": "Standard error",
+      "definition": "estimate of uncertainty in the sample mean."
+    },
+    {
+      "id": "439",
+      "section": "S",
+      "term": "Start codon",
+      "definition": "codon (usually aug) that initiates translation and codes for methionine."
+    },
+    {
+      "id": "440",
+      "section": "S",
+      "term": "Stimulus",
+      "definition": "a change in the environment (internal or external) that is detected by a receptor and elicits a response."
+    },
+    {
+      "id": "441",
+      "section": "S",
+      "term": "Stomata",
+      "definition": "pores in plant epidermis controlling gas exchange and transpiration."
+    },
+    {
+      "id": "442",
+      "section": "S",
+      "term": "Stop codon",
+      "definition": "codon (uaa, uag, or uga) that terminates translation."
+    },
+    {
+      "id": "443",
+      "section": "S",
+      "term": "Stroma",
+      "definition": "fluid of chloroplast where the calvin cycle and other metabolic pathways occur."
+    },
+    {
+      "id": "444",
+      "section": "S",
+      "term": "Substrate",
+      "definition": "the starting substance in a reaction catalysed by an enzyme. it is the molecule that the enzyme part with."
+    },
+    {
+      "id": "445",
+      "section": "S",
+      "term": "Succession",
+      "definition": "the process of change over time in a community."
+    },
+    {
+      "id": "446",
+      "section": "S",
+      "term": "Supercoil",
+      "definition": "a dna double helix that has undergone additional twisting in the same direction as, or in the opposite direction from, the turns in the original helix."
+    },
+    {
+      "id": "447",
+      "section": "S",
+      "term": "Sustainability",
+      "definition": "the use of global resources at a rate that allows natural regeneration and minimizes damage to the environment."
+    },
+    {
+      "id": "448",
+      "section": "S",
+      "term": "Symbiosis",
+      "definition": "a long-term biological interaction between different species."
+    },
+    {
+      "id": "449",
+      "section": "S",
+      "term": "Sympatric speciation",
+      "definition": "speciation without geographic isolation (e.g., polyploidy, niche shifts)."
+    },
+    {
+      "id": "450",
+      "section": "S",
+      "term": "Synapse",
+      "definition": "the connection between two nerve cells; functionally a tiny gap, the synaptic cleft, traversed by transmitter substances."
+    },
+    {
+      "id": "451",
+      "section": "S",
+      "term": "Synapsis",
+      "definition": "pairing of homologous chromosomes during prophase i via the synaptonemal complex."
+    },
+    {
+      "id": "452",
+      "section": "S",
+      "term": "Synaptonemal complex",
+      "definition": "protein structure that aligns homologous chromosomes during meiosis for recombination."
+    },
+    {
+      "id": "453",
+      "section": "S",
+      "term": "Synovial fluid",
+      "definition": "a thick viscous fluid found in a joint for lubrication."
+    },
+    {
+      "id": "454",
+      "section": "S",
+      "term": "Synthesis",
+      "definition": "produce a new substance as a result of a chemical or biological reaction involving simpler substances."
+    },
+    {
+      "id": "455",
+      "section": "S",
+      "term": "Systole",
+      "definition": "contraction of heart muscle."
+    },
+    {
+      "id": "456",
+      "section": "T",
+      "term": "T cell",
+      "definition": "lymphocyte involved in cell-mediated immunity (helper, cytotoxic, regulatory types)."
+    },
+    {
+      "id": "457",
+      "section": "T",
+      "term": "t-test",
+      "definition": "statistical test comparing means to assess whether they differ significantly."
+    },
+    {
+      "id": "458",
+      "section": "T",
+      "term": "Target gene",
+      "definition": "a desired gene, transferred by the genetic engineer."
+    },
+    {
+      "id": "459",
+      "section": "T",
+      "term": "Target organ",
+      "definition": "specific site where a hormone has an effect."
+    },
+    {
+      "id": "460",
+      "section": "T",
+      "term": "Taxonomy",
+      "definition": "the science of classification."
+    },
+    {
+      "id": "461",
+      "section": "T",
+      "term": "Telomerase",
+      "definition": "enzyme that extends telomeres using an rna template; active in germ cells and many cancers."
+    },
+    {
+      "id": "462",
+      "section": "T",
+      "term": "Telomere",
+      "definition": "repetitive dna at chromosome ends that protects against loss during replication and end-to-end fusion."
+    },
+    {
+      "id": "463",
+      "section": "T",
+      "term": "Telophase",
+      "definition": "stage where chromosomes decondense and nuclear envelopes re-form."
+    },
+    {
+      "id": "464",
+      "section": "T",
+      "term": "Tension",
+      "definition": "the force that is transmitted through a substance when it is pulled tight by forces acting from opposite ends."
+    },
+    {
+      "id": "465",
+      "section": "T",
+      "term": "Thermoregulation",
+      "definition": "homeostatic control of body temperature."
+    },
+    {
+      "id": "466",
+      "section": "T",
+      "term": "Thrombosis",
+      "definition": "the formation or presence of a blood clot in a blood vessel."
+    },
+    {
+      "id": "467",
+      "section": "T",
+      "term": "Thrombus",
+      "definition": "blood clot formed within a blood vessel."
+    },
+    {
+      "id": "468",
+      "section": "T",
+      "term": "Thylakoid",
+      "definition": "flattened membrane sac in chloroplasts where light-dependent reactions occur."
+    },
+    {
+      "id": "469",
+      "section": "T",
+      "term": "Tidal volume",
+      "definition": "the volume of air that a human breathes into and out of their lungs while at rest. tool."
+    },
+    {
+      "id": "470",
+      "section": "T",
+      "term": "Transcription",
+      "definition": "synthesis of an rna strand complementary to a dna template by rna polymerase."
+    },
+    {
+      "id": "471",
+      "section": "T",
+      "term": "Transcription factor",
+      "definition": "a protein that binds to specific dna sequences to control the transcription of mrna."
+    },
+    {
+      "id": "472",
+      "section": "T",
+      "term": "Transect",
+      "definition": "arbitrary line through a habitat, selected to sample the community."
+    },
+    {
+      "id": "473",
+      "section": "T",
+      "term": "Transfection",
+      "definition": "introduction of nucleic acids into eukaryotic cells by non-viral methods."
+    },
+    {
+      "id": "474",
+      "section": "T",
+      "term": "Transferrins",
+      "definition": "glycoproteins that are present in the blood plasma."
+    },
+    {
+      "id": "475",
+      "section": "T",
+      "term": "Transformation (genetic)",
+      "definition": "uptake of external dna by a cell."
+    },
+    {
+      "id": "476",
+      "section": "T",
+      "term": "Transgenic organism",
+      "definition": "organism containing dna introduced from another species."
+    },
+    {
+      "id": "477",
+      "section": "T",
+      "term": "Transgenic organisms",
+      "definition": "produce in their cells, proteins that were not previously part of their species proteome."
+    },
+    {
+      "id": "478",
+      "section": "T",
+      "term": "Transitional state",
+      "definition": "the short-lived enzyme–substrate complex formed at the active site."
+    },
+    {
+      "id": "479",
+      "section": "T",
+      "term": "Translation",
+      "definition": "the synthesis of polypeptides on ribosomes."
+    },
+    {
+      "id": "480",
+      "section": "T",
+      "term": "Translocation",
+      "definition": "the movement of manufactured food (e.g sugars and amino acids) which occurs in the phloem tissue of the vascular bundles."
+    },
+    {
+      "id": "481",
+      "section": "T",
+      "term": "Transpiration",
+      "definition": "the evaporation of water from the spongy mesophyll tissue and its subsequent diffusion through the stomata."
+    },
+    {
+      "id": "482",
+      "section": "T",
+      "term": "Transpiration stream",
+      "definition": "flow of water from roots to leaves through xylem driven by transpiration."
+    },
+    {
+      "id": "483",
+      "section": "T",
+      "term": "tRNA (transfer RNA)",
+      "definition": "adapter rna that brings specific amino acids to ribosomes during translation."
+    },
+    {
+      "id": "484",
+      "section": "T",
+      "term": "Trophic cascade",
+      "definition": "indirect effects on lower trophic levels due to changes in predators at higher levels."
+    },
+    {
+      "id": "485",
+      "section": "T",
+      "term": "Trophic level",
+      "definition": "the position that an organism occupies in a food chain, or a group of organisms in a community that occupy the same position in food chains."
+    },
+    {
+      "id": "486",
+      "section": "T",
+      "term": "Tropism",
+      "definition": "a growth response of plants in which the direction of growth is determined by the direction of the stimulus."
+    },
+    {
+      "id": "487",
+      "section": "U",
+      "term": "Ultrafiltration",
+      "definition": "high hydrostatic pressure forces small molecules such as water, glucose, amino acids, sodium chloride, and urea through tiny pores in the capillaries of the glomerulus and into the bowman’s capsule."
+    },
+    {
+      "id": "488",
+      "section": "U",
+      "term": "Unlinked genes",
+      "definition": "characteristics controlled by genes on separate chromosomes."
+    },
+    {
+      "id": "489",
+      "section": "V",
+      "term": "Vaccination",
+      "definition": "induction of adaptive immunity by exposure to antigen(s) without causing disease."
+    },
+    {
+      "id": "490",
+      "section": "V",
+      "term": "Vacuole",
+      "definition": "membrane-bound compartment; in plants, large central vacuole maintains turgor and storage."
+    },
+    {
+      "id": "491",
+      "section": "V",
+      "term": "Validity",
+      "definition": "extent to which a method measures what it intends under controlled conditions."
+    },
+    {
+      "id": "492",
+      "section": "V",
+      "term": "Variable",
+      "definition": "a factor that is being changed, investigated, or kept the same in an investigation."
+    },
+    {
+      "id": "493",
+      "section": "V",
+      "term": "Variable number tandem repeats (VNTRs)",
+      "definition": "short dna sequences repeated in tandem; the number of repeats varies among individuals and can be used in dna profiling."
+    },
+    {
+      "id": "494",
+      "section": "V",
+      "term": "Ventilation rate",
+      "definition": "the number of breaths (inhalations or exhalations) per minute."
+    },
+    {
+      "id": "495",
+      "section": "V",
+      "term": "Ventilation system",
+      "definition": "a pumping mechanism that moves air into and out of the lungs efficiently, thereby maintaining the concentration gradients of oxygen and carbon dioxide for diffusion."
+    },
+    {
+      "id": "496",
+      "section": "V",
+      "term": "Vitamins",
+      "definition": "organic compounds that are required in only tiny amounts."
+    },
+    {
+      "id": "497",
+      "section": "X",
+      "term": "Xylem",
+      "definition": "plant vascular tissue transporting water/minerals and providing support."
+    },
+    {
+      "id": "498",
+      "section": "Z",
+      "term": "Zona pellucida",
+      "definition": "coat that surrounds the oocyte, made of glycoprotein."
+    },
+    {
+      "id": "499",
+      "section": "Z",
+      "term": "Zoonoses",
+      "definition": "diseases of other animals that can be transmitted to humans."
+    },
+    {
+      "id": "500",
+      "section": "Z",
+      "term": "Zygote",
+      "definition": "diploid cell formed by fusion of two gametes."
+    }
+  ],
+  "etymology": [
+    {
+      "id": "1",
+      "section": "A",
+      "part": "a-, an-",
+      "meaning": "not, without.",
+      "examples": "anaerobic, asexual."
+    },
+    {
+      "id": "2",
+      "section": "A",
+      "part": "ab-",
+      "meaning": "away from.",
+      "examples": "abduction."
+    },
+    {
+      "id": "3",
+      "section": "A",
+      "part": "ad-",
+      "meaning": "toward.",
+      "examples": "adduction."
+    },
+    {
+      "id": "4",
+      "section": "A",
+      "part": "adipo-",
+      "meaning": "fat.",
+      "examples": "adipose."
+    },
+    {
+      "id": "5",
+      "section": "A",
+      "part": "aero-",
+      "meaning": "air, oxygen.",
+      "examples": "aerobic."
+    },
+    {
+      "id": "6",
+      "section": "A",
+      "part": "agro-",
+      "meaning": "field, farming.",
+      "examples": "agroecosystem."
+    },
+    {
+      "id": "7",
+      "section": "A",
+      "part": "allo-",
+      "meaning": "other, different.",
+      "examples": "allosteric."
+    },
+    {
+      "id": "8",
+      "section": "A",
+      "part": "alveol-",
+      "meaning": "alveolus; small cavity.",
+      "examples": "alveoli, alveolar."
+    },
+    {
+      "id": "9",
+      "section": "A",
+      "part": "amino-",
+      "meaning": "amine group / amino acids.",
+      "examples": "amino acid."
+    },
+    {
+      "id": "10",
+      "section": "A",
+      "part": "amphi-",
+      "meaning": "both, on both sides.",
+      "examples": "amphipathic."
+    },
+    {
+      "id": "11",
+      "section": "A",
+      "part": "andro-",
+      "meaning": "male.",
+      "examples": "androgen."
+    },
+    {
+      "id": "12",
+      "section": "A",
+      "part": "angio-",
+      "meaning": "vessel (blood/lymph).",
+      "examples": "angiogenesis."
+    },
+    {
+      "id": "13",
+      "section": "A",
+      "part": "anti-",
+      "meaning": "against.",
+      "examples": "antibody, antibiotic."
+    },
+    {
+      "id": "14",
+      "section": "A",
+      "part": "apo-",
+      "meaning": "away from, off; derived form.",
+      "examples": "apoptosis, apoprotein."
+    },
+    {
+      "id": "15",
+      "section": "A",
+      "part": "arterio-",
+      "meaning": "artery.",
+      "examples": "arteriole, arteriosclerosis."
+    },
+    {
+      "id": "16",
+      "section": "B",
+      "part": "bacill-",
+      "meaning": "rod-shaped bacterium.",
+      "examples": "bacillus."
+    },
+    {
+      "id": "17",
+      "section": "B",
+      "part": "bacterio-",
+      "meaning": "bacteria.",
+      "examples": "bacteriophage."
+    },
+    {
+      "id": "18",
+      "section": "B",
+      "part": "baro-",
+      "meaning": "pressure.",
+      "examples": "baroreceptor."
+    },
+    {
+      "id": "19",
+      "section": "B",
+      "part": "bi-",
+      "meaning": "two.",
+      "examples": "bilateral."
+    },
+    {
+      "id": "20",
+      "section": "B",
+      "part": "bio-",
+      "meaning": "life.",
+      "examples": "biochemistry."
+    },
+    {
+      "id": "21",
+      "section": "B",
+      "part": "blast-",
+      "meaning": "bud, germ/precursor cell.",
+      "examples": "blastocyst, osteoblast."
+    },
+    {
+      "id": "22",
+      "section": "B",
+      "part": "brachy-",
+      "meaning": "short.",
+      "examples": "brachydactyly."
+    },
+    {
+      "id": "23",
+      "section": "B",
+      "part": "brady-",
+      "meaning": "slow.",
+      "examples": "bradycardia."
+    },
+    {
+      "id": "24",
+      "section": "B",
+      "part": "broncho-",
+      "meaning": "bronchus; airway.",
+      "examples": "bronchitis, bronchiole."
+    },
+    {
+      "id": "25",
+      "section": "C",
+      "part": "calc-",
+      "meaning": "lime, calcium.",
+      "examples": "calcification."
+    },
+    {
+      "id": "26",
+      "section": "C",
+      "part": "calci-",
+      "meaning": "lime, calcium.",
+      "examples": "calcification."
+    },
+    {
+      "id": "27",
+      "section": "C",
+      "part": "capill-",
+      "meaning": "hair; capillary.",
+      "examples": "capillary."
+    },
+    {
+      "id": "28",
+      "section": "C",
+      "part": "carbo-",
+      "meaning": "carbon / carbohydrate.",
+      "examples": "carbohydrate."
+    },
+    {
+      "id": "29",
+      "section": "C",
+      "part": "carboxy-",
+      "meaning": "carboxyl group.",
+      "examples": "carboxylase."
+    },
+    {
+      "id": "30",
+      "section": "C",
+      "part": "cardio-",
+      "meaning": "heart.",
+      "examples": "cardiac."
+    },
+    {
+      "id": "31",
+      "section": "C",
+      "part": "cephalo-",
+      "meaning": "head.",
+      "examples": "cephalization."
+    },
+    {
+      "id": "32",
+      "section": "C",
+      "part": "cheil-",
+      "meaning": "lip.",
+      "examples": "cheilitis."
+    },
+    {
+      "id": "33",
+      "section": "C",
+      "part": "chemo-",
+      "meaning": "chemical.",
+      "examples": "chemotaxis."
+    },
+    {
+      "id": "34",
+      "section": "C",
+      "part": "chloro-",
+      "meaning": "green.",
+      "examples": "chlorophyll."
+    },
+    {
+      "id": "35",
+      "section": "C",
+      "part": "chondro-",
+      "meaning": "cartilage.",
+      "examples": "chondrocyte."
+    },
+    {
+      "id": "36",
+      "section": "C",
+      "part": "chromo-",
+      "meaning": "color; chromosome.",
+      "examples": "chromatin."
+    },
+    {
+      "id": "37",
+      "section": "C",
+      "part": "chrono-",
+      "meaning": "time.",
+      "examples": "circadian chronobiology."
+    },
+    {
+      "id": "38",
+      "section": "C",
+      "part": "cili-",
+      "meaning": "eyelash; cilium.",
+      "examples": "cilium, ciliate."
+    },
+    {
+      "id": "39",
+      "section": "C",
+      "part": "cilio-",
+      "meaning": "cilium.",
+      "examples": "ciliogenesis."
+    },
+    {
+      "id": "40",
+      "section": "C",
+      "part": "circum-",
+      "meaning": "around.",
+      "examples": "circumnutation."
+    },
+    {
+      "id": "41",
+      "section": "C",
+      "part": "cis-",
+      "meaning": "on the same side.",
+      "examples": "cis-regulatory element."
+    },
+    {
+      "id": "42",
+      "section": "C",
+      "part": "coelo-",
+      "meaning": "hollow, cavity.",
+      "examples": "coelom."
+    },
+    {
+      "id": "43",
+      "section": "C",
+      "part": "colono-",
+      "meaning": "colon.",
+      "examples": "colonoscopy."
+    },
+    {
+      "id": "44",
+      "section": "C",
+      "part": "cyano-",
+      "meaning": "blue.",
+      "examples": "cyanobacteria."
+    },
+    {
+      "id": "45",
+      "section": "C",
+      "part": "cyto-",
+      "meaning": "cell.",
+      "examples": "cytoplasm."
+    },
+    {
+      "id": "46",
+      "section": "D",
+      "part": "de-",
+      "meaning": "down from; removal.",
+      "examples": "dehydration."
+    },
+    {
+      "id": "47",
+      "section": "D",
+      "part": "dec-",
+      "meaning": "ten.",
+      "examples": "decapeptide."
+    },
+    {
+      "id": "48",
+      "section": "D",
+      "part": "deca-",
+      "meaning": "ten.",
+      "examples": "decapeptide."
+    },
+    {
+      "id": "49",
+      "section": "D",
+      "part": "derm-",
+      "meaning": "skin.",
+      "examples": "dermis."
+    },
+    {
+      "id": "50",
+      "section": "D",
+      "part": "dermato-",
+      "meaning": "skin.",
+      "examples": "dermis."
+    },
+    {
+      "id": "51",
+      "section": "D",
+      "part": "di-",
+      "meaning": "two.",
+      "examples": "disaccharide."
+    },
+    {
+      "id": "52",
+      "section": "D",
+      "part": "dipl-",
+      "meaning": "double.",
+      "examples": "diploid."
+    },
+    {
+      "id": "53",
+      "section": "D",
+      "part": "diplo-",
+      "meaning": "double.",
+      "examples": "diploid."
+    },
+    {
+      "id": "54",
+      "section": "D",
+      "part": "dorsi-",
+      "meaning": "back.",
+      "examples": "dorsal."
+    },
+    {
+      "id": "55",
+      "section": "D",
+      "part": "duodeno-",
+      "meaning": "duodenum.",
+      "examples": "duodenal."
+    },
+    {
+      "id": "56",
+      "section": "D",
+      "part": "dys-",
+      "meaning": "bad, disordered, difficult.",
+      "examples": "dysfunction."
+    },
+    {
+      "id": "57",
+      "section": "E",
+      "part": "eco-",
+      "meaning": "environment, home.",
+      "examples": "ecology."
+    },
+    {
+      "id": "58",
+      "section": "E",
+      "part": "ecto-",
+      "meaning": "outside.",
+      "examples": "ectoderm."
+    },
+    {
+      "id": "59",
+      "section": "E",
+      "part": "electro-",
+      "meaning": "electricity/charge.",
+      "examples": "electrophoresis."
+    },
+    {
+      "id": "60",
+      "section": "E",
+      "part": "endo-",
+      "meaning": "within.",
+      "examples": "endocytosis."
+    },
+    {
+      "id": "61",
+      "section": "E",
+      "part": "entero-",
+      "meaning": "intestine.",
+      "examples": "enterocyte."
+    },
+    {
+      "id": "62",
+      "section": "E",
+      "part": "enzym-",
+      "meaning": "ferment, leaven.",
+      "examples": "enzyme."
+    },
+    {
+      "id": "63",
+      "section": "E",
+      "part": "epi-",
+      "meaning": "upon, on.",
+      "examples": "epidermis, epigenetics."
+    },
+    {
+      "id": "64",
+      "section": "E",
+      "part": "erythro-",
+      "meaning": "red.",
+      "examples": "erythrocyte."
+    },
+    {
+      "id": "65",
+      "section": "E",
+      "part": "esophago-",
+      "meaning": "esophagus.",
+      "examples": "esophageal."
+    },
+    {
+      "id": "66",
+      "section": "E",
+      "part": "eu-",
+      "meaning": "true, good, normal.",
+      "examples": "eukaryote."
+    },
+    {
+      "id": "67",
+      "section": "E",
+      "part": "exo-",
+      "meaning": "outside; outward.",
+      "examples": "exocytosis."
+    },
+    {
+      "id": "68",
+      "section": "F",
+      "part": "fasci-",
+      "meaning": "band.",
+      "examples": "fascia."
+    },
+    {
+      "id": "69",
+      "section": "F",
+      "part": "ferro-",
+      "meaning": "iron.",
+      "examples": "ferrochelatase."
+    },
+    {
+      "id": "70",
+      "section": "F",
+      "part": "fibr-",
+      "meaning": "fiber.",
+      "examples": "fibroblast."
+    },
+    {
+      "id": "71",
+      "section": "F",
+      "part": "fibro-",
+      "meaning": "fiber.",
+      "examples": "fibroblast."
+    },
+    {
+      "id": "72",
+      "section": "F",
+      "part": "flagell-",
+      "meaning": "whip.",
+      "examples": "flagellum."
+    },
+    {
+      "id": "73",
+      "section": "F",
+      "part": "flor-",
+      "meaning": "flower.",
+      "examples": "floriculture."
+    },
+    {
+      "id": "74",
+      "section": "F",
+      "part": "foli-",
+      "meaning": "leaf.",
+      "examples": "foliar."
+    },
+    {
+      "id": "75",
+      "section": "F",
+      "part": "fruct-",
+      "meaning": "fruit; fruit sugar.",
+      "examples": "fructose."
+    },
+    {
+      "id": "76",
+      "section": "F",
+      "part": "fus-",
+      "meaning": "spindle.",
+      "examples": "fusiform."
+    },
+    {
+      "id": "77",
+      "section": "F",
+      "part": "fusi-",
+      "meaning": "spindle.",
+      "examples": "fusiform."
+    },
+    {
+      "id": "78",
+      "section": "G",
+      "part": "galacto-",
+      "meaning": "milk.",
+      "examples": "galactose."
+    },
+    {
+      "id": "79",
+      "section": "G",
+      "part": "gastro-",
+      "meaning": "stomach.",
+      "examples": "gastrulation."
+    },
+    {
+      "id": "80",
+      "section": "G",
+      "part": "geno-",
+      "meaning": "origin, producing.",
+      "examples": "pathogen, genotype."
+    },
+    {
+      "id": "81",
+      "section": "G",
+      "part": "geo-",
+      "meaning": "earth.",
+      "examples": "geotropism."
+    },
+    {
+      "id": "82",
+      "section": "G",
+      "part": "glio-",
+      "meaning": "glue; neuroglia.",
+      "examples": "glial cell."
+    },
+    {
+      "id": "83",
+      "section": "G",
+      "part": "gloss-",
+      "meaning": "tongue.",
+      "examples": "glossary, glossitis."
+    },
+    {
+      "id": "84",
+      "section": "G",
+      "part": "gluco-",
+      "meaning": "sweet; glucose.",
+      "examples": "glucagon."
+    },
+    {
+      "id": "85",
+      "section": "G",
+      "part": "glyco-",
+      "meaning": "sugar.",
+      "examples": "glycoprotein."
+    },
+    {
+      "id": "86",
+      "section": "G",
+      "part": "gon-",
+      "meaning": "seed; reproductive.",
+      "examples": "gonad."
+    },
+    {
+      "id": "87",
+      "section": "G",
+      "part": "gono-",
+      "meaning": "seed; reproductive.",
+      "examples": "gonad."
+    },
+    {
+      "id": "88",
+      "section": "G",
+      "part": "granul-",
+      "meaning": "grain.",
+      "examples": "granulocyte."
+    },
+    {
+      "id": "89",
+      "section": "G",
+      "part": "gyneco-",
+      "meaning": "female.",
+      "examples": "gynecology."
+    },
+    {
+      "id": "90",
+      "section": "H",
+      "part": "haplo-",
+      "meaning": "single (set).",
+      "examples": "haploid."
+    },
+    {
+      "id": "91",
+      "section": "H",
+      "part": "hemato-",
+      "meaning": "blood.",
+      "examples": "hematology."
+    },
+    {
+      "id": "92",
+      "section": "H",
+      "part": "hemi-",
+      "meaning": "half.",
+      "examples": "hemisphere."
+    },
+    {
+      "id": "93",
+      "section": "H",
+      "part": "hemo-",
+      "meaning": "blood.",
+      "examples": "hematology."
+    },
+    {
+      "id": "94",
+      "section": "H",
+      "part": "hepato-",
+      "meaning": "liver.",
+      "examples": "hepatocyte."
+    },
+    {
+      "id": "95",
+      "section": "H",
+      "part": "hetero-",
+      "meaning": "different.",
+      "examples": "heterozygous."
+    },
+    {
+      "id": "96",
+      "section": "H",
+      "part": "histo-",
+      "meaning": "tissue.",
+      "examples": "histology."
+    },
+    {
+      "id": "97",
+      "section": "H",
+      "part": "holo-",
+      "meaning": "whole.",
+      "examples": "holoblastic cleavage."
+    },
+    {
+      "id": "98",
+      "section": "H",
+      "part": "homo-",
+      "meaning": "same.",
+      "examples": "homozygous."
+    },
+    {
+      "id": "99",
+      "section": "H",
+      "part": "hydro-",
+      "meaning": "water.",
+      "examples": "hydrolysis."
+    },
+    {
+      "id": "100",
+      "section": "H",
+      "part": "hyper-",
+      "meaning": "above / below; excessive / deficient.",
+      "examples": "hypertonic, hypoglycemia."
+    },
+    {
+      "id": "101",
+      "section": "H",
+      "part": "hypo-",
+      "meaning": "above / below; excessive / deficient.",
+      "examples": "hypertonic, hypoglycemia."
+    },
+    {
+      "id": "102",
+      "section": "I",
+      "part": "immuno-",
+      "meaning": "immune.",
+      "examples": "immunology."
+    },
+    {
+      "id": "103",
+      "section": "I",
+      "part": "infra-",
+      "meaning": "below.",
+      "examples": "infradian rhythm."
+    },
+    {
+      "id": "104",
+      "section": "I",
+      "part": "inter-",
+      "meaning": "between.",
+      "examples": "intercellular."
+    },
+    {
+      "id": "105",
+      "section": "I",
+      "part": "intra-",
+      "meaning": "within.",
+      "examples": "intracellular."
+    },
+    {
+      "id": "106",
+      "section": "I",
+      "part": "ion-",
+      "meaning": "ion.",
+      "examples": "ion channel."
+    },
+    {
+      "id": "107",
+      "section": "I",
+      "part": "iono-",
+      "meaning": "ion.",
+      "examples": "ion channel."
+    },
+    {
+      "id": "108",
+      "section": "I",
+      "part": "iso-",
+      "meaning": "equal, same.",
+      "examples": "isotonic."
+    },
+    {
+      "id": "109",
+      "section": "J",
+      "part": "jejuno-",
+      "meaning": "jejunum.",
+      "examples": "jejunal."
+    },
+    {
+      "id": "110",
+      "section": "J",
+      "part": "jugul-",
+      "meaning": "throat/neck.",
+      "examples": "jugular."
+    },
+    {
+      "id": "111",
+      "section": "J",
+      "part": "junct-",
+      "meaning": "join.",
+      "examples": "tight junction."
+    },
+    {
+      "id": "112",
+      "section": "J",
+      "part": "juxta-",
+      "meaning": "next to.",
+      "examples": "juxtacrine, juxtaglomerular."
+    },
+    {
+      "id": "113",
+      "section": "K",
+      "part": "karyo-",
+      "meaning": "nucleus.",
+      "examples": "karyotype."
+    },
+    {
+      "id": "114",
+      "section": "K",
+      "part": "karyokinesis",
+      "meaning": "nuclear division.",
+      "examples": "karyokinesis."
+    },
+    {
+      "id": "115",
+      "section": "K",
+      "part": "kerato-",
+      "meaning": "horn; keratin.",
+      "examples": "keratinocyte."
+    },
+    {
+      "id": "116",
+      "section": "K",
+      "part": "keto-",
+      "meaning": "ketone.",
+      "examples": "ketogenesis."
+    },
+    {
+      "id": "117",
+      "section": "K",
+      "part": "kilo-",
+      "meaning": "thousand (SI prefix).",
+      "examples": "kilodalton."
+    },
+    {
+      "id": "118",
+      "section": "K",
+      "part": "kine-",
+      "meaning": "movement.",
+      "examples": "kinesin."
+    },
+    {
+      "id": "119",
+      "section": "K",
+      "part": "kines-",
+      "meaning": "movement.",
+      "examples": "kinesin."
+    },
+    {
+      "id": "120",
+      "section": "K",
+      "part": "kineto-",
+      "meaning": "movement.",
+      "examples": "kinetochore."
+    },
+    {
+      "id": "121",
+      "section": "K",
+      "part": "koilo-",
+      "meaning": "hollow, cavity.",
+      "examples": "coelom."
+    },
+    {
+      "id": "122",
+      "section": "K",
+      "part": "kypho-",
+      "meaning": "humped.",
+      "examples": "kyphosis."
+    },
+    {
+      "id": "123",
+      "section": "L",
+      "part": "lact-",
+      "meaning": "milk.",
+      "examples": "lactase, lactation."
+    },
+    {
+      "id": "124",
+      "section": "L",
+      "part": "lamin-",
+      "meaning": "layer/plate.",
+      "examples": "lamina."
+    },
+    {
+      "id": "125",
+      "section": "L",
+      "part": "latero-",
+      "meaning": "side.",
+      "examples": "lateral."
+    },
+    {
+      "id": "126",
+      "section": "L",
+      "part": "leuko-",
+      "meaning": "white.",
+      "examples": "leukocyte."
+    },
+    {
+      "id": "127",
+      "section": "L",
+      "part": "lingua-",
+      "meaning": "tongue.",
+      "examples": "lingual."
+    },
+    {
+      "id": "128",
+      "section": "L",
+      "part": "lip-",
+      "meaning": "fat; lipid.",
+      "examples": "lipase, lipoprotein."
+    },
+    {
+      "id": "129",
+      "section": "L",
+      "part": "lipo-",
+      "meaning": "fat.",
+      "examples": "lipid, lipoprotein."
+    },
+    {
+      "id": "130",
+      "section": "L",
+      "part": "litho-",
+      "meaning": "stone; calculus.",
+      "examples": "lithiasis."
+    },
+    {
+      "id": "131",
+      "section": "L",
+      "part": "lute-",
+      "meaning": "yellow.",
+      "examples": "corpus luteum."
+    },
+    {
+      "id": "132",
+      "section": "L",
+      "part": "lymph-",
+      "meaning": "lymph.",
+      "examples": "lymphocyte."
+    },
+    {
+      "id": "133",
+      "section": "L",
+      "part": "lysis",
+      "meaning": "loosening, breaking.",
+      "examples": "lysis, lysosome."
+    },
+    {
+      "id": "134",
+      "section": "L",
+      "part": "lyso-",
+      "meaning": "loosening, breaking.",
+      "examples": "lysis, lysosome."
+    },
+    {
+      "id": "135",
+      "section": "M",
+      "part": "macro-",
+      "meaning": "large.",
+      "examples": "macromolecule."
+    },
+    {
+      "id": "136",
+      "section": "M",
+      "part": "mega-",
+      "meaning": "large; million (SI).",
+      "examples": "megabase."
+    },
+    {
+      "id": "137",
+      "section": "M",
+      "part": "meso-",
+      "meaning": "middle.",
+      "examples": "mesoderm."
+    },
+    {
+      "id": "138",
+      "section": "M",
+      "part": "meta-",
+      "meaning": "beyond, after, change.",
+      "examples": "metabolism, metaphase."
+    },
+    {
+      "id": "139",
+      "section": "M",
+      "part": "micro-",
+      "meaning": "small.",
+      "examples": "microscopy."
+    },
+    {
+      "id": "140",
+      "section": "M",
+      "part": "mito-",
+      "meaning": "thread (historical; mitochondrion).",
+      "examples": "mitochondria."
+    },
+    {
+      "id": "141",
+      "section": "M",
+      "part": "mono-",
+      "meaning": "one.",
+      "examples": "monosaccharide."
+    },
+    {
+      "id": "142",
+      "section": "M",
+      "part": "morph-",
+      "meaning": "form, shape.",
+      "examples": "morphology."
+    },
+    {
+      "id": "143",
+      "section": "M",
+      "part": "myco-",
+      "meaning": "fungus.",
+      "examples": "mycorrhiza."
+    },
+    {
+      "id": "144",
+      "section": "M",
+      "part": "myo-",
+      "meaning": "muscle.",
+      "examples": "myosin."
+    },
+    {
+      "id": "145",
+      "section": "N",
+      "part": "nano-",
+      "meaning": "billionth (SI).",
+      "examples": "nanopore."
+    },
+    {
+      "id": "146",
+      "section": "N",
+      "part": "naso-",
+      "meaning": "nose.",
+      "examples": "nasal."
+    },
+    {
+      "id": "147",
+      "section": "N",
+      "part": "necro-",
+      "meaning": "death.",
+      "examples": "necrosis."
+    },
+    {
+      "id": "148",
+      "section": "N",
+      "part": "neo-",
+      "meaning": "new.",
+      "examples": "neoplasm."
+    },
+    {
+      "id": "149",
+      "section": "N",
+      "part": "nephro-",
+      "meaning": "kidney.",
+      "examples": "nephron, nephrology."
+    },
+    {
+      "id": "150",
+      "section": "N",
+      "part": "neuro-",
+      "meaning": "nerve.",
+      "examples": "neuron."
+    },
+    {
+      "id": "151",
+      "section": "N",
+      "part": "nitr-",
+      "meaning": "nitrogen-related.",
+      "examples": "nitrogen fixation."
+    },
+    {
+      "id": "152",
+      "section": "N",
+      "part": "nitro-",
+      "meaning": "nitrogen-related.",
+      "examples": "nitrogen fixation."
+    },
+    {
+      "id": "153",
+      "section": "N",
+      "part": "noci-",
+      "meaning": "harm.",
+      "examples": "nociceptor."
+    },
+    {
+      "id": "154",
+      "section": "N",
+      "part": "noct-",
+      "meaning": "night.",
+      "examples": "nocturnal."
+    },
+    {
+      "id": "155",
+      "section": "N",
+      "part": "noto-",
+      "meaning": "back.",
+      "examples": "notochord."
+    },
+    {
+      "id": "156",
+      "section": "N",
+      "part": "nucleo-",
+      "meaning": "nucleus.",
+      "examples": "nucleic acid."
+    },
+    {
+      "id": "157",
+      "section": "O",
+      "part": "odont-",
+      "meaning": "tooth.",
+      "examples": "orthodontics, odontoblast."
+    },
+    {
+      "id": "158",
+      "section": "O",
+      "part": "oligo-",
+      "meaning": "few, scant.",
+      "examples": "oligomer."
+    },
+    {
+      "id": "159",
+      "section": "O",
+      "part": "omni-",
+      "meaning": "all.",
+      "examples": "omnivore."
+    },
+    {
+      "id": "160",
+      "section": "O",
+      "part": "onco-",
+      "meaning": "tumor/mass.",
+      "examples": "oncogene."
+    },
+    {
+      "id": "161",
+      "section": "O",
+      "part": "oo-",
+      "meaning": "egg / ovary-bearing.",
+      "examples": "oogenesis, oophorectomy."
+    },
+    {
+      "id": "162",
+      "section": "O",
+      "part": "oophoro-",
+      "meaning": "egg / ovary-bearing.",
+      "examples": "oogenesis, oophorectomy."
+    },
+    {
+      "id": "163",
+      "section": "O",
+      "part": "ophthalmo-",
+      "meaning": "eye.",
+      "examples": "ophthalmic."
+    },
+    {
+      "id": "164",
+      "section": "O",
+      "part": "osteo-",
+      "meaning": "bone.",
+      "examples": "osteocyte."
+    },
+    {
+      "id": "165",
+      "section": "O",
+      "part": "oto-",
+      "meaning": "ear.",
+      "examples": "otolith."
+    },
+    {
+      "id": "166",
+      "section": "O",
+      "part": "oxo-",
+      "meaning": "oxygen; sharp/acid.",
+      "examples": "oxidation."
+    },
+    {
+      "id": "167",
+      "section": "O",
+      "part": "oxy-",
+      "meaning": "oxygen; sharp/acid.",
+      "examples": "oxidation."
+    },
+    {
+      "id": "168",
+      "section": "P",
+      "part": "pan-",
+      "meaning": "all.",
+      "examples": "pandemic."
+    },
+    {
+      "id": "169",
+      "section": "P",
+      "part": "pancreat-",
+      "meaning": "pancreas.",
+      "examples": "pancreatic."
+    },
+    {
+      "id": "170",
+      "section": "P",
+      "part": "para-",
+      "meaning": "beside; abnormal.",
+      "examples": "parasympathetic."
+    },
+    {
+      "id": "171",
+      "section": "P",
+      "part": "peri-",
+      "meaning": "around.",
+      "examples": "pericardium."
+    },
+    {
+      "id": "172",
+      "section": "P",
+      "part": "phago-",
+      "meaning": "eat.",
+      "examples": "phagocytosis."
+    },
+    {
+      "id": "173",
+      "section": "P",
+      "part": "pheno-",
+      "meaning": "appearing; phenotype.",
+      "examples": "phenotype."
+    },
+    {
+      "id": "174",
+      "section": "P",
+      "part": "phospho-",
+      "meaning": "phosphate.",
+      "examples": "phosphorylation."
+    },
+    {
+      "id": "175",
+      "section": "P",
+      "part": "photo-",
+      "meaning": "light.",
+      "examples": "photosynthesis."
+    },
+    {
+      "id": "176",
+      "section": "P",
+      "part": "phylo-",
+      "meaning": "tribe, lineage.",
+      "examples": "phylogeny."
+    },
+    {
+      "id": "177",
+      "section": "P",
+      "part": "phyto-",
+      "meaning": "plant.",
+      "examples": "phytoplankton."
+    },
+    {
+      "id": "178",
+      "section": "P",
+      "part": "pico-",
+      "meaning": "trillionth (SI).",
+      "examples": "picomolar."
+    },
+    {
+      "id": "179",
+      "section": "P",
+      "part": "plasmo-",
+      "meaning": "formed substance; plasma.",
+      "examples": "plasmid."
+    },
+    {
+      "id": "180",
+      "section": "P",
+      "part": "pleio-",
+      "meaning": "more; many.",
+      "examples": "pleiotropy."
+    },
+    {
+      "id": "181",
+      "section": "P",
+      "part": "pneumo-",
+      "meaning": "lung/air.",
+      "examples": "pneumocyte."
+    },
+    {
+      "id": "182",
+      "section": "P",
+      "part": "poly-",
+      "meaning": "many.",
+      "examples": "polypeptide."
+    },
+    {
+      "id": "183",
+      "section": "P",
+      "part": "pulmo-",
+      "meaning": "lung.",
+      "examples": "pulmonary."
+    },
+    {
+      "id": "184",
+      "section": "Q",
+      "part": "quadri-",
+      "meaning": "four.",
+      "examples": "quadriceps."
+    },
+    {
+      "id": "185",
+      "section": "Q",
+      "part": "quatern-",
+      "meaning": "fourfold/4th.",
+      "examples": "quaternary structure."
+    },
+    {
+      "id": "186",
+      "section": "Q",
+      "part": "quiesc-",
+      "meaning": "resting.",
+      "examples": "quiescent cell."
+    },
+    {
+      "id": "187",
+      "section": "Q",
+      "part": "quin-",
+      "meaning": "five.",
+      "examples": "quintuplet code."
+    },
+    {
+      "id": "188",
+      "section": "Q",
+      "part": "quint-",
+      "meaning": "five.",
+      "examples": "quintuplet code."
+    },
+    {
+      "id": "189",
+      "section": "R",
+      "part": "rad-",
+      "meaning": "ray; radiation.",
+      "examples": "radiation biology."
+    },
+    {
+      "id": "190",
+      "section": "R",
+      "part": "re-",
+      "meaning": "again, back.",
+      "examples": "reabsorption."
+    },
+    {
+      "id": "191",
+      "section": "R",
+      "part": "recto-",
+      "meaning": "rectum; straight.",
+      "examples": "rectal."
+    },
+    {
+      "id": "192",
+      "section": "R",
+      "part": "reno-",
+      "meaning": "kidney.",
+      "examples": "renal, renin."
+    },
+    {
+      "id": "193",
+      "section": "R",
+      "part": "retro-",
+      "meaning": "backward.",
+      "examples": "retrovirus."
+    },
+    {
+      "id": "194",
+      "section": "R",
+      "part": "rhachi-",
+      "meaning": "spine.",
+      "examples": "rhachis."
+    },
+    {
+      "id": "195",
+      "section": "R",
+      "part": "rheo-",
+      "meaning": "flow.",
+      "examples": "rheology."
+    },
+    {
+      "id": "196",
+      "section": "R",
+      "part": "rhino-",
+      "meaning": "nose.",
+      "examples": "rhinovirus."
+    },
+    {
+      "id": "197",
+      "section": "R",
+      "part": "rhizo-",
+      "meaning": "root.",
+      "examples": "rhizome."
+    },
+    {
+      "id": "198",
+      "section": "R",
+      "part": "ribo-",
+      "meaning": "ribose.",
+      "examples": "ribosome."
+    },
+    {
+      "id": "199",
+      "section": "R",
+      "part": "rostr-",
+      "meaning": "beak.",
+      "examples": "rostral."
+    },
+    {
+      "id": "200",
+      "section": "S",
+      "part": "sacchar-",
+      "meaning": "sugar.",
+      "examples": "saccharide."
+    },
+    {
+      "id": "201",
+      "section": "S",
+      "part": "sclero-",
+      "meaning": "hard.",
+      "examples": "sclerenchyma."
+    },
+    {
+      "id": "202",
+      "section": "S",
+      "part": "scolio-",
+      "meaning": "crooked.",
+      "examples": "scoliosis."
+    },
+    {
+      "id": "203",
+      "section": "S",
+      "part": "semi-",
+      "meaning": "half.",
+      "examples": "semipermeable."
+    },
+    {
+      "id": "204",
+      "section": "S",
+      "part": "septi-",
+      "meaning": "infection; putrefaction.",
+      "examples": "septic, antiseptic."
+    },
+    {
+      "id": "205",
+      "section": "S",
+      "part": "sero-",
+      "meaning": "serum.",
+      "examples": "serology."
+    },
+    {
+      "id": "206",
+      "section": "S",
+      "part": "somato-",
+      "meaning": "body.",
+      "examples": "somatic cell."
+    },
+    {
+      "id": "207",
+      "section": "S",
+      "part": "spiro-",
+      "meaning": "coil/spiral.",
+      "examples": "spirochete."
+    },
+    {
+      "id": "208",
+      "section": "S",
+      "part": "spleno-",
+      "meaning": "spleen.",
+      "examples": "splenocyte, splenomegaly."
+    },
+    {
+      "id": "209",
+      "section": "S",
+      "part": "staphylo-",
+      "meaning": "grape-cluster.",
+      "examples": "staphylococcus."
+    },
+    {
+      "id": "210",
+      "section": "S",
+      "part": "steno-",
+      "meaning": "narrow.",
+      "examples": "stenosis."
+    },
+    {
+      "id": "211",
+      "section": "S",
+      "part": "stereo-",
+      "meaning": "solid/3D.",
+      "examples": "stereoisomer."
+    },
+    {
+      "id": "212",
+      "section": "S",
+      "part": "sub-",
+      "meaning": "under.",
+      "examples": "subcutaneous."
+    },
+    {
+      "id": "213",
+      "section": "S",
+      "part": "super-",
+      "meaning": "above.",
+      "examples": "supramolecular."
+    },
+    {
+      "id": "214",
+      "section": "S",
+      "part": "supra-",
+      "meaning": "above.",
+      "examples": "supramolecular."
+    },
+    {
+      "id": "215",
+      "section": "S",
+      "part": "sym-",
+      "meaning": "together.",
+      "examples": "symbiosis, synapse."
+    },
+    {
+      "id": "216",
+      "section": "S",
+      "part": "syn-",
+      "meaning": "together.",
+      "examples": "symbiosis, synapse."
+    },
+    {
+      "id": "217",
+      "section": "T",
+      "part": "tachy-",
+      "meaning": "fast.",
+      "examples": "tachycardia."
+    },
+    {
+      "id": "218",
+      "section": "T",
+      "part": "tele-",
+      "meaning": "far.",
+      "examples": "telomere."
+    },
+    {
+      "id": "219",
+      "section": "T",
+      "part": "thermo-",
+      "meaning": "heat.",
+      "examples": "thermoregulation."
+    },
+    {
+      "id": "220",
+      "section": "T",
+      "part": "thrombo-",
+      "meaning": "clot.",
+      "examples": "thrombin."
+    },
+    {
+      "id": "221",
+      "section": "T",
+      "part": "thyro-",
+      "meaning": "thyroid.",
+      "examples": "thyroxine."
+    },
+    {
+      "id": "222",
+      "section": "T",
+      "part": "topo-",
+      "meaning": "place.",
+      "examples": "topoisomerase."
+    },
+    {
+      "id": "223",
+      "section": "T",
+      "part": "tox-",
+      "meaning": "poison.",
+      "examples": "toxin."
+    },
+    {
+      "id": "224",
+      "section": "T",
+      "part": "toxico-",
+      "meaning": "poison.",
+      "examples": "toxin."
+    },
+    {
+      "id": "225",
+      "section": "T",
+      "part": "trans-",
+      "meaning": "across.",
+      "examples": "transmembrane."
+    },
+    {
+      "id": "226",
+      "section": "T",
+      "part": "tricho-",
+      "meaning": "hair.",
+      "examples": "trichome."
+    },
+    {
+      "id": "227",
+      "section": "T",
+      "part": "troph-",
+      "meaning": "nourishment.",
+      "examples": "autotroph, trophic level."
+    },
+    {
+      "id": "228",
+      "section": "U",
+      "part": "ubiquit-",
+      "meaning": "everywhere.",
+      "examples": "ubiquitin."
+    },
+    {
+      "id": "229",
+      "section": "U",
+      "part": "ultra-",
+      "meaning": "beyond.",
+      "examples": "ultrafiltration."
+    },
+    {
+      "id": "230",
+      "section": "U",
+      "part": "uni-",
+      "meaning": "one.",
+      "examples": "unicellular."
+    },
+    {
+      "id": "231",
+      "section": "U",
+      "part": "ur-",
+      "meaning": "urine; urinary tract.",
+      "examples": "ureter, urology."
+    },
+    {
+      "id": "232",
+      "section": "U",
+      "part": "ure-",
+      "meaning": "urine/urea.",
+      "examples": "urease."
+    },
+    {
+      "id": "233",
+      "section": "U",
+      "part": "urea-",
+      "meaning": "urine/urea.",
+      "examples": "urease."
+    },
+    {
+      "id": "234",
+      "section": "U",
+      "part": "uro-",
+      "meaning": "urine; urinary tract.",
+      "examples": "ureter, urology."
+    },
+    {
+      "id": "235",
+      "section": "U",
+      "part": "uter-",
+      "meaning": "uterus.",
+      "examples": "uterine."
+    },
+    {
+      "id": "236",
+      "section": "U",
+      "part": "utero-",
+      "meaning": "uterus.",
+      "examples": "uterine."
+    },
+    {
+      "id": "237",
+      "section": "V",
+      "part": "vacuol-",
+      "meaning": "small cavity.",
+      "examples": "vacuole."
+    },
+    {
+      "id": "238",
+      "section": "V",
+      "part": "vaso-",
+      "meaning": "vessel/duct.",
+      "examples": "vasodilation."
+    },
+    {
+      "id": "239",
+      "section": "V",
+      "part": "veno-",
+      "meaning": "vein.",
+      "examples": "venous."
+    },
+    {
+      "id": "240",
+      "section": "V",
+      "part": "ventro-",
+      "meaning": "belly/front.",
+      "examples": "ventral."
+    },
+    {
+      "id": "241",
+      "section": "V",
+      "part": "vertebr-",
+      "meaning": "vertebra.",
+      "examples": "vertebrate."
+    },
+    {
+      "id": "242",
+      "section": "V",
+      "part": "vill-",
+      "meaning": "tuft; villus.",
+      "examples": "intestinal villi."
+    },
+    {
+      "id": "243",
+      "section": "X",
+      "part": "xanth-",
+      "meaning": "yellow.",
+      "examples": "xanthophyll."
+    },
+    {
+      "id": "244",
+      "section": "X",
+      "part": "xeno-",
+      "meaning": "foreign.",
+      "examples": "xenograft."
+    },
+    {
+      "id": "245",
+      "section": "X",
+      "part": "xyl-",
+      "meaning": "wood.",
+      "examples": "xylem, xylose."
+    },
+    {
+      "id": "246",
+      "section": "Z",
+      "part": "zona-",
+      "meaning": "belt/zone.",
+      "examples": "zona pellucida."
+    },
+    {
+      "id": "247",
+      "section": "Z",
+      "part": "zoo-",
+      "meaning": "animal.",
+      "examples": "zooplankton."
+    },
+    {
+      "id": "248",
+      "section": "Z",
+      "part": "zyg-",
+      "meaning": "yoke; joined.",
+      "examples": "zygote."
+    },
+    {
+      "id": "249",
+      "section": "Z",
+      "part": "zygo-",
+      "meaning": "yoke; joined.",
+      "examples": "zygote."
+    },
+    {
+      "id": "250",
+      "section": "Z",
+      "part": "zym-",
+      "meaning": "ferment.",
+      "examples": "enzyme, zymogen."
+    },
+    {
+      "id": "251",
+      "section": "-",
+      "part": "-algia",
+      "meaning": "pain.",
+      "examples": "neuralgia, myalgia."
+    },
+    {
+      "id": "252",
+      "section": "-",
+      "part": "-ase",
+      "meaning": "enzyme.",
+      "examples": "lactase, polymerase."
+    },
+    {
+      "id": "253",
+      "section": "-",
+      "part": "-cide",
+      "meaning": "killing.",
+      "examples": "pesticide, bactericide."
+    },
+    {
+      "id": "254",
+      "section": "-",
+      "part": "-cyte",
+      "meaning": "cell.",
+      "examples": "erythrocyte, leukocyte."
+    },
+    {
+      "id": "255",
+      "section": "-",
+      "part": "-dactyl-",
+      "meaning": "finger/toe.",
+      "examples": "syndactyly."
+    },
+    {
+      "id": "256",
+      "section": "-",
+      "part": "-dynia",
+      "meaning": "pain.",
+      "examples": "mastodynia."
+    },
+    {
+      "id": "257",
+      "section": "-",
+      "part": "-ectomy",
+      "meaning": "surgical removal.",
+      "examples": "appendectomy."
+    },
+    {
+      "id": "258",
+      "section": "-",
+      "part": "-emia",
+      "meaning": "blood condition.",
+      "examples": "anemia, hyperglycemia."
+    },
+    {
+      "id": "259",
+      "section": "-",
+      "part": "-gamy",
+      "meaning": "marriage; fusion.",
+      "examples": "isogamy, oogamy."
+    },
+    {
+      "id": "260",
+      "section": "-",
+      "part": "-gen",
+      "meaning": "origin, producing.",
+      "examples": "pathogen, genotype."
+    },
+    {
+      "id": "261",
+      "section": "-",
+      "part": "-genesis",
+      "meaning": "origin; formation.",
+      "examples": "gametogenesis, carcinogenesis."
+    },
+    {
+      "id": "262",
+      "section": "-",
+      "part": "-genic",
+      "meaning": "producing; caused by.",
+      "examples": "carcinogenic, mutagenic."
+    },
+    {
+      "id": "263",
+      "section": "-",
+      "part": "-graph",
+      "meaning": "writing; recording.",
+      "examples": "electrocardiograph."
+    },
+    {
+      "id": "264",
+      "section": "-",
+      "part": "-graphy",
+      "meaning": "recording; imaging.",
+      "examples": "angiography, chromatography."
+    },
+    {
+      "id": "265",
+      "section": "-",
+      "part": "-itis",
+      "meaning": "inflammation.",
+      "examples": "arthritis."
+    },
+    {
+      "id": "266",
+      "section": "-",
+      "part": "-ity",
+      "meaning": "state/quality.",
+      "examples": "immunity."
+    },
+    {
+      "id": "267",
+      "section": "-",
+      "part": "-kinesis",
+      "meaning": "movement.",
+      "examples": "cytokinesis, kinesin."
+    },
+    {
+      "id": "268",
+      "section": "-",
+      "part": "-logist",
+      "meaning": "study / one who studies.",
+      "examples": "biology."
+    },
+    {
+      "id": "269",
+      "section": "-",
+      "part": "-logy",
+      "meaning": "study / one who studies.",
+      "examples": "biology."
+    },
+    {
+      "id": "270",
+      "section": "-",
+      "part": "-lysis",
+      "meaning": "breaking down; splitting.",
+      "examples": "hydrolysis, glycolysis."
+    },
+    {
+      "id": "271",
+      "section": "-",
+      "part": "-mer",
+      "meaning": "part; unit.",
+      "examples": "monomer, polymer."
+    },
+    {
+      "id": "272",
+      "section": "-",
+      "part": "-meter",
+      "meaning": "measure.",
+      "examples": "spectrometer, respirometer."
+    },
+    {
+      "id": "273",
+      "section": "-",
+      "part": "-metry",
+      "meaning": "measurement.",
+      "examples": "spirometry, oximetry."
+    },
+    {
+      "id": "274",
+      "section": "-",
+      "part": "-oma",
+      "meaning": "tumor/swelling.",
+      "examples": "lymphoma."
+    },
+    {
+      "id": "275",
+      "section": "-",
+      "part": "-ose",
+      "meaning": "sugar, carbohydrate.",
+      "examples": "glucose, fructose."
+    },
+    {
+      "id": "276",
+      "section": "-",
+      "part": "-osis",
+      "meaning": "condition, often pathological.",
+      "examples": "fibrosis."
+    },
+    {
+      "id": "277",
+      "section": "-",
+      "part": "-phage",
+      "meaning": "eater.",
+      "examples": "bacteriophage."
+    },
+    {
+      "id": "278",
+      "section": "-",
+      "part": "-phagia",
+      "meaning": "eating; swallowing.",
+      "examples": "dysphagia."
+    },
+    {
+      "id": "279",
+      "section": "-",
+      "part": "-phile",
+      "meaning": "loving; attracted to.",
+      "examples": "hydrophile, thermophile."
+    },
+    {
+      "id": "280",
+      "section": "-",
+      "part": "-phobe",
+      "meaning": "fearing; avoiding.",
+      "examples": "hydrophobe, photophobe."
+    },
+    {
+      "id": "281",
+      "section": "-",
+      "part": "-phobia",
+      "meaning": "fear; aversion.",
+      "examples": "arachnophobia, hydrophobia."
+    },
+    {
+      "id": "282",
+      "section": "-",
+      "part": "-phyte",
+      "meaning": "plant.",
+      "examples": "bryophyte, sporophyte."
+    },
+    {
+      "id": "283",
+      "section": "-",
+      "part": "-plasia",
+      "meaning": "formation; development.",
+      "examples": "hyperplasia, dysplasia."
+    },
+    {
+      "id": "284",
+      "section": "-",
+      "part": "-plasm",
+      "meaning": "formed substance.",
+      "examples": "cytoplasm, ectoplasm."
+    },
+    {
+      "id": "285",
+      "section": "-",
+      "part": "-plasty",
+      "meaning": "surgical repair.",
+      "examples": "angioplasty."
+    },
+    {
+      "id": "286",
+      "section": "-",
+      "part": "-ploid",
+      "meaning": "chromosome sets.",
+      "examples": "haploid, diploid, polyploid."
+    },
+    {
+      "id": "287",
+      "section": "-",
+      "part": "-pnea",
+      "meaning": "breathing.",
+      "examples": "apnea, tachypnea."
+    },
+    {
+      "id": "288",
+      "section": "-",
+      "part": "-rrhage",
+      "meaning": "bursting forth.",
+      "examples": "hemorrhage."
+    },
+    {
+      "id": "289",
+      "section": "-",
+      "part": "-rrhaphy",
+      "meaning": "suturing.",
+      "examples": "herniorrhaphy."
+    },
+    {
+      "id": "290",
+      "section": "-",
+      "part": "-rrhea",
+      "meaning": "flow/discharge.",
+      "examples": "diarrhea."
+    },
+    {
+      "id": "291",
+      "section": "-",
+      "part": "-scope",
+      "meaning": "viewing instrument.",
+      "examples": "microscope, endoscope."
+    },
+    {
+      "id": "292",
+      "section": "-",
+      "part": "-scopy",
+      "meaning": "visual examination.",
+      "examples": "endoscopy, microscopy."
+    },
+    {
+      "id": "293",
+      "section": "-",
+      "part": "-some",
+      "meaning": "body; structure.",
+      "examples": "chromosome, ribosome."
+    },
+    {
+      "id": "294",
+      "section": "-",
+      "part": "-stasis",
+      "meaning": "standing still; equilibrium.",
+      "examples": "homeostasis."
+    },
+    {
+      "id": "295",
+      "section": "-",
+      "part": "-taxis",
+      "meaning": "directed movement.",
+      "examples": "chemotaxis, phototaxis."
+    },
+    {
+      "id": "296",
+      "section": "-",
+      "part": "-tome",
+      "meaning": "cutting; section.",
+      "examples": "microtome."
+    },
+    {
+      "id": "297",
+      "section": "-",
+      "part": "-tomy",
+      "meaning": "incision; cutting.",
+      "examples": "tracheotomy."
+    },
+    {
+      "id": "298",
+      "section": "-",
+      "part": "-yl",
+      "meaning": "chemical substituent/radical.",
+      "examples": "acetyl, methyl."
+    },
+    {
+      "id": "299",
+      "section": "-",
+      "part": "-zoa",
+      "meaning": "animals (taxonomic).",
+      "examples": "protozoa."
+    },
+    {
+      "id": "300",
+      "section": "-",
+      "part": "-zyme",
+      "meaning": "ferment, leaven.",
+      "examples": "enzyme, zymogen."
+    }
+  ]
+}
