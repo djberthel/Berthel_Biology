@@ -6,7 +6,7 @@
   <meta name="description" content="A 1,000-question IB DP Biology practice library covering all 40 syllabus topics.">
   <meta name="theme-color" content="#ffffff">
   <title>Berthel’s Biology</title>
-  <link rel="stylesheet" href="assets/styles.css?v=4.1.0">
+  <link rel="stylesheet" href="assets/styles.css?v=4.2.0">
 </head>
 
 <body>
@@ -68,12 +68,22 @@
 
         <div class="setup-grid">
           <fieldset class="control-group">
-            <legend>Material</legend>
+            <legend>Course level</legend>
             <div class="segmented-control" id="studyMode" aria-label="Course level">
-              <button class="segment-button is-active" type="button" data-mode="all" aria-pressed="true">All DP</button>
-              <button class="segment-button" type="button" data-mode="sl" aria-pressed="false">SL/HL core</button>
-              <button class="segment-button" type="button" data-mode="hl" aria-pressed="false">HL only</button>
+              <button class="segment-button is-active" type="button" data-mode="sl" aria-pressed="true">
+                <span>SL course</span>
+                <small><span data-mode-count>—</span> · core</small>
+              </button>
+              <button class="segment-button" type="button" data-mode="hl" aria-pressed="false">
+                <span>HL course</span>
+                <small><span data-mode-count>—</span> · complete</small>
+              </button>
+              <button class="segment-button" type="button" data-mode="hl-extension" aria-pressed="false">
+                <span>HL extension</span>
+                <small><span data-mode-count>—</span> · HL-only</small>
+              </button>
             </div>
+            <p class="control-help" id="levelSummary" aria-live="polite">Choose SL core, the complete HL course, or HL-only extension material.</p>
           </fieldset>
 
           <div class="control-group">
@@ -109,11 +119,11 @@
   <footer class="site-footer">
     <div>
       <strong>Berthel’s Biology</strong>
-      <span id="footerBankVersion">Version 4.1 · loading question library</span>
+      <span id="footerBankVersion">Version 4.2 · loading question library</span>
     </div>
     <a href="https://github.com/djberthel/Berthel_Biology">View source on GitHub</a>
   </footer>
 
-  <script type="module" src="assets/app.js?v=4.1.0"></script>
+  <script type="module" src="assets/app.js?v=4.2.0"></script>
 </body>
 </html>

@@ -375,6 +375,31 @@ fieldset {
   font-weight: 720;
 }
 
+.segment-button > span {
+  display: block;
+}
+
+.segment-button small {
+  display: block;
+  margin-top: 3px;
+  color: var(--faint);
+  font-size: 0.68rem;
+  font-weight: 620;
+  letter-spacing: 0.01em;
+}
+
+.segment-button.is-active small {
+  color: var(--muted);
+}
+
+.control-help {
+  min-height: 2.7em;
+  margin: 9px 3px 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
 .segment-button:hover {
   color: var(--text);
 }

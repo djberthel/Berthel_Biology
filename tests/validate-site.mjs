@@ -8,6 +8,7 @@ import { fileURLToPath } from "node:url";
 import {
   auditQuestionBank,
   createStudyQuiz,
+  getStudyModeCount,
   normalizedKey,
   summarizeQuiz,
 } from "../assets/quiz-core.js";
@@ -177,7 +178,11 @@ for (const seed of [1, 7, 42, 2025, 8675309, 0xdeadbeef]) {
   }
 }
 
-for (const [mode, expectedLevel] of [["all", null], ["sl", "SL/HL"], ["hl", "HL"]]) {
+assert.equal(getStudyModeCount(bank, "sl"), 850, "SL course excludes HL-only material");
+assert.equal(getStudyModeCount(bank, "hl"), 1000, "HL course includes core and extensions");
+assert.equal(getStudyModeCount(bank, "hl-extension"), 150, "HL extension isolates HL-only material");
+
+for (const [mode, expectedLevel] of [["sl", "SL/HL"], ["hl-extension", "HL"]]) {
   const quiz = createStudyQuiz(bank, mode, 100, seededRandom(1234));
   assert.equal(quiz.questions.length, 100, `${mode} quiz length`);
   assert.equal(new Set(quiz.questions.map((question) => question.id)).size, 100);
@@ -185,6 +190,17 @@ for (const [mode, expectedLevel] of [["all", null], ["sl", "SL/HL"], ["hl", "HL"
     assert.ok(quiz.questions.every((question) => question.level === expectedLevel));
   }
 }
+
+const hlCourseQuiz = createStudyQuiz(bank, "hl", 100, seededRandom(1234));
+assert.equal(hlCourseQuiz.questions.length, 100);
+assert.deepEqual(
+  new Set(hlCourseQuiz.questions.map((question) => question.level)),
+  new Set(["SL/HL", "HL"]),
+  "HL course mixes shared core and HL-extension questions",
+);
+assert.ok(hlCourseQuiz.questions.every((question) => (
+  question.levelLabel === "SL/HL core" || question.levelLabel === "HL extension"
+)));
 
 const partialQuiz = createStudyQuiz(bank, "all", 4, seededRandom(99));
 partialQuiz.answers = [
@@ -208,10 +224,17 @@ assert.deepEqual(partialSummary.rows.map((row) => row.status), [
 const htmlIds = [...html.matchAll(/\sid="([^"]+)"/g)].map((match) => match[1]);
 assert.equal(new Set(htmlIds).size, htmlIds.length, "HTML ids must be unique");
 assert.match(html, /1,000 original Paper 1A-inspired questions/i);
-assert.match(html, /data-mode="all" aria-pressed="true"/);
+assert.match(html, /data-mode="sl" aria-pressed="true"/);
+assert.match(html, /data-mode="hl" aria-pressed="false"/);
+assert.match(html, /data-mode="hl-extension" aria-pressed="false"/);
+assert.match(html, /SL course/);
+assert.match(html, /HL course/);
+assert.match(html, /HL extension/);
 assert.match(html, /theme-color" content="#ffffff"/);
-assert.match(html, /styles\.css\?v=4\.1\.0/);
-assert.match(html, /app\.js\?v=4\.1\.0/);
+assert.match(html, /styles\.css\?v=4\.2\.0/);
+assert.match(html, /app\.js\?v=4\.2\.0/);
+assert.match(app, /quiz-core\.js\?v=4\.2\.0/);
+assert.match(app, /getStudyModeCount/);
 assert.match(html, /no external figures are required/i);
 assert.match(html, /aria-live="polite"/);
 assert.doesNotMatch(html, /custom quiz|customView|customTab|tablist/i);

@@ -25,6 +25,7 @@ The DP terminology JSON files are canonical concept sources. The browser questio
 - Four same-topic or concept-linked choices per question
 - Exactly 250 stored answer keys for each letter A–D
 - 850 SL/HL questions and 150 questions from the six HL-only topics
+- Level-aware set generation: SL course, complete HL course, or HL-extension-only practice
 
 ## Updating the bank
 
