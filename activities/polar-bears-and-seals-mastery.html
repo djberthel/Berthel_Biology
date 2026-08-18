@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Polar Bears and Seals</title>
+<style>
+:root{--die:150px;--half:75px;--pip:22px;}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;min-height:100%;}
+body{overflow-x:hidden;overflow-y:auto;font-family:Arial,Helvetica,sans-serif;color:#fff;background:#050b17;}
+.arctic{position:fixed;inset:0;overflow:hidden;z-index:0;background:linear-gradient(to bottom,#030812 0%,#071326 38%,#103149 73%,#85b5c9 100%)}
+.sky-glow{position:absolute;inset:0;background:radial-gradient(circle at 50% -8%,rgba(150,215,244,.22),transparent 42%)}
+.stars{position:absolute;inset:0 0 35% 0;opacity:.58;background-image:radial-gradient(circle at 8% 12%,white 0 1px,transparent 1.6px),radial-gradient(circle at 15% 24%,white 0 1px,transparent 1.7px),radial-gradient(circle at 21% 9%,white 0 1px,transparent 1.6px),radial-gradient(circle at 29% 19%,white 0 1px,transparent 1.7px),radial-gradient(circle at 36% 7%,white 0 1px,transparent 1.5px),radial-gradient(circle at 42% 29%,white 0 1px,transparent 1.5px),radial-gradient(circle at 51% 13%,white 0 1px,transparent 1.7px),radial-gradient(circle at 58% 25%,white 0 1px,transparent 1.5px),radial-gradient(circle at 66% 10%,white 0 1px,transparent 1.6px),radial-gradient(circle at 72% 31%,white 0 1px,transparent 1.5px),radial-gradient(circle at 81% 16%,white 0 1px,transparent 1.7px),radial-gradient(circle at 88% 7%,white 0 1px,transparent 1.6px),radial-gradient(circle at 94% 26%,white 0 1px,transparent 1.5px)}
+.aurora{position:absolute;top:-18%;left:-10%;width:120%;height:66%;pointer-events:none;filter:blur(25px);opacity:.84;mix-blend-mode:screen;transform:rotate(-7deg) scaleY(1.2);background:radial-gradient(ellipse at 12% 54%,rgba(68,255,179,.76),transparent 31%),radial-gradient(ellipse at 29% 35%,rgba(113,255,195,.67),transparent 30%),radial-gradient(ellipse at 49% 30%,rgba(64,242,215,.50),transparent 33%),radial-gradient(ellipse at 67% 39%,rgba(89,209,255,.43),transparent 31%),radial-gradient(ellipse at 85% 28%,rgba(148,111,255,.39),transparent 30%)}
+.aurora.second{top:-8%;opacity:.42;filter:blur(39px);transform:rotate(7deg) scaleY(1.45);background:radial-gradient(ellipse at 24% 42%,rgba(132,255,119,.46),transparent 32%),radial-gradient(ellipse at 53% 27%,rgba(84,255,221,.42),transparent 34%),radial-gradient(ellipse at 78% 34%,rgba(182,124,255,.34),transparent 31%)}
+.distant-ice{position:absolute;left:-2%;right:-2%;bottom:25%;height:27%;background:linear-gradient(to bottom,rgba(175,215,231,.10),rgba(210,235,244,.45) 50%,rgba(232,247,251,.88) 100%);clip-path:polygon(0 73%,7% 67%,13% 72%,19% 59%,25% 69%,31% 55%,37% 68%,44% 61%,50% 71%,57% 58%,64% 68%,70% 54%,77% 65%,84% 51%,90% 63%,96% 55%,100% 61%,100% 100%,0 100%)}
+.ice-field{position:absolute;left:0;right:0;bottom:0;height:34%;background:radial-gradient(ellipse at 50% 25%,rgba(255,255,255,.97),rgba(220,239,247,.94) 43%,rgba(177,216,230,.98) 100%)}
+.ice-field:before{content:"";position:absolute;inset:0;opacity:.32;background:linear-gradient(171deg,transparent 0 38%,rgba(108,177,205,.40) 39%,transparent 40% 100%),linear-gradient(8deg,transparent 0 62%,rgba(103,171,202,.30) 63%,transparent 64%)}
+.interface{position:relative;z-index:10;min-height:720px;display:flex;align-items:center;justify-content:center;padding:26px}
+.game{width:min(1080px,95vw);padding:34px 34px 30px;border-radius:27px;text-align:center;background:linear-gradient(145deg,rgba(8,29,45,.45),rgba(5,19,31,.58));border:1px solid rgba(255,255,255,.24);backdrop-filter:blur(10px);box-shadow:0 26px 75px rgba(0,9,18,.33),inset 0 1px rgba(255,255,255,.11)}
+h1{margin:0 0 34px;font-size:clamp(32px,4vw,43px);font-weight:700;letter-spacing:.01em;text-shadow:0 3px 12px rgba(0,10,20,.48)}
+.practice-view[hidden],.challenge-view[hidden]{display:none!important}
+.dice-row{display:flex;justify-content:center;gap:54px;flex-wrap:wrap;margin-bottom:40px}
+.stage{position:relative;width:var(--die);height:var(--die);perspective:1000px;transform-style:preserve-3d}
+.stage:after{content:"";position:absolute;z-index:-1;left:50%;bottom:-28px;width:70%;height:16%;border-radius:50%;transform:translateX(-50%);background:rgba(0,12,22,.38);filter:blur(9px);transition:width .5s ease,opacity .5s ease}
+.stage.rolling:after{width:56%;opacity:.48}
+.die{position:relative;width:100%;height:100%;transform-style:preserve-3d;will-change:transform;transition:none}
+.face{position:absolute;width:var(--die);height:var(--die);border-radius:15%;background:linear-gradient(145deg,#fff 0%,#f5f8fa 47%,#e5edf2 100%);border:2px solid rgba(255,255,255,.97);box-shadow:inset 6px 6px 13px rgba(255,255,255,.96),inset -7px -9px 15px rgba(42,72,91,.16);backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.front{transform:translateZ(var(--half))}.back{transform:rotateY(180deg) translateZ(var(--half))}.right{transform:rotateY(90deg) translateZ(var(--half))}.left{transform:rotateY(-90deg) translateZ(var(--half))}.top{transform:rotateX(90deg) translateZ(var(--half))}.bottom{transform:rotateX(-90deg) translateZ(var(--half))}
+.pip{position:absolute;width:var(--pip);height:var(--pip);border-radius:50%;background:radial-gradient(circle at 34% 29%,#45545d 0%,#141c22 55%,#05090c 100%);box-shadow:inset 2px 2px 4px rgba(0,0,0,.56)}
+.tl{top:12%;left:12%}.tc{top:12%;left:50%;transform:translateX(-50%)}.tr{top:12%;right:12%}.ml{top:50%;left:12%;transform:translateY(-50%)}.mc{top:50%;left:50%;transform:translate(-50%,-50%)}.mr{top:50%;right:12%;transform:translateY(-50%)}.bl{bottom:12%;left:12%}.bc{bottom:12%;left:50%;transform:translateX(-50%)}.br{bottom:12%;right:12%}
+.stage.rolling{animation:diceFlight 2.15s cubic-bezier(.12,.64,.22,1) forwards}
+@keyframes diceFlight{0%{transform:translateY(0) scale(1)}12%{transform:translateY(-16px) scale(1.014)}27%{transform:translateY(-10px) scale(1.010)}42%{transform:translateY(-12px) scale(1.009)}57%{transform:translateY(-6px) scale(1.005)}70%{transform:translateY(-5px) scale(1.004)}81%{transform:translateY(-2px) scale(1.002)}90%{transform:translateY(1px) scale(.999)}95%{transform:translateY(-1px) scale(1.001)}100%{transform:translateY(0) scale(1)}}
+button{padding:14px 34px;font-size:20px;font-weight:700;color:#fff;border:1px solid rgba(255,255,255,.40);border-radius:13px;background:linear-gradient(135deg,#2eabd8,#397dd3);box-shadow:0 11px 28px rgba(0,21,41,.35),inset 0 1px rgba(255,255,255,.28);cursor:pointer;transition:transform .15s ease,box-shadow .15s ease,opacity .15s ease}
+button:hover{transform:translateY(-2px);box-shadow:0 16px 32px rgba(0,21,41,.42),inset 0 1px rgba(255,255,255,.28)}button:active{transform:translateY(1px)}button:disabled{opacity:.57;cursor:default;transform:none}
+#rollButton{font-size:25px;padding:15px 48px}
+.results{display:flex;justify-content:center;flex-wrap:wrap;gap:24px;margin-top:32px}.result{min-width:220px;padding:16px 30px;border-radius:17px;background:rgba(4,29,45,.40);border:1px solid rgba(255,255,255,.17);box-shadow:inset 0 1px rgba(255,255,255,.08)}.label{margin-bottom:7px;font-size:17px;color:rgba(235,248,255,.78)}.number{font-size:48px;line-height:1;font-weight:800}
+.mode-divider{height:1px;max-width:720px;margin:30px auto 22px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),transparent)}
+.challenge-entry p{margin:0 0 14px;color:rgba(235,248,255,.78);font-size:15px}.secondary-btn{background:linear-gradient(135deg,rgba(56,119,155,.90),rgba(68,94,157,.90));font-size:18px;padding:12px 28px}
+.challenge-head{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:18px;text-align:left}.challenge-head h2{margin:0 0 5px;font-size:27px}.challenge-head p{margin:0;color:rgba(235,248,255,.75);font-size:14px}.streak{white-space:nowrap;padding:10px 14px;border-radius:12px;background:rgba(4,29,45,.46);border:1px solid rgba(255,255,255,.14);font-size:14px;color:rgba(240,250,255,.85)}
+.challenge-grid{--die:86px;--half:43px;--pip:13px;display:grid;grid-template-columns:repeat(5,var(--die));justify-content:center;gap:28px 34px;margin:30px auto 34px}.challenge-grid .stage:after{bottom:-16px;filter:blur(6px)}
+.answer-area{display:flex;justify-content:center;align-items:flex-end;flex-wrap:wrap;gap:14px;margin:0 auto}.answer-field{display:flex;flex-direction:column;gap:7px;text-align:left}.answer-field label{font-size:14px;color:rgba(235,248,255,.78)}.answer-field input{width:150px;padding:12px 14px;border-radius:11px;border:1px solid rgba(255,255,255,.24);background:rgba(3,18,29,.62);color:white;font:700 22px Arial,sans-serif;outline:none}.answer-field input:focus{border-color:rgba(113,207,255,.8);box-shadow:0 0 0 3px rgba(70,170,220,.15)}
+.challenge-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:18px}.feedback{min-height:24px;margin:18px 0 0;font-size:16px;font-weight:700}.feedback.ok{color:#c9f7da}.feedback.warn{color:#ffd6a6}.mastered{margin-top:18px;padding:14px 18px;border-radius:14px;background:rgba(72,164,118,.18);border:1px solid rgba(170,255,207,.28);font-weight:700}.back-btn{background:rgba(20,58,82,.78);font-size:16px;padding:10px 18px}
+@media(max-width:760px){:root{--die:106px;--half:53px;--pip:16px}.interface{min-height:760px;padding:14px}.game{padding:27px 15px}.dice-row{gap:23px}.result{min-width:145px;padding:14px}.challenge-head{align-items:flex-start;flex-direction:column}.challenge-grid{--die:72px;--half:36px;--pip:11px;grid-template-columns:repeat(5,var(--die));gap:24px 16px}.answer-field input{width:135px}}
+@media(max-width:470px){.challenge-grid{--die:64px;--half:32px;--pip:10px;gap:22px 9px}.answer-area{align-items:stretch}.answer-field input{width:100%}.answer-field{flex:1 1 130px}}
+</style>
+</head>
+<body>
+<div class="arctic" aria-hidden="true"><div class="sky-glow"></div><div class="stars"></div><div class="aurora"></div><div class="aurora second"></div><div class="distant-ice"></div><div class="ice-field"></div></div>
+<div class="interface"><main class="game">
+<h1>Polar Bears and Seals</h1>
+<section class="practice-view" id="practiceView">
+  <div class="dice-row" id="practiceDice"></div>
+  <button id="rollButton" type="button">Roll Dice</button>
+  <div class="results" aria-live="polite"><div class="result"><div class="label">Polar Bears</div><div class="number" id="bears">—</div></div><div class="result"><div class="label">Seals</div><div class="number" id="seals">—</div></div></div>
+  <div class="mode-divider"></div>
+  <div class="challenge-entry"><p>Think you have both rules?</p><button class="secondary-btn" id="openChallenge" type="button">10-Dice Mastery Check</button></div>
+</section>
+<section class="challenge-view" id="challengeView" hidden>
+  <div class="challenge-head"><div><h2>10-Dice Mastery Check</h2><p>Count both groups. The answers stay hidden until you submit.</p></div><div class="streak">Mastery streak: <strong id="streakValue">0 / 3</strong></div></div>
+  <div class="challenge-grid" id="challengeGrid" aria-label="Ten dice"></div>
+  <div class="answer-area">
+    <div class="answer-field"><label for="bearAnswer">Polar Bears</label><input id="bearAnswer" type="number" min="0" inputmode="numeric" autocomplete="off"></div>
+    <div class="answer-field"><label for="sealAnswer">Seals</label><input id="sealAnswer" type="number" min="0" inputmode="numeric" autocomplete="off"></div>
+  </div>
+  <div class="challenge-actions"><button id="checkAnswer" type="button">Check Answer</button><button class="secondary-btn" id="newChallenge" type="button">New Challenge</button><button class="back-btn" id="backPractice" type="button">Back to Practice</button></div>
+  <div class="feedback" id="feedback" aria-live="polite"></div>
+  <div class="mastered" id="mastered" hidden>Mastery demonstrated: 3 correct ten-dice rounds in a row.</div>
+</section>
+</main></div>
+<script>
+const polarBears={1:0,2:0,3:2,4:0,5:4,6:0};
+const orientation={1:{x:0,y:0},2:{x:0,y:-90},3:{x:-90,y:0},4:{x:90,y:0},5:{x:0,y:90},6:{x:0,y:180}};
+function randomDie(){return Math.floor(Math.random()*6)+1}
+function makeFace(position,pips){const face=document.createElement('div');face.className='face '+position;pips.forEach(location=>{const pip=document.createElement('div');pip.className='pip '+location;face.appendChild(pip)});return face}
+function buildDie(die){die.appendChild(makeFace('front',['mc']));die.appendChild(makeFace('back',['tl','ml','bl','tr','mr','br']));die.appendChild(makeFace('right',['tl','br']));die.appendChild(makeFace('left',['tl','tr','mc','bl','br']));die.appendChild(makeFace('top',['tl','mc','br']));die.appendChild(makeFace('bottom',['tl','tr','bl','br']))}
+function makeDieSet(container,count,prefix){const dice=[],stages=[],state=[];container.innerHTML='';for(let i=0;i<count;i++){const stage=document.createElement('div');stage.className='stage';stage.id=`${prefix}-stage-${i}`;const die=document.createElement('div');die.className='die';die.id=`${prefix}-die-${i}`;stage.appendChild(die);container.appendChild(stage);buildDie(die);dice.push(die);stages.push(stage);state.push({x:0,y:0,z:0})}return{dice,stages,state}}
+function rollOne(set,index,finalValue){const die=set.dice[index],target=orientation[finalValue],start=set.state[index];const dirX=Math.random()<.5?-1:1,dirY=Math.random()<.5?-1:1,dirZ=Math.random()<.5?-1:1;const turnsX=(2+Math.floor(Math.random()*2))*360*dirX,turnsY=(2+Math.floor(Math.random()*2))*360*dirY,turnsZ=(1+Math.floor(Math.random()*2))*360*dirZ;const animation=die.animate([
+{transform:`rotateX(${start.x}deg) rotateY(${start.y}deg) rotateZ(${start.z}deg)`,offset:0},
+{transform:`rotateX(${target.x+turnsX}deg) rotateY(${target.y+turnsY}deg) rotateZ(${turnsZ}deg)`,offset:.37},
+{transform:`rotateX(${target.x+dirX*245}deg) rotateY(${target.y+dirY*210}deg) rotateZ(${dirZ*145}deg)`,offset:.56},
+{transform:`rotateX(${target.x+dirX*135}deg) rotateY(${target.y+dirY*110}deg) rotateZ(${dirZ*83}deg)`,offset:.69},
+{transform:`rotateX(${target.x+dirX*72}deg) rotateY(${target.y+dirY*56}deg) rotateZ(${dirZ*41}deg)`,offset:.79},
+{transform:`rotateX(${target.x+dirX*31}deg) rotateY(${target.y+dirY*24}deg) rotateZ(${dirZ*18}deg)`,offset:.87},
+{transform:`rotateX(${target.x+dirX*11}deg) rotateY(${target.y+dirY*8}deg) rotateZ(${dirZ*6}deg)`,offset:.925},
+{transform:`rotateX(${target.x-dirX*4}deg) rotateY(${target.y-dirY*3}deg) rotateZ(${-dirZ*2.5}deg)`,offset:.965},
+{transform:`rotateX(${target.x+dirX*1.2}deg) rotateY(${target.y+dirY*.8}deg) rotateZ(${dirZ*.8}deg)`,offset:.988},
+{transform:`rotateX(${target.x}deg) rotateY(${target.y}deg) rotateZ(0deg)`,offset:1}],{duration:2150,fill:'forwards',easing:'cubic-bezier(.12,.68,.18,1)'});animation.onfinish=()=>{die.style.transform=`rotateX(${target.x}deg) rotateY(${target.y}deg) rotateZ(0deg)`;animation.cancel();set.state[index]={x:target.x,y:target.y,z:0}}}
+function animateSet(set,rolls){set.stages.forEach(stage=>{stage.classList.remove('rolling');void stage.offsetWidth;stage.classList.add('rolling')});rolls.forEach((v,i)=>rollOne(set,i,v));setTimeout(()=>set.stages.forEach(stage=>stage.classList.remove('rolling')),2180)}
+const practiceView=document.getElementById('practiceView'),challengeView=document.getElementById('challengeView');
+const practiceSet=makeDieSet(document.getElementById('practiceDice'),3,'practice');
+const rollButton=document.getElementById('rollButton'),bearsDisplay=document.getElementById('bears'),sealsDisplay=document.getElementById('seals');
+function rollPractice(){rollButton.disabled=true;bearsDisplay.textContent='—';sealsDisplay.textContent='—';const rolls=Array.from({length:3},randomDie);animateSet(practiceSet,rolls);setTimeout(()=>{bearsDisplay.textContent=rolls.reduce((s,v)=>s+polarBears[v],0);sealsDisplay.textContent=rolls.reduce((s,v)=>s+(7-v),0);rollButton.disabled=false},2180)}
+rollButton.addEventListener('click',rollPractice);
+const challengeSet=makeDieSet(document.getElementById('challengeGrid'),10,'challenge');
+const bearAnswer=document.getElementById('bearAnswer'),sealAnswer=document.getElementById('sealAnswer'),checkAnswer=document.getElementById('checkAnswer'),newChallenge=document.getElementById('newChallenge'),feedback=document.getElementById('feedback'),streakValue=document.getElementById('streakValue'),mastered=document.getElementById('mastered');
+let challengeRolls=[],streak=0,checked=false;
+function setFeedback(message,type=''){feedback.textContent=message;feedback.className='feedback'+(type?' '+type:'')}
+function startChallengeRound(){checked=false;checkAnswer.disabled=true;newChallenge.disabled=true;bearAnswer.value='';sealAnswer.value='';bearAnswer.disabled=true;sealAnswer.disabled=true;mastered.hidden=streak<3;setFeedback('');challengeRolls=Array.from({length:10},randomDie);animateSet(challengeSet,challengeRolls);setTimeout(()=>{bearAnswer.disabled=false;sealAnswer.disabled=false;checkAnswer.disabled=false;newChallenge.disabled=false;bearAnswer.focus()},2180)}
+function checkChallenge(){if(checked)return;const b=Number(bearAnswer.value),s=Number(sealAnswer.value);if(bearAnswer.value===''||sealAnswer.value===''){setFeedback('Enter both counts before checking.','warn');return}const correctB=challengeRolls.reduce((sum,v)=>sum+polarBears[v],0);const correctS=challengeRolls.reduce((sum,v)=>sum+(7-v),0);const bOK=b===correctB,sOK=s===correctS;checked=true;bearAnswer.disabled=true;sealAnswer.disabled=true;checkAnswer.disabled=true;if(bOK&&sOK){streak++;streakValue.textContent=`${streak} / 3`;if(streak>=3){mastered.hidden=false;setFeedback('Correct — both rules identified. Mastery achieved.','ok')}else{setFeedback('Correct — both counts are right. Continue the streak.','ok')}}else{streak=0;streakValue.textContent='0 / 3';mastered.hidden=true;if(!bOK&&!sOK)setFeedback('Both counts need another look. No answers revealed.','warn');else if(!bOK)setFeedback('The seal count is correct. Recheck the polar-bear count.','warn');else setFeedback('The polar-bear count is correct. Recheck the seal count.','warn')}}
+checkAnswer.addEventListener('click',checkChallenge);newChallenge.addEventListener('click',startChallengeRound);bearAnswer.addEventListener('keydown',e=>{if(e.key==='Enter')checkChallenge()});sealAnswer.addEventListener('keydown',e=>{if(e.key==='Enter')checkChallenge()});
+document.getElementById('openChallenge').addEventListener('click',()=>{practiceView.hidden=true;challengeView.hidden=false;startChallengeRound();window.scrollTo({top:0,behavior:'smooth'})});
+document.getElementById('backPractice').addEventListener('click',()=>{challengeView.hidden=true;practiceView.hidden=false;window.scrollTo({top:0,behavior:'smooth'})});
+</script>
+</body>
+</html>
