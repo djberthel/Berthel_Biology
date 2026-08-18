@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Polar Bears and Seals</title>
+<style>
+:root{--die:150px;--half:75px;--pip:22px;}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;min-height:100%;}
+body{overflow:hidden;font-family:Arial,Helvetica,sans-serif;color:#fff;background:#050b17;}
+.arctic{position:fixed;inset:0;overflow:hidden;z-index:0;background:linear-gradient(to bottom,#030812 0%,#071326 38%,#103149 73%,#85b5c9 100%)}
+.sky-glow{position:absolute;inset:0;background:radial-gradient(circle at 50% -8%,rgba(150,215,244,.22),transparent 42%)}
+.stars{position:absolute;inset:0 0 35% 0;opacity:.58;background-image:radial-gradient(circle at 8% 12%,white 0 1px,transparent 1.6px),radial-gradient(circle at 15% 24%,white 0 1px,transparent 1.7px),radial-gradient(circle at 21% 9%,white 0 1px,transparent 1.6px),radial-gradient(circle at 29% 19%,white 0 1px,transparent 1.7px),radial-gradient(circle at 36% 7%,white 0 1px,transparent 1.5px),radial-gradient(circle at 42% 29%,white 0 1px,transparent 1.5px),radial-gradient(circle at 51% 13%,white 0 1px,transparent 1.7px),radial-gradient(circle at 58% 25%,white 0 1px,transparent 1.5px),radial-gradient(circle at 66% 10%,white 0 1px,transparent 1.6px),radial-gradient(circle at 72% 31%,white 0 1px,transparent 1.5px),radial-gradient(circle at 81% 16%,white 0 1px,transparent 1.7px),radial-gradient(circle at 88% 7%,white 0 1px,transparent 1.6px),radial-gradient(circle at 94% 26%,white 0 1px,transparent 1.5px)}
+.aurora{position:absolute;top:-18%;left:-10%;width:120%;height:66%;pointer-events:none;filter:blur(25px);opacity:.84;mix-blend-mode:screen;transform:rotate(-7deg) scaleY(1.2);background:radial-gradient(ellipse at 12% 54%,rgba(68,255,179,.76),transparent 31%),radial-gradient(ellipse at 29% 35%,rgba(113,255,195,.67),transparent 30%),radial-gradient(ellipse at 49% 30%,rgba(64,242,215,.50),transparent 33%),radial-gradient(ellipse at 67% 39%,rgba(89,209,255,.43),transparent 31%),radial-gradient(ellipse at 85% 28%,rgba(148,111,255,.39),transparent 30%)}
+.aurora.second{top:-8%;opacity:.42;filter:blur(39px);transform:rotate(7deg) scaleY(1.45);background:radial-gradient(ellipse at 24% 42%,rgba(132,255,119,.46),transparent 32%),radial-gradient(ellipse at 53% 27%,rgba(84,255,221,.42),transparent 34%),radial-gradient(ellipse at 78% 34%,rgba(182,124,255,.34),transparent 31%)}
+.distant-ice{position:absolute;left:-2%;right:-2%;bottom:25%;height:27%;background:linear-gradient(to bottom,rgba(175,215,231,.10),rgba(210,235,244,.45) 50%,rgba(232,247,251,.88) 100%);clip-path:polygon(0 73%,7% 67%,13% 72%,19% 59%,25% 69%,31% 55%,37% 68%,44% 61%,50% 71%,57% 58%,64% 68%,70% 54%,77% 65%,84% 51%,90% 63%,96% 55%,100% 61%,100% 100%,0 100%)}
+.ice-field{position:absolute;left:0;right:0;bottom:0;height:34%;background:radial-gradient(ellipse at 50% 25%,rgba(255,255,255,.97),rgba(220,239,247,.94) 43%,rgba(177,216,230,.98) 100%)}
+.ice-field:before{content:"";position:absolute;inset:0;opacity:.32;background:linear-gradient(171deg,transparent 0 38%,rgba(108,177,205,.40) 39%,transparent 40% 100%),linear-gradient(8deg,transparent 0 62%,rgba(103,171,202,.30) 63%,transparent 64%)}
+.bear-svg{position:absolute;right:7%;bottom:27.2%;width:250px;height:135px;z-index:4;opacity:.46;filter:drop-shadow(0 7px 8px rgba(0,0,0,.24));}
+.bear-svg .bear{fill:#07131b}
+.bear-svg .shadow{fill:rgba(7,20,29,.28)}
+.interface{position:relative;z-index:10;min-height:720px;display:flex;align-items:center;justify-content:center;padding:26px}
+.game{width:min(1000px,95vw);padding:34px 34px 30px;border-radius:27px;text-align:center;background:linear-gradient(145deg,rgba(8,29,45,.45),rgba(5,19,31,.58));border:1px solid rgba(255,255,255,.24);backdrop-filter:blur(10px);box-shadow:0 26px 75px rgba(0,9,18,.33),inset 0 1px rgba(255,255,255,.11)}
+h1{margin:0 0 37px;font-size:clamp(32px,4vw,43px);font-weight:700;letter-spacing:.01em;text-shadow:0 3px 12px rgba(0,10,20,.48)}
+.dice-row{display:flex;justify-content:center;gap:54px;flex-wrap:wrap;margin-bottom:40px}
+.stage{position:relative;width:var(--die);height:var(--die);perspective:1000px;transform-style:preserve-3d}
+.stage:after{content:"";position:absolute;z-index:-1;left:50%;bottom:-28px;width:105px;height:23px;border-radius:50%;transform:translateX(-50%);background:rgba(0,12,22,.38);filter:blur(9px);transition:width .5s ease,opacity .5s ease}
+.stage.rolling:after{width:84px;opacity:.48}
+.die{position:relative;width:100%;height:100%;transform-style:preserve-3d;will-change:transform;transition:none}
+.face{position:absolute;width:var(--die);height:var(--die);border-radius:23px;background:linear-gradient(145deg,#fff 0%,#f5f8fa 47%,#e5edf2 100%);border:2px solid rgba(255,255,255,.97);box-shadow:inset 6px 6px 13px rgba(255,255,255,.96),inset -7px -9px 15px rgba(42,72,91,.16);backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.front{transform:translateZ(var(--half))}.back{transform:rotateY(180deg) translateZ(var(--half))}.right{transform:rotateY(90deg) translateZ(var(--half))}.left{transform:rotateY(-90deg) translateZ(var(--half))}.top{transform:rotateX(90deg) translateZ(var(--half))}.bottom{transform:rotateX(-90deg) translateZ(var(--half))}
+.pip{position:absolute;width:var(--pip);height:var(--pip);border-radius:50%;background:radial-gradient(circle at 34% 29%,#45545d 0%,#141c22 55%,#05090c 100%);box-shadow:inset 2px 2px 4px rgba(0,0,0,.56)}
+.tl{top:18px;left:18px}.tc{top:18px;left:50%;transform:translateX(-50%)}.tr{top:18px;right:18px}.ml{top:50%;left:18px;transform:translateY(-50%)}.mc{top:50%;left:50%;transform:translate(-50%,-50%)}.mr{top:50%;right:18px;transform:translateY(-50%)}.bl{bottom:18px;left:18px}.bc{bottom:18px;left:50%;transform:translateX(-50%)}.br{bottom:18px;right:18px}
+.stage.rolling{animation:diceFlight 2.15s cubic-bezier(.12,.64,.22,1) forwards}
+@keyframes diceFlight{0%{transform:translateY(0) scale(1)}12%{transform:translateY(-16px) scale(1.014)}27%{transform:translateY(-10px) scale(1.010)}42%{transform:translateY(-12px) scale(1.009)}57%{transform:translateY(-6px) scale(1.005)}70%{transform:translateY(-5px) scale(1.004)}81%{transform:translateY(-2px) scale(1.002)}90%{transform:translateY(1px) scale(.999)}95%{transform:translateY(-1px) scale(1.001)}100%{transform:translateY(0) scale(1)}}
+button{padding:15px 48px;font-size:25px;font-weight:700;color:#fff;border:1px solid rgba(255,255,255,.40);border-radius:14px;background:linear-gradient(135deg,#2eabd8,#397dd3);box-shadow:0 11px 28px rgba(0,21,41,.35),inset 0 1px rgba(255,255,255,.28);cursor:pointer;transition:transform .15s ease,box-shadow .15s ease,opacity .15s ease}
+button:hover{transform:translateY(-2px);box-shadow:0 16px 32px rgba(0,21,41,.42),inset 0 1px rgba(255,255,255,.28)}button:active{transform:translateY(1px)}button:disabled{opacity:.57;cursor:default;transform:none}
+.results{display:flex;justify-content:center;flex-wrap:wrap;gap:24px;margin-top:32px}.result{min-width:220px;padding:16px 30px;border-radius:17px;background:rgba(4,29,45,.40);border:1px solid rgba(255,255,255,.17);box-shadow:inset 0 1px rgba(255,255,255,.08)}.label{margin-bottom:7px;font-size:17px;color:rgba(235,248,255,.78)}.number{font-size:48px;line-height:1;font-weight:800}
+@media(max-width:650px){:root{--die:106px;--half:53px;--pip:16px}.interface{min-height:760px}.game{padding:27px 15px}.dice-row{gap:23px}.tl,.tc,.tr{top:13px}.tl,.ml,.bl{left:13px}.tr,.mr,.br{right:13px}.bl,.bc,.br{bottom:13px}.result{min-width:145px;padding:14px}.bear-svg{width:180px;right:1%;bottom:27%}}
+</style>
+</head>
+<body>
+<div class="arctic" aria-hidden="true">
+  <div class="sky-glow"></div><div class="stars"></div><div class="aurora"></div><div class="aurora second"></div><div class="distant-ice"></div>
+  <svg class="bear-svg" viewBox="0 0 260 140" role="img" aria-label="Distant polar bear shadow on the ice">
+    <ellipse class="shadow" cx="135" cy="129" rx="105" ry="8"/>
+    <g class="bear">
+      <ellipse cx="151" cy="72" rx="67" ry="36"/>
+      <ellipse cx="105" cy="70" rx="39" ry="37"/>
+      <path d="M78 79 C68 63,65 47,72 37 C78 27,89 25,98 31 C105 37,106 49,101 60 L97 83 Z"/>
+      <ellipse cx="66" cy="42" rx="27" ry="21"/>
+      <ellipse cx="43" cy="48" rx="19" ry="12"/>
+      <circle cx="56" cy="25" r="8"/><circle cx="76" cy="23" r="8"/>
+      <ellipse cx="27" cy="49" rx="7" ry="6"/>
+      <path d="M91 91 h22 l-3 32 h-18 z"/><path d="M123 92 h21 l-2 31 h-18 z"/><path d="M170 91 h22 l5 32 h-19 z"/><path d="M198 87 h20 l8 34 h-19 z"/>
+      <ellipse cx="101" cy="122" rx="18" ry="6"/><ellipse cx="133" cy="122" rx="18" ry="6"/><ellipse cx="188" cy="122" rx="19" ry="6"/><ellipse cx="218" cy="121" rx="19" ry="6"/>
+    </g>
+  </svg>
+  <div class="ice-field"></div>
+</div>
+<div class="interface"><main class="game">
+<h1>Polar Bears and Seals</h1>
+<div class="dice-row"><div class="stage" id="stage1"><div class="die" id="die1"></div></div><div class="stage" id="stage2"><div class="die" id="die2"></div></div><div class="stage" id="stage3"><div class="die" id="die3"></div></div></div>
+<button id="rollButton" type="button">Roll Dice</button>
+<div class="results" aria-live="polite"><div class="result"><div class="label">Polar Bears</div><div class="number" id="bears">—</div></div><div class="result"><div class="label">Seals</div><div class="number" id="seals">—</div></div></div>
+</main></div>
+<script>
+const polarBears={1:0,2:0,3:2,4:0,5:4,6:0};
+const orientation={1:{x:0,y:0},2:{x:0,y:-90},3:{x:-90,y:0},4:{x:90,y:0},5:{x:0,y:90},6:{x:0,y:180}};
+const dice=[document.getElementById('die1'),document.getElementById('die2'),document.getElementById('die3')];
+const stages=[document.getElementById('stage1'),document.getElementById('stage2'),document.getElementById('stage3')];
+const button=document.getElementById('rollButton'),bearsDisplay=document.getElementById('bears'),sealsDisplay=document.getElementById('seals');
+const state=[{x:0,y:0,z:0},{x:0,y:0,z:0},{x:0,y:0,z:0}];
+function randomDie(){return Math.floor(Math.random()*6)+1}
+function makeFace(position,pips){const face=document.createElement('div');face.className='face '+position;pips.forEach(location=>{const pip=document.createElement('div');pip.className='pip '+location;face.appendChild(pip)});return face}
+function buildDie(die){die.appendChild(makeFace('front',['mc']));die.appendChild(makeFace('back',['tl','ml','bl','tr','mr','br']));die.appendChild(makeFace('right',['tl','br']));die.appendChild(makeFace('left',['tl','tr','mc','bl','br']));die.appendChild(makeFace('top',['tl','mc','br']));die.appendChild(makeFace('bottom',['tl','tr','bl','br']))}
+dice.forEach(buildDie);
+function rollOne(index,finalValue){const die=dice[index],target=orientation[finalValue],start=state[index];const dirX=Math.random()<.5?-1:1,dirY=Math.random()<.5?-1:1,dirZ=Math.random()<.5?-1:1;const turnsX=(2+Math.floor(Math.random()*2))*360*dirX,turnsY=(2+Math.floor(Math.random()*2))*360*dirY,turnsZ=(1+Math.floor(Math.random()*2))*360*dirZ;const animation=die.animate([
+{transform:`rotateX(${start.x}deg) rotateY(${start.y}deg) rotateZ(${start.z}deg)`,offset:0},
+{transform:`rotateX(${target.x+turnsX}deg) rotateY(${target.y+turnsY}deg) rotateZ(${turnsZ}deg)`,offset:.37},
+{transform:`rotateX(${target.x+dirX*245}deg) rotateY(${target.y+dirY*210}deg) rotateZ(${dirZ*145}deg)`,offset:.56},
+{transform:`rotateX(${target.x+dirX*135}deg) rotateY(${target.y+dirY*110}deg) rotateZ(${dirZ*83}deg)`,offset:.69},
+{transform:`rotateX(${target.x+dirX*72}deg) rotateY(${target.y+dirY*56}deg) rotateZ(${dirZ*41}deg)`,offset:.79},
+{transform:`rotateX(${target.x+dirX*31}deg) rotateY(${target.y+dirY*24}deg) rotateZ(${dirZ*18}deg)`,offset:.87},
+{transform:`rotateX(${target.x+dirX*11}deg) rotateY(${target.y+dirY*8}deg) rotateZ(${dirZ*6}deg)`,offset:.925},
+{transform:`rotateX(${target.x-dirX*4}deg) rotateY(${target.y-dirY*3}deg) rotateZ(${-dirZ*2.5}deg)`,offset:.965},
+{transform:`rotateX(${target.x+dirX*1.2}deg) rotateY(${target.y+dirY*.8}deg) rotateZ(${dirZ*.8}deg)`,offset:.988},
+{transform:`rotateX(${target.x}deg) rotateY(${target.y}deg) rotateZ(0deg)`,offset:1}],{duration:2150,fill:'forwards',easing:'cubic-bezier(.12,.68,.18,1)'});animation.onfinish=()=>{die.style.transform=`rotateX(${target.x}deg) rotateY(${target.y}deg) rotateZ(0deg)`;animation.cancel();state[index]={x:target.x,y:target.y,z:0}}}
+function rollDice(){button.disabled=true;bearsDisplay.textContent='—';sealsDisplay.textContent='—';const rolls=[randomDie(),randomDie(),randomDie()];stages.forEach(stage=>{stage.classList.remove('rolling');void stage.offsetWidth;stage.classList.add('rolling')});rolls.forEach((v,i)=>rollOne(i,v));setTimeout(()=>{let bears=0,seals=0;rolls.forEach(v=>{bears+=polarBears[v];seals+=7-v});bearsDisplay.textContent=bears;sealsDisplay.textContent=seals;stages.forEach(stage=>stage.classList.remove('rolling'));button.disabled=false},2180)}
+button.addEventListener('click',rollDice);
+</script>
+</body>
+</html>
